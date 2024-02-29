@@ -12,7 +12,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke();
+            var result = func();
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -33,7 +33,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1);
+            var result = func(arg1);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -56,7 +56,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2);
+            var result = func(arg1, arg2);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -81,7 +81,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3);
+            var result = func(arg1, arg2, arg3);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -108,7 +108,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4);
+            var result = func(arg1, arg2, arg3, arg4);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -137,7 +137,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5);
+            var result = func(arg1, arg2, arg3, arg4, arg5);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -168,7 +168,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -201,7 +201,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -236,7 +236,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -273,7 +273,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -313,7 +313,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -355,7 +355,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -399,7 +399,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -445,7 +445,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -493,7 +493,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -543,7 +543,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)
@@ -595,7 +595,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            var result = func.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
+            var result = func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
             return Result<TResult>.Ok(result);
         }
         catch (Exception ex)

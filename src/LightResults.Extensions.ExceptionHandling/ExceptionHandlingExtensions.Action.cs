@@ -11,7 +11,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke();
+            action();
             return Result.Ok();
         }
         catch (Exception ex)
@@ -31,7 +31,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1);
+            action(arg1);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -53,7 +53,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2);
+            action(arg1, arg2);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -77,7 +77,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3);
+            action(arg1, arg2, arg3);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -103,7 +103,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4);
+            action(arg1, arg2, arg3, arg4);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -131,7 +131,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5);
+            action(arg1, arg2, arg3, arg4, arg5);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -161,7 +161,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6);
+            action(arg1, arg2, arg3, arg4, arg5, arg6);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -193,7 +193,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -227,7 +227,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -263,7 +263,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -301,7 +301,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -342,7 +342,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -385,7 +385,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -430,7 +430,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -477,7 +477,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -526,7 +526,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -577,7 +577,7 @@ public static partial class ExceptionHandlingExtensions
     {
         try
         {
-            action.Invoke(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
+            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
             return Result.Ok();
         }
         catch (Exception ex)

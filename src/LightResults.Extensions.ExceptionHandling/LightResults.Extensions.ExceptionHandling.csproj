@@ -37,19 +37,15 @@
         <InternalsVisibleTo Include="LightResults.Extensions.Tests"/>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(targetframework)' == 'netstandard2.0'">
-        <PackageReference Include="System.Collections.Immutable" Version="8.0.0"/>
-    </ItemGroup>
-
     <ItemGroup>
-        <PackageReference Include="LightResults" Version="8.0.9" />
+        <PackageReference Include="LightResults" Version="8.0.9"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
         <None Include="..\..\LICENSE.md">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
             <Visible>False</Visible>
         </None>
-        <None Include="..\..\README.md">
+        <None Include="README.md">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
             <Visible>False</Visible>

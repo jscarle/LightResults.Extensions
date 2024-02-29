@@ -1,9 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace LightResults.Extensions.ExceptionHandling;
+﻿namespace LightResults.Extensions.ExceptionHandling;
 
 /// <summary>Provides extension methods for handling exceptions using the <see cref="Result" /> type.</summary>
-[SuppressMessage("Design", "CA1031: Do not catch general exception types", Justification = "We intentionally want to capture all exceptions.")]
 public static partial class ExceptionHandlingExtensions
 {
     private const string ExceptionKey = "Exception";
