@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "src": "../src",
+          "src": "../src/LightResults.Extensions.ExceptionHandling",
           "files": [
             "**/*.csproj"
           ]
