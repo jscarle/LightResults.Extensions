@@ -9,15 +9,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try(this Action action)
     {
-        try
-        {
-            action();
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action);
     }
 
     /// <summary>Attempts to execute an action with a single argument and returns a <see cref="Result" /> indicating success or failure.
@@ -29,15 +21,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1>(this Action<T1> action, T1 arg1)
     {
-        try
-        {
-            action(arg1);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1);
     }
 
     /// <summary>Attempts to execute an action with two arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -51,15 +35,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2>(this Action<T1, T2> action, T1 arg1, T2 arg2)
     {
-        try
-        {
-            action(arg1, arg2);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2);
     }
 
     /// <summary>Attempts to execute an action with three arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -75,15 +51,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1, T2 arg2, T3 arg3)
     {
-        try
-        {
-            action(arg1, arg2, arg3);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3);
     }
 
     /// <summary>Attempts to execute an action with four arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -101,15 +69,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4);
     }
 
     /// <summary>Attempts to execute an action with five arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -129,15 +89,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4, T5> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5);
     }
 
     /// <summary>Attempts to execute an action with six arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -159,15 +111,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4, T5, T6>(this Action<T1, T2, T3, T4, T5, T6> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6);
     }
 
     /// <summary>Attempts to execute an action with seven arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -191,15 +135,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4, T5, T6, T7>(this Action<T1, T2, T3, T4, T5, T6, T7> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
     }
 
     /// <summary>Attempts to execute an action with eight arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -225,15 +161,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8>(this Action<T1, T2, T3, T4, T5, T6, T7, T8> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
     }
 
     /// <summary>Attempts to execute an action with nine arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -261,15 +189,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
     }
 
     /// <summary>Attempts to execute an action with ten arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -299,15 +219,7 @@ public static partial class ExceptionHandlingExtensions
     /// <returns>A <see cref="Result" /> indicating success or failure.</returns>
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
     }
 
     /// <summary>Attempts to execute an action with eleven arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -340,15 +252,7 @@ public static partial class ExceptionHandlingExtensions
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10,
         T11 arg11)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
     }
 
     /// <summary>Attempts to execute an action with twelve arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -383,15 +287,7 @@ public static partial class ExceptionHandlingExtensions
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9,
         T10 arg10, T11 arg11, T12 arg12)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
     }
 
     /// <summary>Attempts to execute an action with thirteen arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -428,15 +324,7 @@ public static partial class ExceptionHandlingExtensions
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
         T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
     }
 
     /// <summary>Attempts to execute an action with fourteen arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -475,15 +363,7 @@ public static partial class ExceptionHandlingExtensions
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7,
         T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
     }
 
     /// <summary>Attempts to execute an action with 15 arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -524,15 +404,7 @@ public static partial class ExceptionHandlingExtensions
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6,
         T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
     }
 
     /// <summary>Attempts to execute an action with sixteen arguments and returns a <see cref="Result" /> indicating success or failure.
@@ -575,14 +447,6 @@ public static partial class ExceptionHandlingExtensions
     public static Result Try<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5,
         T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16)
     {
-        try
-        {
-            action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
-            return Result.Ok();
-        }
-        catch (Exception ex)
-        {
-            return HandleException(ex);
-        }
+        return ExceptionHandler.Try(action, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
     }
 }
