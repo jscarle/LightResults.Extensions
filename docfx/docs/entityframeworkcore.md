@@ -1,4 +1,4 @@
-## LightResults.Extensions.EntityFrameworkCore
+# EntityFrameworkCore
 
 Provides a DbContext that wraps context operations using LightResults.
 

@@ -4,7 +4,7 @@
 
 Extensions for [LightResults](https://github.com/jscarle/LightResults), an extremely light and modern Operation Result Pattern library for .NET.
 
-## LightResults.Extensions.ExceptionHandling
+## ExceptionHandling
 
 Provides extension methods for exception handling using LightResults.
 
@@ -55,7 +55,117 @@ if (result.IsSuccess)
 }
 ```
 
-#### Getting the `Exception`
+### Using the Try method with methods
+
+Although extension methods for `Action` or `Func` cannot be attached to ordinary methods, the compiler will
+automatically cast ordinary methods to `Action` or `Func` if only the method name is manually passed as the
+argument to the extension method.
+
+There are two ways this can be achieved, both of which are explained below.
+
+#### Using the static class name
+
+```csharp
+using LightResults.Extensions.ExceptionHandling;
+
+public class OrdinaryClass
+{
+    public void OrdinaryMethod() { }
+    public void TryOrdinaryMethod()
+    {
+        var result = ExceptionHandler.Try(OrdinaryMethod);
+        if (result.IsSuccess)
+        {
+            // Do something
+        }
+    }
+    
+    public void OrdinaryMethodWithArguments(int arg1, int arg2) { }
+    public void TryOrdinaryMethodWithArguments()
+    {
+        var result = ExceptionHandler.Try(OrdinaryMethodWithArguments, 1, 2);
+        if (result.IsSuccess)
+        {
+            // Do something
+        }
+    }
+
+    public int OrdinaryMethodWithReturn() { return 0; }
+    public void TryOrdinaryMethodWithReturn()
+    {
+        var result = ExceptionHandler.Try(OrdinaryMethodWithReturn);
+        if (result.IsSuccess)
+        {
+            var value = result.Value;
+            // Do something
+        }
+    }
+
+    public int OrdinaryMethodWithReturnAndArguments(int arg1, int arg2) { return arg1 + arg2; }
+    public void TryOrdinaryMethodWithReturnAndArguments()
+    {
+        var result = ExceptionHandler.Try(OrdinaryMethodWithReturnAndArguments, 1, 2);
+        if (result.IsSuccess)
+        {
+            var value = result.Value;
+            // Do something
+        }
+    }
+}
+```
+
+#### Declaring a `using static` statement
+
+```csharp
+using static LightResults.Extensions.ExceptionHandling.ExceptionHandler;
+
+public class OrdinaryClass
+{
+    public void OrdinaryMethod() { }
+    public void TryOrdinaryMethod()
+    {
+        var result = Try(OrdinaryMethod);
+        if (result.IsSuccess)
+        {
+            // Do something
+        }
+    }
+    
+    public void OrdinaryMethodWithArguments(int arg1, int arg2) { }
+    public void TryOrdinaryMethodWithArguments()
+    {
+        var result = Try(OrdinaryMethodWithArguments, 1, 2);
+        if (result.IsSuccess)
+        {
+            // Do something
+        }
+    }
+
+    public int OrdinaryMethodWithReturn() { return 0; }
+    public void TryOrdinaryMethodWithReturn()
+    {
+        var result = Try(OrdinaryMethodWithReturn);
+        if (result.IsSuccess)
+        {
+            var value = result.Value;
+            // Do something
+        }
+    }
+
+    public int OrdinaryMethodWithReturnAndArguments(int arg1, int arg2) { return arg1 + arg2; }
+    public void TryOrdinaryMethodWithReturnAndArguments()
+    {
+        var result = Try(OrdinaryMethodWithReturnAndArguments, 1, 2);
+        if (result.IsSuccess)
+        {
+            var value = result.Value;
+            // Do something
+        }
+    }
+}
+```
+
+### Getting the `Exception`
 
 ```csharp
 var result = action.Try();
