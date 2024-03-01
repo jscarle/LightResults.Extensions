@@ -8,6 +8,10 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 Provides a DbContext that wraps context operations using LightResults.
 
+## Documentation
+
+Make sure to [read the docs](https://jscarle.github.io/LightResults.Extensions/) for the full API.
+
 ### New method definitions
 
 The following methods are wrapped internally with a `try { } catch { }` block and have their signatures

@@ -8,6 +8,10 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 Provides extension methods for exception handling using LightResults.
 
+## Documentation
+
+Make sure to [read the docs](https://jscarle.github.io/LightResults.Extensions/) for the full API.
+
 ### Try method
 
 The `Try` method will wrap the execution of an `Action` or `Func` in a `try { } catch { }` block. If an
