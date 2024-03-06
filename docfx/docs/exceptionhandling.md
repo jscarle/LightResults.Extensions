@@ -2,6 +2,9 @@
 
 Provides extension methods for exception handling using LightResults.
 
+[![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.ExceptionHandling)](https://www.nuget.org/packages/LightResults.Extensions.ExceptionHandling)
+[![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.ExceptionHandling)](https://www.nuget.org/packages/LightResults.Extensions.ExceptionHandling)
+
 ### Try method
 
 The `Try` method will wrap the execution of an `Action` or `Func` in a `try { } catch { }` block. If an

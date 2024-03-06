@@ -2,6 +2,9 @@
 
 Provides a DbContext that wraps context operations using LightResults.
 
+[![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
+[![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
+
 ### New method definitions
 
 The following methods are wrapped internally with a `try { } catch { }` block and have their signatures
