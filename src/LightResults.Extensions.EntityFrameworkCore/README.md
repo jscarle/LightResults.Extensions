@@ -4,9 +4,14 @@
 
 Extensions for [LightResults](https://github.com/jscarle/LightResults), an extremely light and modern Operation Result Pattern library for .NET.
 
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/main.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+
 ## EntityFrameworkCore
 
 Provides a DbContext that wraps context operations using LightResults.
+
+[![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
+[![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
 
 ## Documentation
 
