@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>LightResults.Extensions.ExceptionHandling</RootNamespace>
         <LangVersion>latest</LangVersion>
-        <Version>8.0.1</Version>
+        <Version>8.0.2</Version>
         <Title>LightResults.Extensions.ExceptionHandling</Title>
         <Authors>Jean-Sebastien Carle</Authors>
         <Description>Exception handling for LightResults.</Description>
@@ -19,8 +19,8 @@
         <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>result results pattern lightresults exception handling</PackageTags>
-        <AssemblyVersion>8.0.1.0</AssemblyVersion>
-        <FileVersion>8.0.1.0</FileVersion>
+        <AssemblyVersion>8.0.2.0</AssemblyVersion>
+        <FileVersion>8.0.2.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>

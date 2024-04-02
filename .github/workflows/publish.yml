@@ -38,11 +38,17 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    - name: Build ExceptionHandling
+      run: dotnet build ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-restore
 
-    - name: Pack
-      run: dotnet pack --configuration Release --no-build --output .
+    - name: Pack ExceptionHandling
+      run: dotnet pack ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-build --output .
+
+    - name: Build EntityFrameworkCore
+      run: dotnet build ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-restore
+
+    - name: Pack EntityFrameworkCore
+      run: dotnet pack ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-build --output .
 
     - name: Push to NuGet
       run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate
