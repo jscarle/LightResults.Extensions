@@ -72,15 +72,7 @@ public sealed class ResultJsonConverterTests
     {
         // Arrange
         const string errorMessage = "Sample error message";
-        Exception? exception;
-        try
-        {
-            throw new InvalidOperationException();
-        }
-        catch (Exception ex)
-        {
-            exception = ex;
-        }
+        var exception = new InvalidOperationException();
         IDictionary<string, object> metadata = new Dictionary<string, object> { { "Exception", exception } };
         var result = Result.Fail(errorMessage, metadata);
 
@@ -90,7 +82,7 @@ public sealed class ResultJsonConverterTests
         // Assert
         json.Should()
             .Be(
-                "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Exception\":{\"$type\":\"System.InvalidOperationException\",\"Message\":\"Operation is not valid due to the current state of the object.\",\"StackTrace\":\"   at LightResults.Extensions.Tests.ResultJsonConverterTests.FailedResultWithSingleErrorAndMetadataWithException() in E:\\\\jscarle\\\\LightResults.Extensions\\\\tests\\\\LightResults.Extensions.Tests\\\\ResultJsonConverterTests.cs:line 78\"}}}]}"
+                "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Exception\":{\"$type\":\"System.InvalidOperationException\",\"Message\":\"Operation is not valid due to the current state of the object.\",\"StackTrace\":null}}}]}"
             );
     }
 
@@ -99,15 +91,7 @@ public sealed class ResultJsonConverterTests
     {
         // Arrange
         const string errorMessage = "Sample error message";
-        Exception? exception;
-        try
-        {
-            throw new InvalidOperationException();
-        }
-        catch (Exception ex)
-        {
-            exception = new InvalidProgramException("Invalid program!", ex);
-        }
+        var exception = new InvalidProgramException("Invalid program!", new InvalidOperationException());
         IDictionary<string, object> metadata = new Dictionary<string, object> { { "Exception", exception } };
         var result = Result.Fail(errorMessage, metadata);
 
@@ -117,7 +101,7 @@ public sealed class ResultJsonConverterTests
         // Assert
         json.Should()
             .Be(
-                "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Exception\":{\"$type\":\"System.InvalidProgramException\",\"Message\":\"Invalid program!\",\"StackTrace\":null,\"InnerException\":{\"$type\":\"System.InvalidOperationException\",\"Message\":\"Operation is not valid due to the current state of the object.\",\"StackTrace\":\"   at LightResults.Extensions.Tests.ResultJsonConverterTests.FailedResultWithSingleErrorAndMetadataWithExceptionAndInnerException() in E:\\\\jscarle\\\\LightResults.Extensions\\\\tests\\\\LightResults.Extensions.Tests\\\\ResultJsonConverterTests.cs:line 105\"}}}}]}"
+                "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Exception\":{\"$type\":\"System.InvalidProgramException\",\"Message\":\"Invalid program!\",\"StackTrace\":null,\"InnerException\":{\"$type\":\"System.InvalidOperationException\",\"Message\":\"Operation is not valid due to the current state of the object.\",\"StackTrace\":null}}}}]}"
             );
     }
 
