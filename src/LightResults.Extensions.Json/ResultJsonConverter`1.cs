@@ -13,7 +13,7 @@ namespace LightResults.Extensions.Json;
 public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
 {
     private const string TypeDiscriminator = "$type";
-    private const string Success = "IsSuccess";
+    private const string IsSuccess = "IsSuccess";
     private const string Value = "Value";
     private const string Errors = "Errors";
     private const string Message = "Message";
@@ -36,17 +36,16 @@ public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
 
     /// <summary>Writes a <see cref="Result"/> object to JSON.</summary>
     /// <param name="writer">The JSON writer.</param>
-    /// <param name="result">The <see cref="Result"/> object to write.</param>
+    /// <param name="value">The <see cref="Result"/> object to write.</param>
     /// <param name="options">The serialization options to use.</param>
-    public override void Write(Utf8JsonWriter writer, Result<TValue> result, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, Result<TValue> value, JsonSerializerOptions options)
     {
-        var isSuccess = result.IsSuccess;
         writer.WriteStartObject();
-        writer.WriteBoolean(Success, isSuccess);
-        if (isSuccess)
-            WriteObject(writer, Value, result.Value);
+        writer.WriteBoolean(IsSuccess, value.IsSuccess);
+        if (value.IsSuccess)
+            WriteObject(writer, Value, value.Value);
         else
-            WriteErrors(writer, result);
+            WriteErrors(writer, value);
         writer.WriteEndObject();
     }
 
