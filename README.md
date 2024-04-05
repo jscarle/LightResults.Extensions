@@ -16,6 +16,11 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
   [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
 
+- [Json](https://jscarle.github.io/LightResults.Extensions/docs/json.html) - Provides System.Text.Json converters.
+
+  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
+  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
+
 ## Documentation
 
 Make sure to [read the docs](https://jscarle.github.io/LightResults.Extensions/) for the full API.

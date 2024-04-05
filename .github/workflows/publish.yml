@@ -50,5 +50,11 @@ jobs:
     - name: Pack EntityFrameworkCore
       run: dotnet pack ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-build --output .
 
+    - name: Build Json
+      run: dotnet build ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-restore
+
+    - name: Pack Json
+      run: dotnet pack ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-build --output .
+
     - name: Push to NuGet
       run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate

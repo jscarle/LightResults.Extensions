@@ -2,7 +2,7 @@
 
     <!-- Compilation -->
     <PropertyGroup>
-        <RootNamespace>LightResults.Extensions.EntityFrameworkCore</RootNamespace>
+        <RootNamespace>LightResults.Extensions.Json</RootNamespace>
         <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -16,18 +16,6 @@
     </PropertyGroup>
 
     <!-- References -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0"/>
-    </ItemGroup>
-
     <ItemGroup>
         <PackageReference Include="LightResults" Version="8.0.9"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
@@ -35,7 +23,6 @@
 
     <!-- Output -->
     <PropertyGroup>
-        <AssemblyName>LightResults.Extensions.EntityFrameworkCore</AssemblyName>
         <Version>8.0.0</Version>
         <AssemblyVersion>8.0.0.0</AssemblyVersion>
         <FileVersion>8.0.0.0</FileVersion>
@@ -47,12 +34,12 @@
     <!-- Package -->
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <PackageId>LightResults.Extensions.EntityFrameworkCore</PackageId>
-        <Title>LightResults.Extensions.EntityFrameworkCore</Title>
-        <Description>EntityFrameworkCore with LightResults.</Description>
+        <PackageId>LightResults.Extensions.Json</PackageId>
+        <Title>LightResults.Extensions.Json</Title>
+        <Description>System.Text.Json converters for LightResults.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/jscarle/LightResults.Extensions</PackageProjectUrl>
-        <PackageTags>result results pattern lightresults entityframework entityframeworkcore</PackageTags>
+        <PackageTags>result results pattern lightresults system-text-json json-converter</PackageTags>
         <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <Authors>Jean-Sebastien Carle</Authors>
