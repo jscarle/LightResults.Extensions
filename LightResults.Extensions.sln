@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A6C9FED0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.EntityFrameworkCore", "src\LightResults.Extensions.EntityFrameworkCore\LightResults.Extensions.EntityFrameworkCore.csproj", "{9FEADBCA-FD94-437D-9C98-79C673A84C10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.Json", "src\LightResults.Extensions.Json\LightResults.Extensions.Json.csproj", "{7628B10B-1D07-43BA-AC64-1DDF02A2A20F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{9FEADBCA-FD94-437D-9C98-79C673A84C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FEADBCA-FD94-437D-9C98-79C673A84C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FEADBCA-FD94-437D-9C98-79C673A84C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7628B10B-1D07-43BA-AC64-1DDF02A2A20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7628B10B-1D07-43BA-AC64-1DDF02A2A20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7628B10B-1D07-43BA-AC64-1DDF02A2A20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7628B10B-1D07-43BA-AC64-1DDF02A2A20F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{93C8BC67-7F34-4935-A671-F0B12AEDB072} = {A6C9FED0-42B6-488C-8961-DE13F291434B}

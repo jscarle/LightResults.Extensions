@@ -1,42 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <!-- Compilation -->
     <PropertyGroup>
+        <RootNamespace>LightResults.Extensions.ExceptionHandling</RootNamespace>
         <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>LightResults.Extensions.ExceptionHandling</RootNamespace>
         <LangVersion>latest</LangVersion>
-        <Version>8.0.2</Version>
-        <Title>LightResults.Extensions.ExceptionHandling</Title>
-        <Authors>Jean-Sebastien Carle</Authors>
-        <Description>Exception handling for LightResults.</Description>
-        <Copyright>Copyright © Jean-Sebastien Carle 2024</Copyright>
-        <PackageId>LightResults.Extensions.ExceptionHandling</PackageId>
-        <PackageProjectUrl>https://github.com/jscarle/LightResults.Extensions</PackageProjectUrl>
-        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>Icon.png</PackageIcon>
-        <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageTags>result results pattern lightresults exception handling</PackageTags>
-        <AssemblyVersion>8.0.2.0</AssemblyVersion>
-        <FileVersion>8.0.2.0</FileVersion>
-        <NeutralLanguage>en-US</NeutralLanguage>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <AnalysisLevel>latest-All</AnalysisLevel>
-        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
-        <Optimize>true</Optimize>
-        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
 
-    <ItemGroup>
-        <InternalsVisibleTo Include="LightResults.Extensions.Tests"/>
-    </ItemGroup>
+    <!-- Analysis -->
+    <PropertyGroup>
+        <AnalysisLevel>latest-All</AnalysisLevel>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    </PropertyGroup>
 
+    <!-- References -->
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0"/>
     </ItemGroup>
@@ -44,21 +23,48 @@
     <ItemGroup>
         <PackageReference Include="LightResults" Version="8.0.9"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
-        <None Include="..\..\LICENSE.md">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-            <Visible>False</Visible>
-        </None>
-        <None Include="README.md">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-            <Visible>False</Visible>
-        </None>
-        <None Include="..\..\Icon.png">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-            <Visible>False</Visible>
-        </None>
+    </ItemGroup>
+
+    <!-- Output -->
+    <PropertyGroup>
+        <AssemblyName>LightResults.Extensions.ExceptionHandling</AssemblyName>
+        <Version>8.0.2</Version>
+        <AssemblyVersion>8.0.2.0</AssemblyVersion>
+        <FileVersion>8.0.2.0</FileVersion>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <Optimize>true</Optimize>
+        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+
+    <!-- Package -->
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <PackageId>LightResults.Extensions.ExceptionHandling</PackageId>
+        <Title>LightResults.Extensions.ExceptionHandling</Title>
+        <Description>Exception handling for LightResults.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://github.com/jscarle/LightResults.Extensions</PackageProjectUrl>
+        <PackageTags>result results pattern lightresults exception handling</PackageTags>
+        <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Authors>Jean-Sebastien Carle</Authors>
+        <Copyright>Copyright © Jean-Sebastien Carle 2024</Copyright>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageIcon>Icon.png</PackageIcon>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\..\Icon.png" Pack="true" PackagePath="\" Visible="false"/>
+    </ItemGroup>
+
+    <!-- Testing -->
+    <ItemGroup>
+        <InternalsVisibleTo Include="LightResults.Extensions.Tests"/>
     </ItemGroup>
 
 </Project>
