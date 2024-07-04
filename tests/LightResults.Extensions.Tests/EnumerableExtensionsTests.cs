@@ -1,7 +1,8 @@
 ﻿using FluentAssertions;
+using LightResults.Extensions.Operations;
 using Xunit;
 
-namespace LightResults.Extensions.Operations.Tests;
+namespace LightResults.Extensions.Tests;
 
 public sealed class EnumerableExtensionsTests
 {

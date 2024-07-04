@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.Jso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.Operations", "src\LightResults.Extensions.Operations\LightResults.Extensions.Operations.csproj", "{43188181-0188-4653-81C2-57597075BCFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.Operations.Tests", "tests\LightResults.Extensions.Operations.Tests\LightResults.Extensions.Operations.Tests.csproj", "{E13B9F8B-89FF-4287-91E0-5686B1579AE8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{D10E009A-B3B8-4FB3-8B01-F21C383CD513}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,13 +40,8 @@ Global
 		{43188181-0188-4653-81C2-57597075BCFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43188181-0188-4653-81C2-57597075BCFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43188181-0188-4653-81C2-57597075BCFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E13B9F8B-89FF-4287-91E0-5686B1579AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E13B9F8B-89FF-4287-91E0-5686B1579AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E13B9F8B-89FF-4287-91E0-5686B1579AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E13B9F8B-89FF-4287-91E0-5686B1579AE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{93C8BC67-7F34-4935-A671-F0B12AEDB072} = {A6C9FED0-42B6-488C-8961-DE13F291434B}
-		{E13B9F8B-89FF-4287-91E0-5686B1579AE8} = {A6C9FED0-42B6-488C-8961-DE13F291434B}
 	EndGlobalSection
 EndGlobal
