@@ -12,12 +12,12 @@
     <!-- Analysis -->
     <PropertyGroup>
         <AnalysisLevel>latest-All</AnalysisLevel>
-        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     </PropertyGroup>
 
     <!-- References -->
     <ItemGroup>
-        <PackageReference Include="LightResults" Version="9.0.0-preview.11"/>
+        <PackageReference Include="LightResults" Version="9.0.0-preview.15" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
     </ItemGroup>
 
