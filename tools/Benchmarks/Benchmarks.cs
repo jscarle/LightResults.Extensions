@@ -11,7 +11,7 @@ namespace Benchmarks;
 [MemoryDiagnoser]
 [SimpleJob(RuntimeMoniker.Net90)]
 [IterationTime(250)]
-[HideColumns(Column.Job, Column.Iterations, Column.Error, Column.StdDev, Column.Median, Column.RatioSD, Column.Gen0, Column.Gen1, Column.Gen2)]
+[HideColumns(Column.Job, Column.Error, Column.StdDev, Column.Median, Column.RatioSD, Column.Gen0, Column.Gen1, Column.Gen2)]
 public class Benchmarks
 {
     private const int Seed = 42;

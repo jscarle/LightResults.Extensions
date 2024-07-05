@@ -24,7 +24,6 @@ public static class EnumerableExtensions
     /// A new successful result if all <paramref name="results"/> were successful; otherwise a new failed result with all errors found in the
     /// <paramref name="results"/>.
     /// </returns>
-    /// <remarks>This will enumerate the <paramref name="results"/>.</remarks>
     public static Result Collect(this IReadOnlyList<Result> results)
     {
         var errors = results.SelectMany(x => x.Errors)
@@ -68,7 +67,6 @@ public static class EnumerableExtensions
     /// A new result containing all the values of the <paramref name="results"/> if they were successful; otherwise a failed result with all errors found in
     /// the <paramref name="results"/>.
     /// </returns>
-    /// <remarks>This will enumerate the <paramref name="results"/>.</remarks>
     public static Result<IReadOnlyList<TValue>> Collect<TValue>(this IReadOnlyList<Result<TValue>> results)
     {
         var resultsArray = results as Result<TValue>[] ?? results.ToArray();
