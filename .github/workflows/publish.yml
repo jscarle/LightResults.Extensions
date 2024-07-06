@@ -12,10 +12,6 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    
-    strategy:
-      fail-fast: false
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -35,26 +31,34 @@ jobs:
       with:
         dotnet-version: 8.x
 
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.x
+        dotnet-quality: preview
+
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build ExceptionHandling
-      run: dotnet build ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-restore
-
+    - name: Pack Operations
+      run: |
+        dotnet build ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-build --output .
+      
     - name: Pack ExceptionHandling
-      run: dotnet pack ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-build --output .
-
-    - name: Build EntityFrameworkCore
-      run: dotnet build ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-restore
+      run:
+        dotnet build ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-build --output .
 
     - name: Pack EntityFrameworkCore
-      run: dotnet pack ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-build --output .
-
-    - name: Build Json
-      run: dotnet build ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-restore
+      run: |
+        dotnet build ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.EntityFrameworkCore/LightResults.Extensions.EntityFrameworkCore.csproj --configuration Release --no-build --output .
 
     - name: Pack Json
-      run: dotnet pack ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-build --output .
+      run: |
+        dotnet build ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-build --output .
 
     - name: Push to NuGet
       run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate
