@@ -46,7 +46,7 @@ jobs:
         dotnet pack ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-build --output .
       
     - name: Pack ExceptionHandling
-      run:
+      run: |
         dotnet build ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-restore
         dotnet pack ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-build --output .
 

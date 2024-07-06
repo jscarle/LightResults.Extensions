@@ -104,9 +104,9 @@ public static class EnumerableExtensions
             }
         }
         
-        Debug.Assert(errors is { Count: 0 } && values is not null);
+        Debug.Assert(errors is { Count: > 0 } || values is not null);
         
-        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values.AsReadOnly());
+        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values!.AsReadOnly());
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -144,8 +144,8 @@ public static class EnumerableExtensions
             }
         }
         
-        Debug.Assert(errors is { Count: 0 } && values is not null);
+        Debug.Assert(errors is { Count: > 0 } || values is not null);
         
-        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values.AsReadOnly());
+        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values!.AsReadOnly());
     }
 }
