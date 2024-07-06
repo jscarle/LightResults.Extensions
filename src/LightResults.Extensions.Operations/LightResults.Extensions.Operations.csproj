@@ -1,32 +1,32 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <!-- Compilation -->
     <PropertyGroup>
-        <RootNamespace>LightResults.Extensions.Json</RootNamespace>
-        <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+        <RootNamespace>LightResults.Extensions.Operations</RootNamespace>
+        <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <!-- Analysis -->
     <PropertyGroup>
         <AnalysisLevel>latest-All</AnalysisLevel>
-        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     </PropertyGroup>
 
     <!-- References -->
     <ItemGroup>
-        <PackageReference Include="LightResults" Version="8.0.10"/>
+        <PackageReference Include="LightResults" Version="9.0.0-preview.15" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
     </ItemGroup>
 
     <!-- Output -->
     <PropertyGroup>
-        <AssemblyName>LightResults.Extensions.Json</AssemblyName>
-        <Version>8.0.0</Version>
-        <AssemblyVersion>8.0.0.0</AssemblyVersion>
-        <FileVersion>8.0.0.0</FileVersion>
+        <AssemblyName>LightResults.Extensions.Operations</AssemblyName>
+        <Version>9.0.0-preview.1</Version>
+        <AssemblyVersion>9.0.0.0</AssemblyVersion>
+        <FileVersion>9.0.0.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Optimize>true</Optimize>
         <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
@@ -36,12 +36,12 @@
     <!-- Package -->
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <PackageId>LightResults.Extensions.Json</PackageId>
-        <Title>LightResults.Extensions.Json</Title>
-        <Description>System.Text.Json converters for LightResults.</Description>
+        <PackageId>LightResults.Extensions.Operations</PackageId>
+        <Title>LightResults.Extensions.Operations</Title>
+        <Description>Additional operations for LightResults.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/jscarle/LightResults.Extensions</PackageProjectUrl>
-        <PackageTags>result results pattern lightresults system-text-json json-converter</PackageTags>
+        <PackageTags>result results pattern lightresults operations</PackageTags>
         <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <Authors>Jean-Sebastien Carle</Authors>
