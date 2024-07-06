@@ -1,4 +1,6 @@
-﻿namespace LightResults.Extensions.Operations;
+﻿using System.Diagnostics;
+
+namespace LightResults.Extensions.Operations;
 
 /// <summary>Extension methods for <see cref="IEnumerable{T}"/>.</summary>
 public static class EnumerableExtensions
@@ -12,10 +14,27 @@ public static class EnumerableExtensions
     /// <remarks>This will enumerate the <paramref name="results"/>.</remarks>
     public static Result Collect(this IEnumerable<Result> results)
     {
-        var errors = results.SelectMany(x => x.Errors)
-            .ToList();
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(results);
+#else
+        if (results is null)
+            throw new ArgumentNullException(nameof(results));
+#endif
 
-        return errors.Count == 0 ? Result.Ok() : Result.Fail(errors);
+        List<IError>? errors = null;
+        
+        using var enumerator = results.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            var next = enumerator.Current;
+            if (next.IsSuccess())
+                continue;
+
+            errors ??= [];
+            errors.AddRange(next.Errors);
+        }
+        
+        return errors is { Count: > 0 } ? Result.Fail(errors.AsReadOnly()) : Result.Ok();
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -26,10 +45,27 @@ public static class EnumerableExtensions
     /// </returns>
     public static Result Collect(this IReadOnlyList<Result> results)
     {
-        var errors = results.SelectMany(x => x.Errors)
-            .ToList();
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(results);
+#else
+        if (results is null)
+            throw new ArgumentNullException(nameof(results));
+#endif
 
-        return errors.Count == 0 ? Result.Ok() : Result.Fail(errors);
+        List<IError>? errors = null;
+        
+        // ReSharper disable once ForCanBeConvertedToForeach
+        for(var index = 0; index < results.Count; index++)
+        {
+            var next = results[index];
+            if (next.IsSuccess())
+                continue;
+
+            errors ??= [];
+            errors.AddRange(next.Errors);
+        }
+        
+        return errors is { Count: > 0 } ? Result.Fail(errors.AsReadOnly()) : Result.Ok();
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -42,22 +78,35 @@ public static class EnumerableExtensions
     /// <remarks>This will enumerate the <paramref name="results"/>.</remarks>
     public static Result<IReadOnlyList<TValue>> Collect<TValue>(this IEnumerable<Result<TValue>> results)
     {
-        var resultsArray = results as Result<TValue>[] ?? results.ToArray();
-        // Spans are faster to iterate over than arrays
-        ReadOnlySpan<Result<TValue>> resultsSpan = resultsArray;
-        var values = new List<TValue>(resultsSpan.Length);
-        var errors = new List<IError>(resultsSpan.Length);
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(results);
+#else
+        if (results is null)
+            throw new ArgumentNullException(nameof(results));
+#endif
 
-        for (var i = 0; i < resultsSpan.Length; i++)
+        List<TValue>? values = null;
+        List<IError>? errors = null;
+        
+        using var enumerator = results.GetEnumerator();
+        while (enumerator.MoveNext())
         {
-            if (resultsSpan[i]
-                .IsSuccess(out var value))
+            var next = enumerator.Current;
+            if (errors is null && next.IsSuccess(out var value))
+            {
+                values ??= [];
                 values.Add(value);
+            }
             else
-                errors.AddRange(resultsSpan[i].Errors);
+            {
+                errors ??= [];
+                errors.AddRange(next.Errors);
+            }
         }
-
-        return errors.Count == 0 ? Result.Ok<IReadOnlyList<TValue>>(values) : Result.Fail<IReadOnlyList<TValue>>(errors);
+        
+        Debug.Assert(errors is { Count: 0 } && values is not null);
+        
+        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values.AsReadOnly());
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -69,21 +118,34 @@ public static class EnumerableExtensions
     /// </returns>
     public static Result<IReadOnlyList<TValue>> Collect<TValue>(this IReadOnlyList<Result<TValue>> results)
     {
-        var resultsArray = results as Result<TValue>[] ?? results.ToArray();
-        // Spans are faster to iterate over than arrays
-        ReadOnlySpan<Result<TValue>> resultsSpan = resultsArray;
-        var values = new List<TValue>(resultsSpan.Length);
-        var errors = new List<IError>(resultsSpan.Length);
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(results);
+#else
+        if (results is null)
+            throw new ArgumentNullException(nameof(results));
+#endif
 
-        for (var i = 0; i < resultsSpan.Length; i++)
+        List<TValue>? values = null;
+        List<IError>? errors = null;
+        
+        // ReSharper disable once ForCanBeConvertedToForeach
+        for(var index = 0; index < results.Count; index++)
         {
-            if (resultsSpan[i]
-                .IsSuccess(out var value))
+            var next = results[index];
+            if (errors is null && next.IsSuccess(out var value))
+            {
+                values ??= [];
                 values.Add(value);
+            }
             else
-                errors.AddRange(resultsSpan[i].Errors);
+            {
+                errors ??= [];
+                errors.AddRange(next.Errors);
+            }
         }
-
-        return errors.Count == 0 ? Result.Ok<IReadOnlyList<TValue>>(values) : Result.Fail<IReadOnlyList<TValue>>(errors);
+        
+        Debug.Assert(errors is { Count: 0 } && values is not null);
+        
+        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values.AsReadOnly());
     }
 }

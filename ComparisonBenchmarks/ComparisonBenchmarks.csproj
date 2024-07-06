@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-        <PackageReference Include="FluentResults" Version="3.15.2" />
+        <PackageReference Include="FluentResults" Version="3.16.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
         <PackageReference Include="Rascal" Version="1.1.0" />
     </ItemGroup>
