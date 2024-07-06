@@ -105,7 +105,7 @@ public class Benchmarks
                 break;
             case ResultType.Mixed:
                 min = 0;
-                max = 1;
+                max = 2;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(resultType), resultType, null);
