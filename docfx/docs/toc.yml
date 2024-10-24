@@ -2,3 +2,11 @@
   href: exceptionhandling.md
 - name: EntityFrameworkCore
   href: entityframeworkcore.md
+- name: Json
+  href: json.md
+- name: Operations
+  href: operations.md
+- name: ValueObjects
+  href: valueobjects.md
+- name: GeneratedIdentifier
+  href: generatedidentifier.md

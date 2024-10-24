@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.Gen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.GeneratedIdentifier.Tests", "tests\LightResults.Extensions.GeneratedIdentifier.Tests\LightResults.Extensions.GeneratedIdentifier.Tests.csproj", "{45AF3136-2F1A-48C5-A76F-52635D7F0B90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightResults.Extensions.ValueObjects", "src\LightResults.Extensions.ValueObjects\LightResults.Extensions.ValueObjects.csproj", "{5B6234BE-12DC-449C-850A-94CD48FF8732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{45AF3136-2F1A-48C5-A76F-52635D7F0B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45AF3136-2F1A-48C5-A76F-52635D7F0B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45AF3136-2F1A-48C5-A76F-52635D7F0B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6234BE-12DC-449C-850A-94CD48FF8732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6234BE-12DC-449C-850A-94CD48FF8732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6234BE-12DC-449C-850A-94CD48FF8732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6234BE-12DC-449C-850A-94CD48FF8732}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{93C8BC67-7F34-4935-A671-F0B12AEDB072} = {A6C9FED0-42B6-488C-8961-DE13F291434B}

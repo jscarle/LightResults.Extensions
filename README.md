@@ -21,6 +21,16 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
   [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
 
+- [Operations](https://jscarle.github.io/LightResults.Extensions/docs/operations.html) - Provides operations.
+
+  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Operations)](https://www.nuget.org/packages/LightResults.Extensions.Operations)
+  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.Operations)](https://www.nuget.org/packages/LightResults.Extensions.Operations)
+
+- [ValueObjects](https://jscarle.github.io/LightResults.Extensions/docs/valueobjects.html) - Provides the elements to build value objects.
+
+  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.ValueObjects)](https://www.nuget.org/packages/LightResults.Extensions.ValueObjects)
+  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.ValueObjects)](https://www.nuget.org/packages/LightResults.Extensions.ValueObjects)
+
 - [GeneratedIdentifier](https://jscarle.github.io/LightResults.Extensions/docs/generatedidentifier.html) - Provides strongly-typed identifiers.
 
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.GeneratedIdentifier)](https://www.nuget.org/packages/LightResults.Extensions.GeneratedIdentifier)

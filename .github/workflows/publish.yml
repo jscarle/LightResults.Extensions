@@ -40,11 +40,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Pack Operations
-      run: |
-        dotnet build ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-restore
-        dotnet pack ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-build --output .
-      
     - name: Pack ExceptionHandling
       run: |
         dotnet build ./src/LightResults.Extensions.ExceptionHandling/LightResults.Extensions.ExceptionHandling.csproj --configuration Release --no-restore
@@ -60,6 +55,16 @@ jobs:
         dotnet build ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-restore
         dotnet pack ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-build --output .
 
+    - name: Pack Operations
+      run: |
+        dotnet build ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.Operations/LightResults.Extensions.Operations.csproj --configuration Release --no-build --output .
+
+    - name: Pack ValueObjects
+      run: |
+        dotnet build ./src/LightResults.Extensions.ValueObjects/LightResults.Extensions.ValueObjects.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.ValueObjects/LightResults.Extensions.ValueObjects.csproj --configuration Release --no-build --output .
+    
     - name: Pack GeneratedIdentifier
       run: |
         dotnet build ./src/LightResults.Extensions.GeneratedIdentifier/LightResults.Extensions.GeneratedIdentifier.csproj --configuration Release --no-restore

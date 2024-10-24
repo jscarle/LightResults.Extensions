@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <!-- Compilation -->
+    <PropertyGroup>
+        <RootNamespace>LightResults.Extensions.ValueObjects</RootNamespace>
+        <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+    </PropertyGroup>
+
+    <!-- Analysis -->
+    <PropertyGroup>
+        <AnalysisLevel>latest-All</AnalysisLevel>
+        <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <!-- References -->
+    <ItemGroup>
+        <PackageReference Include="LightResults" Version="9.0.0-preview.15"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <!-- Output -->
+    <PropertyGroup>
+        <AssemblyName>LightResults.Extensions.ValueObjects</AssemblyName>
+        <Version>9.0.0-preview.1</Version>
+        <AssemblyVersion>9.0.0.0</AssemblyVersion>
+        <FileVersion>9.0.0.0</FileVersion>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <Optimize>true</Optimize>
+        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
+        <!--<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>-->
+    </PropertyGroup>
+
+    <!-- Package -->
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <PackageId>LightResults.Extensions.ValueObjects</PackageId>
+        <Title>LightResults.Extensions.ValueObjects</Title>
+        <Description>Value Objects using LightResults.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://github.com/jscarle/LightResults.Extensions</PackageProjectUrl>
+        <PackageTags>result results pattern lightresults value-objects</PackageTags>
+        <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Authors>Jean-Sebastien Carle</Authors>
+        <Copyright>Copyright © Jean-Sebastien Carle 2024</Copyright>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageIcon>Icon.png</PackageIcon>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\..\Icon.png" Pack="true" PackagePath="\" Visible="false"/>
+    </ItemGroup>
+
+    <!-- Testing -->
+    <ItemGroup>
+        <InternalsVisibleTo Include="LightResults.Extensions.Tests"/>
+    </ItemGroup>
+
+</Project>
