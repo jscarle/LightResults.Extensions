@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>LightResults.Extensions.GeneratedIdentifier.Fixtures</RootNamespace>
+        <AssemblyName>LightResults.Extensions.GeneratedIdentifier.Fixtures</AssemblyName>
+        <AnalysisLevel>latest-Default</AnalysisLevel>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>false</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\LightResults.Extensions.GeneratedIdentifier\LightResults.Extensions.GeneratedIdentifier.csproj"
+                          PrivateAssets="all"
+                          ReferenceOutputAssembly="false"
+                          OutputItemType="Analyzer"
+                          SetTargetFramework="TargetFramework=netstandard2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="LightResults" Version="9.0.0-preview.15"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10"/>
+    </ItemGroup>
+
+</Project>

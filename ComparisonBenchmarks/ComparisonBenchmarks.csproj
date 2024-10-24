@@ -11,14 +11,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-        <PackageReference Include="FluentResults" Version="3.16.0" />
-        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
-        <PackageReference Include="Rascal" Version="1.1.0" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.14.0"/>
+        <PackageReference Include="FluentResults" Version="3.16.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0"/>
+        <PackageReference Include="Rascal" Version="1.1.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\LightResults.Extensions.Operations\LightResults.Extensions.Operations.csproj" />
+        <ProjectReference Include="..\src\LightResults.Extensions.Operations\LightResults.Extensions.Operations.csproj"/>
     </ItemGroup>
 
 </Project>

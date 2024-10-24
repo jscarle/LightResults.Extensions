@@ -60,5 +60,10 @@ jobs:
         dotnet build ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-restore
         dotnet pack ./src/LightResults.Extensions.Json/LightResults.Extensions.Json.csproj --configuration Release --no-build --output .
 
+    - name: Pack GeneratedIdentifier
+      run: |
+        dotnet build ./src/LightResults.Extensions.GeneratedIdentifier/LightResults.Extensions.GeneratedIdentifier.csproj --configuration Release --no-restore
+        dotnet pack ./src/LightResults.Extensions.GeneratedIdentifier/LightResults.Extensions.GeneratedIdentifier.csproj --configuration Release --no-build --output .
+
     - name: Push to NuGet
       run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate

@@ -21,6 +21,11 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
   [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
 
+- [Json](https://jscarle.github.io/LightResults.Extensions/docs/generatedidentifier.html) - Provides strongly-typed identifiers.
+
+  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.GeneratedIdentifier)](https://www.nuget.org/packages/LightResults.Extensions.GeneratedIdentifier)
+  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.GeneratedIdentifier)](https://www.nuget.org/packages/LightResults.Extensions.GeneratedIdentifier)
+
 ## Documentation
 
 Make sure to [read the docs](https://jscarle.github.io/LightResults.Extensions/) for the full API.

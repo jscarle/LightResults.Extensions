@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>LightResults.Extensions.GeneratedIdentifier.Tests</RootNamespace>
+        <AssemblyName>LightResults.Extensions.GeneratedIdentifier.Tests</AssemblyName>
+        <AnalysisLevel>latest-Default</AnalysisLevel>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\LightResults.Extensions.GeneratedIdentifier.Fixtures\LightResults.Extensions.GeneratedIdentifier.Fixtures.csproj"/>
+        <ProjectReference Include="..\..\src\LightResults.Extensions.GeneratedIdentifier\LightResults.Extensions.GeneratedIdentifier.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Basic.Reference.Assemblies" Version="1.7.9"/>
+        <PackageReference Include="FluentAssertions" Version="6.12.1"/>
+        <PackageReference Include="FluentAssertions.Analyzers" Version="0.34.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1"/>
+        <PackageReference Include="SourceGeneratorTestHelpers.XUnit" Version="8.1.0"/>
+        <PackageReference Include="Verify.DiffPlex" Version="3.1.2"/>
+        <PackageReference Include="Verify.Xunit" Version="27.0.1"/>
+        <PackageReference Include="xunit" Version="2.9.2"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="IdentifierSourceGeneratorTests.GenerateGuidIdentifier_WithNamespace.received.txt">
+            <DependentUpon>IdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="IdentifierSourceGeneratorTests.GenerateGuidIdentifier_WithoutNamespace.received.txt">
+            <DependentUpon>IdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="IdentifierSourceGeneratorTests.GenerateIntIdentifier_WithNamespace.received.txt">
+            <DependentUpon>IdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="IdentifierSourceGeneratorTests.GenerateIntIdentifier_WithoutNamespace.received.txt">
+            <DependentUpon>IdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="IdentifierSourceGeneratorTests.GenerateShortIdentifier_WithNamespace.received.txt">
+            <DependentUpon>IdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="IdentifierSourceGeneratorTests.GenerateShortIdentifier_WithoutNamespace.received.txt">
+            <DependentUpon>IdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="GeneratedIdentifierSourceGeneratorTests.GenerateGuidIdentifier_WithNamespace.received.txt">
+            <DependentUpon>GeneratedIdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+        <None Update="GeneratedIdentifierSourceGeneratorTests.GenerateGuidIdentifier_WithNamespace.verified.txt">
+            <DependentUpon>GeneratedIdentifierSourceGeneratorTests.cs</DependentUpon>
+        </None>
+    </ItemGroup>
+
+</Project>
