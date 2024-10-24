@@ -22,6 +22,7 @@
 
     <ItemGroup>
         <PackageReference Include="LightResults" Version="9.0.0-preview.15"/>
+        <PackageReference Include="LightResults.Extensions.ValueObjects" Version="9.0.0-preview.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10"/>
     </ItemGroup>
 

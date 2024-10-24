@@ -136,7 +136,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                using System.Text.Json;
                                using System.Text.Json.Serialization;
                                using LightResults;
-                               using GeneratedIdentifier.Common.ValueObjects;
+                               using LightResults.Extensions.ValueObjects;
 
                                """
             );

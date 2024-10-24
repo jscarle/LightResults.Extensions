@@ -1,6 +1,4 @@
-﻿using GeneratedIdentifier;
-
-namespace LightResults.Extensions.GeneratedIdentifier.Fixtures.Identifiers;
+﻿namespace LightResults.Extensions.GeneratedIdentifier.Fixtures.Identifiers;
 
 [GeneratedIdentifier<short>]
 public partial struct TestShortId;
