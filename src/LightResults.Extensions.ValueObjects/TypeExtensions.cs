@@ -2,10 +2,12 @@
 
 namespace LightResults.Extensions.ValueObjects;
 
-internal static class TypeExtensions
+public static class TypeExtensions
 {
     public static bool IsValueObjectType([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type, out Type valueObjectType)
     {
+        ArgumentNullException.ThrowIfNull(type);
+
         var valueObjectInterface = type.GetGenericInterfaceOrDefault(typeof(IValueObject<,>));
         if (valueObjectInterface is null && type.IsValueType)
         {
