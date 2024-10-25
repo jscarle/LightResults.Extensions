@@ -51,7 +51,7 @@
         <Description>A Roslyn source generator that automatically creates strongly-typed identifier structs.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/jscarle/LightResults.Extensions</PackageProjectUrl>
-        <PackageTags>result results pattern lightresults source-generator strongly-typed identifie</PackageTags>
+        <PackageTags>result results pattern lightresults source-generator strongly-typed identifier</PackageTags>
         <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <Authors>Jean-Sebastien Carle</Authors>
