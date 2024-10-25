@@ -94,6 +94,10 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 declaredValueType = "long";
                 fullValueType = "Int64";
                 break;
+            case SpecialType.System_String:
+                declaredValueType = "string";
+                fullValueType = "String";
+                break;
             default:
                 if (typeArgument is not { Name: "Guid", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true } })
                     return null;
@@ -153,7 +157,16 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 [JsonConverter(typeof({{structName}}JsonConverter))]
                                 readonly partial struct {{structName}} :
                                     ICreatableValueObject<{{declaredValueType}}, {{structName}}>,
-                                    IParsableValueObject<{{structName}}>,
+                                """
+            );
+
+            if (declaredValueType != "string")
+                source.AppendLine($$"""
+                                        IParsableValueObject<{{structName}}>,
+                                    """
+                );
+
+            source.AppendLine($$"""
                                     IValueObject<{{declaredValueType}}, {{structName}}>,
                                     IComparable<{{structName}}>,
                                     IComparable
@@ -216,52 +229,55 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
 
-            source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public static {{structName}} Parse(string s)
-                                    {
-                                        var result = TryParse(s);
-                                        if (result.IsSuccess(out var identifier, out var error))
-                                            return identifier;
-                                
-                                        throw new ValueObjectException(error.Message);
-                                    }
+            if (declaredValueType != "string")
+            {
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public static {{structName}} Parse(string s)
+                                        {
+                                            var result = TryParse(s);
+                                            if (result.IsSuccess(out var identifier, out var error))
+                                                return identifier;
+                                    
+                                            throw new ValueObjectException(error.Message);
+                                        }
 
-                                """
-            );
+                                    """
+                );
 
-            source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public static Result<{{structName}}> TryParse(string s)
-                                    {
-                                        if ({{declaredValueType}}.TryParse(s, out var value))
-                                            return TryCreate(value);
-                                
-                                        return Result.Fail<{{structName}}>("The string is not a valid identifier.");
-                                    }
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public static Result<{{structName}}> TryParse(string s)
+                                        {
+                                            if ({{declaredValueType}}.TryParse(s, out var value))
+                                                return TryCreate(value);
+                                    
+                                            return Result.Fail<{{structName}}>("The string is not a valid identifier.");
+                                        }
 
-                                """
-            );
+                                    """
+                );
 
-            source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public static bool TryParse(string s, out {{structName}} identifier)
-                                    {
-                                        return TryParse(s).IsSuccess(out identifier);
-                                    }
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public static bool TryParse(string s, out {{structName}} identifier)
+                                        {
+                                            return TryParse(s).IsSuccess(out identifier);
+                                        }
 
-                                """
-            );
+                                    """
+                );
 
-            source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public static bool TryParse(string s, IFormatProvider provider, out {{structName}} identifier)
-                                    {
-                                        return TryParse(s).IsSuccess(out identifier);
-                                    }
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public static bool TryParse(string s, IFormatProvider provider, out {{structName}} identifier)
+                                        {
+                                            return TryParse(s).IsSuccess(out identifier);
+                                        }
 
-                                """
-            );
+                                    """
+                );
+            }
 
             source.AppendLine($$"""
                                     /// <inheritdoc />
@@ -283,7 +299,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
 
-            if (declaredValueType == "Guid")
+            if (declaredValueType is "long" or "Guid" or "string")
                 source.AppendLine("""
                                       /// <inheritdoc />
                                       public override int GetHashCode()
@@ -403,16 +419,17 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
 
-            source.AppendLine($$"""
-                                    /// <summary>Gets the underlying value of the <see cref="{{structName}}" />.</summary>
-                                    /// <returns>The underlying value of the <see cref="{{structName}}" />.</returns>
-                                    public {{declaredValueType}} To{{fullValueType}}()
-                                    {
-                                        return _value;
-                                    }
+            if (declaredValueType != "string")
+                source.AppendLine($$"""
+                                        /// <summary>Gets the underlying value of the <see cref="{{structName}}" />.</summary>
+                                        /// <returns>The underlying value of the <see cref="{{structName}}" />.</returns>
+                                        public {{declaredValueType}} To{{fullValueType}}()
+                                        {
+                                            return _value;
+                                        }
 
-                                """
-            );
+                                    """
+                );
 
             if (declaredValueType == "Guid")
                 source.AppendLine("""
@@ -420,6 +437,16 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                       public override string ToString()
                                       {
                                           return _value.ToString();
+                                      }
+
+                                  """
+                );
+            else if (declaredValueType == "string")
+                source.AppendLine("""
+                                      /// <inheritdoc />
+                                      public override string ToString()
+                                      {
+                                          return _value;
                                       }
 
                                   """
@@ -439,6 +466,17 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 source.AppendLine($$"""
                                         private static Result Validate({{declaredValueType}} value)
                                         {
+                                            return Result.Ok();
+                                        }
+                                    """
+                );
+            else if (declaredValueType == "string")
+                source.AppendLine($$"""
+                                        private static Result Validate({{declaredValueType}} value)
+                                        {
+                                            if (string.IsNullOrWhiteSpace(value))
+                                                return Result.Fail("The value must not be empty.");
+                                    
                                             return Result.Ok();
                                         }
                                     """
@@ -491,15 +529,27 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
             if (declaredValueType == "Guid")
                 source.AppendLine("""        writer.WriteStringValue(value.ToString());""");
+            else if (declaredValueType == "string")
+                source.AppendLine("""        writer.WriteStringValue(value);""");
             else
                 source.AppendLine("""        writer.WriteNumberValue(value);""");
 
+            source.AppendLine($$"""
+                                    }
+                                
+                                    public override {{structName}} Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+                                    {
+                                        var value = reader.Get{{fullValueType}}();
+                                """
+            );
+            if (declaredValueType == "string")
+                source.AppendLine("""
+                                          if (string.IsNullOrWhiteSpace(value))
+                                              throw new InvalidOperationException("The value must not be empty.");
+
+                                  """
+                );
             source.Append($$"""
-                                }
-                            
-                                public override {{structName}} Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-                                {
-                                    var value = reader.Get{{fullValueType}}();
                                     return {{structName}}.Create(value);
                                 }
                             }

@@ -52,6 +52,23 @@ public sealed class GeneratedIdentifierSourceGeneratorTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
+    public async Task GenerateLongIdentifier(bool withNamespace)
+    {
+        var sources = GetSources("""
+                                 /// <summary>Represents an identifier.</summary>
+                                 [GeneratedIdentifier<long>]
+                                 public partial struct TestLongId;
+                                 """, withNamespace
+        );
+
+        var result = RunGenerator(sources);
+        await result.VerifyAsync("TestLongId.g.cs")
+            .UseMethodName($"{nameof(GenerateLongIdentifier)}_With{(withNamespace ? "" : "out")}Namespace");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
     public async Task GenerateShortIdentifier(bool withNamespace)
     {
         var sources = GetSources("""
@@ -64,6 +81,23 @@ public sealed class GeneratedIdentifierSourceGeneratorTests
         var result = RunGenerator(sources);
         await result.VerifyAsync("TestShortId.g.cs")
             .UseMethodName($"{nameof(GenerateShortIdentifier)}_With{(withNamespace ? "" : "out")}Namespace");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task GenerateStringIdentifier(bool withNamespace)
+    {
+        var sources = GetSources("""
+                                 /// <summary>Represents an identifier.</summary>
+                                 [GeneratedIdentifier<string>]
+                                 public partial struct TestStringId;
+                                 """, withNamespace
+        );
+
+        var result = RunGenerator(sources);
+        await result.VerifyAsync("TestStringId.g.cs")
+            .UseMethodName($"{nameof(GenerateStringIdentifier)}_With{(withNamespace ? "" : "out")}Namespace");
     }
 
     private static IEnumerable<string> GetSources(string source, bool withNamespace = true)
