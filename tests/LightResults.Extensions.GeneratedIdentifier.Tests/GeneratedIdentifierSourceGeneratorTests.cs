@@ -91,7 +91,7 @@ public sealed class GeneratedIdentifierSourceGeneratorTests
         var sources = GetSources("""
                                  /// <summary>Represents an identifier.</summary>
                                  [GeneratedIdentifier<string>]
-                                 public partial struct TestStringId;
+                                 public partial class TestStringId;
                                  """, withNamespace
         );
 
@@ -126,7 +126,7 @@ public sealed class GeneratedIdentifierSourceGeneratorTests
 
                      namespace LightResults.Extensions.GeneratedIdentifier;
 
-                     [AttributeUsage(AttributeTargets.Struct)]
+                     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
                      public sealed class GeneratedIdentifierAttribute<TIdentifier> : Attribute;
                      """;
     }

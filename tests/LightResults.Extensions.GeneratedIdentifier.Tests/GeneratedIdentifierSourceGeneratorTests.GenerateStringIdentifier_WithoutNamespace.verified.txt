@@ -19,15 +19,12 @@ using LightResults.Extensions.ValueObjects;
 
 [TypeConverter(typeof(TestStringIdTypeConverter))]
 [JsonConverter(typeof(TestStringIdJsonConverter))]
-readonly partial struct TestStringId :
+partial class TestStringId :
     ICreatableValueObject<string, TestStringId>,
     IValueObject<string, TestStringId>,
     IComparable<TestStringId>,
     IComparable
 {
-    /// <summary>Gets whether this identifier is the default value.</summary>
-    public bool IsDefault => _value == default;
-
     string IValueObject<string, TestStringId>.Value => _value;
 
     private readonly string _value;
@@ -60,15 +57,23 @@ readonly partial struct TestStringId :
         return Result.Ok<TestStringId>(new TestStringId(value, true));
     }
 
-    /// <inheritdoc />
-    public bool Equals(TestStringId other)
-    {
-        return _value == other._value;
-    }
+  /// <inheritdoc />
+  public bool Equals(TestStringId? other)
+  {
+      if (other is null)
+          return false;
+      if (ReferenceEquals(this, other))
+          return true;
+      return _value == other._value;
+  }
 
     /// <inheritdoc />
     public override bool Equals(object? obj)
     {
+        if (obj is null)
+            return false;
+        if (ReferenceEquals(this, obj))
+            return true;
         return obj is TestStringId other && Equals(other);
     }
 
@@ -97,16 +102,23 @@ readonly partial struct TestStringId :
     }
 
     /// <inheritdoc />
-    public int CompareTo(TestStringId other)
+    public int CompareTo(TestStringId? other)
     {
-        return _value.CompareTo(other._value);
+        if (other is null)
+            return 1;
+        if (ReferenceEquals(this, other))
+            return 0;
+        return string.Compare(_value, other._value, StringComparison.Ordinal);
     }
 
     /// <inheritdoc />
     public int CompareTo(object? obj)
     {
-        if (ReferenceEquals(null, obj)) return 1;
-        return obj is TestStringId other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(TestStringId)}");
+        if (obj is null)
+            return 1;
+        if (ReferenceEquals(this, obj))
+            return 0;
+        return obj is TestStringId other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(TestStringId)}.");
     }
 
     /// <summary>Determines whether the first instance of <see cref="TestStringId" /> is less than the second instance.</summary>

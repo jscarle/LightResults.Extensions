@@ -137,8 +137,9 @@ readonly partial struct TestShortId :
     /// <inheritdoc />
     public int CompareTo(object? obj)
     {
-        if (ReferenceEquals(null, obj)) return 1;
-        return obj is TestShortId other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(TestShortId)}");
+        if (ReferenceEquals(null, obj))
+            return 1;
+        return obj is TestShortId other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(TestShortId)}.");
     }
 
     /// <summary>Determines whether the first instance of <see cref="TestShortId" /> is less than the second instance.</summary>

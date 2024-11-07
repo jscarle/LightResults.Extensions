@@ -49,7 +49,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
                       namespace {AttributesNamespace};
 
-                      [AttributeUsage(AttributeTargets.Struct)]
+                      [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
                       public sealed class {GeneratedIdentifierAttributeName}<TIdentifier> : Attribute;
                       """;
         context.AddSource(GeneratedIdentifierAttributeHint, SourceText.From(source, Encoding.UTF8));
@@ -59,7 +59,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return syntaxNode.IsKind(SyntaxKind.StructDeclaration);
+        return syntaxNode.IsKind(SyntaxKind.StructDeclaration) || syntaxNode.IsKind(SyntaxKind.ClassDeclaration);
     }
 
     private static Identifier? Transform(GeneratorAttributeSyntaxContext context, CancellationToken cancellationToken)
@@ -71,6 +71,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
         var containingDeclarations = namedTypeSymbol.GetContainingDeclarations(cancellationToken);
         var symbolName = namedTypeSymbol.Name;
+        var isStruct = namedTypeSymbol.TypeKind == TypeKind.Struct;
 
         var attribute = context.Attributes[0].AttributeClass!;
         if (attribute.TypeArguments.Length != 1)
@@ -106,7 +107,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 break;
         }
 
-        var symbol = new Identifier(containingDeclarations, symbolName, declaredValueType, fullValueType);
+        var symbol = new Identifier(containingDeclarations, symbolName, isStruct, declaredValueType, fullValueType);
 
         return symbol;
     }
@@ -115,8 +116,9 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
     {
         foreach (var symbol in generatedIdentifiers)
         {
-            var structNamespace = symbol.ContainingDeclarations.ToNamespace();
-            var structName = symbol.Name;
+            var symbolNamespace = symbol.ContainingDeclarations.ToNamespace();
+            var symbolName = symbol.Name;
+            var isStruct = symbol.IsStruct;
             var declaredValueType = symbol.DeclaredValueType;
             var fullValueType = symbol.FullValueType;
 
@@ -145,44 +147,45 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                """
             );
 
-            if (structNamespace.Length > 0)
+            if (symbolNamespace.Length > 0)
                 source.AppendLine($"""
-                                   namespace {structNamespace};
+                                   namespace {symbolNamespace};
 
                                    """
                 );
 
             source.AppendLine($$"""
-                                [TypeConverter(typeof({{structName}}TypeConverter))]
-                                [JsonConverter(typeof({{structName}}JsonConverter))]
-                                readonly partial struct {{structName}} :
-                                    ICreatableValueObject<{{declaredValueType}}, {{structName}}>,
+                                [TypeConverter(typeof({{symbolName}}TypeConverter))]
+                                [JsonConverter(typeof({{symbolName}}JsonConverter))]
+                                {{(isStruct ? "readonly " : "")}}partial {{(isStruct ? "struct" : "class")}} {{symbolName}} :
+                                    ICreatableValueObject<{{declaredValueType}}, {{symbolName}}>,
                                 """
             );
 
             if (declaredValueType != "string")
                 source.AppendLine($$"""
-                                        IParsableValueObject<{{structName}}>,
+                                        IParsableValueObject<{{symbolName}}>,
                                     """
                 );
 
             source.AppendLine($$"""
-                                    IValueObject<{{declaredValueType}}, {{structName}}>,
-                                    IComparable<{{structName}}>,
+                                    IValueObject<{{declaredValueType}}, {{symbolName}}>,
+                                    IComparable<{{symbolName}}>,
                                     IComparable
                                 {
                                 """
             );
 
-            source.AppendLine("""
-                                  /// <summary>Gets whether this identifier is the default value.</summary>
-                                  public bool IsDefault => _value == default;
+            if (isStruct)
+                source.AppendLine("""
+                                      /// <summary>Gets whether this identifier is the default value.</summary>
+                                      public bool IsDefault => _value == default;
 
-                              """
-            );
+                                  """
+                );
 
             source.AppendLine($"""
-                                   {declaredValueType} IValueObject<{declaredValueType}, {structName}>.Value => _value;
+                                   {declaredValueType} IValueObject<{declaredValueType}, {symbolName}>.Value => _value;
                                
                                    private readonly {declaredValueType} _value;
 
@@ -190,7 +193,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                    private {{structName}}({{declaredValueType}} value, bool skipValidation = false)
+                                    private {{symbolName}}({{declaredValueType}} value, bool skipValidation = false)
                                     {
                                         if (!skipValidation)
                                             ValueObjectException.ThrowIfFailed(Validate(value));
@@ -203,7 +206,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
             source.AppendLine($$"""
                                     /// <inheritdoc />
-                                    public static {{structName}} Create({{declaredValueType}} value)
+                                    public static {{symbolName}} Create({{declaredValueType}} value)
                                     {
                                         var result = TryCreate(value);
                                         if (result.IsSuccess(out var identifier, out var error))
@@ -217,13 +220,13 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
             source.AppendLine($$"""
                                     /// <inheritdoc />
-                                    public static Result<{{structName}}> TryCreate({{declaredValueType}} value)
+                                    public static Result<{{symbolName}}> TryCreate({{declaredValueType}} value)
                                     {
                                         var validation = Validate(value);
                                         if (validation.IsFailed(out var error))
-                                            return Result.Fail<{{structName}}>(error);
+                                            return Result.Fail<{{symbolName}}>(error);
                                 
-                                        return Result.Ok<{{structName}}>(new {{structName}}(value, true));
+                                        return Result.Ok<{{symbolName}}>(new {{symbolName}}(value, true));
                                     }
 
                                 """
@@ -233,7 +236,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             {
                 source.AppendLine($$"""
                                         /// <inheritdoc />
-                                        public static {{structName}} Parse(string s)
+                                        public static {{symbolName}} Parse(string s)
                                         {
                                             var result = TryParse(s);
                                             if (result.IsSuccess(out var identifier, out var error))
@@ -247,12 +250,12 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
                 source.AppendLine($$"""
                                         /// <inheritdoc />
-                                        public static Result<{{structName}}> TryParse(string s)
+                                        public static Result<{{symbolName}}> TryParse(string s)
                                         {
                                             if ({{declaredValueType}}.TryParse(s, out var value))
                                                 return TryCreate(value);
                                     
-                                            return Result.Fail<{{structName}}>("The string is not a valid identifier.");
+                                            return Result.Fail<{{symbolName}}>("The string is not a valid identifier.");
                                         }
 
                                     """
@@ -260,7 +263,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
                 source.AppendLine($$"""
                                         /// <inheritdoc />
-                                        public static bool TryParse(string s, out {{structName}} identifier)
+                                        public static bool TryParse(string s, out {{symbolName}} identifier)
                                         {
                                             return TryParse(s).IsSuccess(out identifier);
                                         }
@@ -270,7 +273,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
                 source.AppendLine($$"""
                                         /// <inheritdoc />
-                                        public static bool TryParse(string s, IFormatProvider provider, out {{structName}} identifier)
+                                        public static bool TryParse(string s, IFormatProvider provider, out {{symbolName}} identifier)
                                         {
                                             return TryParse(s).IsSuccess(out identifier);
                                         }
@@ -279,25 +282,55 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 );
             }
 
-            source.AppendLine($$"""
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public bool Equals({{symbolName}} other)
+                                        {
+                                            return _value == other._value;
+                                        }
+
+                                    """
+                );
+            else
+                source.AppendLine("""
                                     /// <inheritdoc />
-                                    public bool Equals({{structName}} other)
+                                    public bool Equals(TestStringId? other)
                                     {
+                                        if (other is null)
+                                            return false;
+                                        if (ReferenceEquals(this, other))
+                                            return true;
                                         return _value == other._value;
                                     }
 
-                                """
-            );
+                                  """
+                );
 
-            source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public override bool Equals(object? obj)
-                                    {
-                                        return obj is {{structName}} other && Equals(other);
-                                    }
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public override bool Equals(object? obj)
+                                        {
+                                            return obj is {{symbolName}} other && Equals(other);
+                                        }
 
-                                """
-            );
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public override bool Equals(object? obj)
+                                        {
+                                            if (obj is null)
+                                                return false;
+                                            if (ReferenceEquals(this, obj))
+                                                return true;
+                                            return obj is {{symbolName}} other && Equals(other);
+                                        }
+
+                                    """
+                );
 
             if (declaredValueType is "long" or "Guid" or "string")
                 source.AppendLine("""
@@ -321,11 +354,11 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 );
 
             source.AppendLine($$"""
-                                    /// <summary>Determines whether two instances of <see cref="{{structName}}" /> are equal.</summary>
+                                    /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are equal.</summary>
                                     /// <param name="left">The first instance to compare.</param>
                                     /// <param name="right">The second instance to compare.</param>
                                     /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
-                                    public static bool operator ==({{structName}} left, {{structName}} right)
+                                    public static bool operator ==({{symbolName}} left, {{symbolName}} right)
                                     {
                                         return left.Equals(right);
                                     }
@@ -334,11 +367,11 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                    /// <summary>Determines whether two instances of <see cref="{{structName}}" /> are not equal.</summary>
+                                    /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are not equal.</summary>
                                     /// <param name="left">The first instance to compare.</param>
                                     /// <param name="right">The second instance to compare.</param>
                                     /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
-                                    public static bool operator !=({{structName}} left, {{structName}} right)
+                                    public static bool operator !=({{symbolName}} left, {{symbolName}} right)
                                     {
                                         return !left.Equals(right);
                                     }
@@ -346,33 +379,64 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
 
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public int CompareTo({{symbolName}} other)
+                                        {
+                                            return _value.CompareTo(other._value);
+                                        }
+
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public int CompareTo({{symbolName}}? other)
+                                        {
+                                            if (other is null)
+                                                return 1;
+                                            if (ReferenceEquals(this, other))
+                                                return 0;
+                                            return string.Compare(_value, other._value, StringComparison.Ordinal);
+                                        }
+
+                                    """
+                );
+
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public int CompareTo(object? obj)
+                                        {
+                                            if (ReferenceEquals(null, obj))
+                                                return 1;
+                                            return obj is {{symbolName}} other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof({{symbolName}})}.");
+                                        }
+
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <inheritdoc />
+                                        public int CompareTo(object? obj)
+                                        {
+                                            if (obj is null)
+                                                return 1;
+                                            if (ReferenceEquals(this, obj))
+                                                return 0;
+                                            return obj is {{symbolName}} other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof({{symbolName}})}.");
+                                        }
+
+                                    """
+                );
+
             source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public int CompareTo({{structName}} other)
-                                    {
-                                        return _value.CompareTo(other._value);
-                                    }
-
-                                """
-            );
-
-            source.AppendLine($$"""
-                                    /// <inheritdoc />
-                                    public int CompareTo(object? obj)
-                                    {
-                                        if (ReferenceEquals(null, obj)) return 1;
-                                        return obj is {{structName}} other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof({{structName}})}");
-                                    }
-
-                                """
-            );
-
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{structName}}" /> is less than the second instance.</summary>
+                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than the second instance.</summary>
                                     /// <param name="left">The first instance to compare.</param>
                                     /// <param name="right">The second instance to compare.</param>
                                     /// <returns><c>true</c> if the first instance is less than the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator <({{structName}} left, {{structName}} right)
+                                    public static bool operator <({{symbolName}} left, {{symbolName}} right)
                                     {
                                         return left.CompareTo(right) < 0;
                                     }
@@ -381,11 +445,11 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{structName}}" /> is greater than the second instance.</summary>
+                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than the second instance.</summary>
                                     /// <param name="left">The first instance to compare.</param>
                                     /// <param name="right">The second instance to compare.</param>
                                     /// <returns><c>true</c> if the first instance is greater than the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator >({{structName}} left, {{structName}} right)
+                                    public static bool operator >({{symbolName}} left, {{symbolName}} right)
                                     {
                                         return left.CompareTo(right) > 0;
                                     }
@@ -394,11 +458,11 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{structName}}" /> is less than or equal to the second instance.</summary>
+                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than or equal to the second instance.</summary>
                                     /// <param name="left">The first instance to compare.</param>
                                     /// <param name="right">The second instance to compare.</param>
                                     /// <returns><c>true</c> if the first instance is less than or equal to the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator <=({{structName}} left, {{structName}} right)
+                                    public static bool operator <=({{symbolName}} left, {{symbolName}} right)
                                     {
                                         return left.CompareTo(right) <= 0;
                                     }
@@ -407,11 +471,11 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{structName}}" /> is greater than or equal to the second instance.</summary>
+                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than or equal to the second instance.</summary>
                                     /// <param name="left">The first instance to compare.</param>
                                     /// <param name="right">The second instance to compare.</param>
                                     /// <returns><c>true</c> if the first instance is greater than or equal to the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator >=({{structName}} left, {{structName}} right)
+                                    public static bool operator >=({{symbolName}} left, {{symbolName}} right)
                                     {
                                         return left.CompareTo(right) >= 0;
                                     }
@@ -421,8 +485,8 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
 
             if (declaredValueType != "string")
                 source.AppendLine($$"""
-                                        /// <summary>Gets the underlying value of the <see cref="{{structName}}" />.</summary>
-                                        /// <returns>The underlying value of the <see cref="{{structName}}" />.</returns>
+                                        /// <summary>Gets the underlying value of the <see cref="{{symbolName}}" />.</summary>
+                                        /// <returns>The underlying value of the <see cref="{{symbolName}}" />.</returns>
                                         public {{declaredValueType}} To{{fullValueType}}()
                                         {
                                             return _value;
@@ -500,7 +564,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                public class {{structName}}TypeConverter : TypeConverter
+                                public class {{symbolName}}TypeConverter : TypeConverter
                                 {
                                     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
                                     {
@@ -510,7 +574,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                     public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
                                     {
                                         if (value is {{declaredValueType}} identifierValue)
-                                            return {{structName}}.Create(identifierValue);
+                                            return {{symbolName}}.Create(identifierValue);
                                 
                                         return base.ConvertFrom(context, culture, value);
                                     }
@@ -519,11 +583,11 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
             source.AppendLine($$"""
-                                public class {{structName}}JsonConverter : JsonConverter<{{structName}}>
+                                public class {{symbolName}}JsonConverter : JsonConverter<{{symbolName}}>
                                 {
-                                    public override void Write(Utf8JsonWriter writer, {{structName}} identifier, JsonSerializerOptions options)
+                                    public override void Write(Utf8JsonWriter writer, {{symbolName}} identifier, JsonSerializerOptions options)
                                     {
-                                        var value = ((IValueObject<{{declaredValueType}}, {{structName}}>)identifier).Value;
+                                        var value = ((IValueObject<{{declaredValueType}}, {{symbolName}}>)identifier).Value;
                                 """
             );
 
@@ -537,7 +601,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             source.AppendLine($$"""
                                     }
                                 
-                                    public override {{structName}} Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+                                    public override {{symbolName}} Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
                                     {
                                         var value = reader.Get{{fullValueType}}();
                                 """
@@ -550,7 +614,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                   """
                 );
             source.Append($$"""
-                                    return {{structName}}.Create(value);
+                                    return {{symbolName}}.Create(value);
                                 }
                             }
 
@@ -565,12 +629,14 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
     private readonly record struct Identifier(
         EquatableImmutableArray<Declaration> ContainingDeclarations,
         string Name,
+        bool IsStruct,
         string DeclaredValueType,
         string FullValueType
     )
     {
         public EquatableImmutableArray<Declaration> ContainingDeclarations { get; } = ContainingDeclarations;
         public string Name { get; } = Name;
+        public bool IsStruct { get; } = IsStruct;
         public string DeclaredValueType { get; } = DeclaredValueType;
         public string FullValueType { get; } = FullValueType;
     }
