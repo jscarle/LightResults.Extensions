@@ -293,18 +293,18 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                     """
                 );
             else
-                source.AppendLine("""
-                                    /// <inheritdoc />
-                                    public bool Equals(TestStringId? other)
-                                    {
-                                        if (other is null)
-                                            return false;
-                                        if (ReferenceEquals(this, other))
-                                            return true;
-                                        return _value == other._value;
-                                    }
+                source.AppendLine($$"""
+                                      /// <inheritdoc />
+                                      public bool Equals({{symbolName}}? other)
+                                      {
+                                          if (other is null)
+                                              return false;
+                                          if (ReferenceEquals(this, other))
+                                              return true;
+                                          return _value == other._value;
+                                      }
 
-                                  """
+                                    """
                 );
 
             if (isStruct)
