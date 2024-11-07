@@ -5,7 +5,7 @@ namespace LightResults.Extensions.ValueObjects;
 [SuppressMessage("Design", "CA1000: Do not declare static members on generic types", Justification = "This is required for handling value objects generically.")]
 [SuppressMessage("Usage", "CA2252: This API requires opting into preview features", Justification = "This is meant to ensure conformity of value objects.")]
 public interface IParsableValueObject<TSelf> : IValueObject<TSelf>
-    where TSelf : struct
+    where TSelf : notnull
 {
     static abstract TSelf Parse(string s);
     static abstract Result<TSelf> TryParse(string s);

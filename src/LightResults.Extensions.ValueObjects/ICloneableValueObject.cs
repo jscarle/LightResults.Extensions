@@ -1,7 +1,7 @@
 ﻿namespace LightResults.Extensions.ValueObjects;
 
 public interface ICloneableValueObject<TSelf> : IValueObject<TSelf>
-    where TSelf : struct
+    where TSelf : notnull
 {
     TSelf Clone();
 }
