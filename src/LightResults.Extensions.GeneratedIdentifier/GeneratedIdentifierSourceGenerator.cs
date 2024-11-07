@@ -157,7 +157,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             source.AppendLine($$"""
                                 [TypeConverter(typeof({{symbolName}}TypeConverter))]
                                 [JsonConverter(typeof({{symbolName}}JsonConverter))]
-                                {{(isStruct ? "readonly " : "")}}partial {{(isStruct ? "struct" : "class")}} {{symbolName}} :
+                                {{(isStruct ? "readonly" : "sealed")}} partial {{(isStruct ? "struct" : "class")}} {{symbolName}} :
                                     ICreatableValueObject<{{declaredValueType}}, {{symbolName}}>,
                                 """
             );

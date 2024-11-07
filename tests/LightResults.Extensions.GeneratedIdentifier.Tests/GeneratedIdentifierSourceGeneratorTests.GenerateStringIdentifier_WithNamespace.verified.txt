@@ -21,7 +21,7 @@ namespace MyProject.Identifiers;
 
 [TypeConverter(typeof(TestStringIdTypeConverter))]
 [JsonConverter(typeof(TestStringIdJsonConverter))]
-partial class TestStringId :
+sealed partial class TestStringId :
     ICreatableValueObject<string, TestStringId>,
     IValueObject<string, TestStringId>,
     IComparable<TestStringId>,
