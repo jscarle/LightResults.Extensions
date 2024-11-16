@@ -21,7 +21,7 @@ namespace MyProject.Identifiers;
 
 [TypeConverter(typeof(TestLongIdTypeConverter))]
 [JsonConverter(typeof(TestLongIdJsonConverter))]
-readonly partial struct TestLongId :
+public readonly partial struct TestLongId :
     ICreatableValueObject<long, TestLongId>,
     IParsableValueObject<TestLongId>,
     IValueObject<long, TestLongId>,
@@ -202,7 +202,7 @@ readonly partial struct TestLongId :
     }
 }
 
-public class TestLongIdTypeConverter : TypeConverter
+public sealed class TestLongIdTypeConverter : TypeConverter
 {
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
@@ -218,7 +218,7 @@ public class TestLongIdTypeConverter : TypeConverter
     }
 }
 
-public class TestLongIdJsonConverter : JsonConverter<TestLongId>
+public sealed class TestLongIdJsonConverter : JsonConverter<TestLongId>
 {
     public override void Write(Utf8JsonWriter writer, TestLongId identifier, JsonSerializerOptions options)
     {

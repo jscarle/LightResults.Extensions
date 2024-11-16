@@ -19,7 +19,7 @@ using LightResults.Extensions.ValueObjects;
 
 [TypeConverter(typeof(TestGuidIdTypeConverter))]
 [JsonConverter(typeof(TestGuidIdJsonConverter))]
-readonly partial struct TestGuidId :
+public readonly partial struct TestGuidId :
     ICreatableValueObject<Guid, TestGuidId>,
     IParsableValueObject<TestGuidId>,
     IValueObject<Guid, TestGuidId>,
@@ -197,7 +197,7 @@ readonly partial struct TestGuidId :
     }
 }
 
-public class TestGuidIdTypeConverter : TypeConverter
+public sealed class TestGuidIdTypeConverter : TypeConverter
 {
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
@@ -213,7 +213,7 @@ public class TestGuidIdTypeConverter : TypeConverter
     }
 }
 
-public class TestGuidIdJsonConverter : JsonConverter<TestGuidId>
+public sealed class TestGuidIdJsonConverter : JsonConverter<TestGuidId>
 {
     public override void Write(Utf8JsonWriter writer, TestGuidId identifier, JsonSerializerOptions options)
     {

@@ -72,6 +72,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
         var containingDeclarations = namedTypeSymbol.GetContainingDeclarations(cancellationToken);
         var symbolName = namedTypeSymbol.Name;
         var isStruct = namedTypeSymbol.TypeKind == TypeKind.Struct;
+        var isPublic = namedTypeSymbol.DeclaredAccessibility == Accessibility.Public;
 
         var attribute = context.Attributes[0].AttributeClass!;
         if (attribute.TypeArguments.Length != 1)
@@ -107,7 +108,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 break;
         }
 
-        var symbol = new Identifier(containingDeclarations, symbolName, isStruct, declaredValueType, fullValueType);
+        var symbol = new Identifier(containingDeclarations, symbolName, isStruct, isPublic, declaredValueType, fullValueType);
 
         return symbol;
     }
@@ -119,6 +120,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             var symbolNamespace = symbol.ContainingDeclarations.ToNamespace();
             var symbolName = symbol.Name;
             var isStruct = symbol.IsStruct;
+            var isPublic = symbol.IsPublic;
             var declaredValueType = symbol.DeclaredValueType;
             var fullValueType = symbol.FullValueType;
 
@@ -157,7 +159,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             source.AppendLine($$"""
                                 [TypeConverter(typeof({{symbolName}}TypeConverter))]
                                 [JsonConverter(typeof({{symbolName}}JsonConverter))]
-                                {{(isStruct ? "readonly" : "sealed")}} partial {{(isStruct ? "struct" : "class")}} {{symbolName}} :
+                                {{(isPublic ? "public" : "internal")}} {{(isStruct ? "readonly" : "sealed")}} partial {{(isStruct ? "struct" : "class")}} {{symbolName}} :
                                     ICreatableValueObject<{{declaredValueType}}, {{symbolName}}>,
                                 """
             );
@@ -664,7 +666,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
             );
 
             source.AppendLine($$"""
-                                public class {{symbolName}}TypeConverter : TypeConverter
+                                {{(isPublic ? "public" : "internal")}} sealed class {{symbolName}}TypeConverter : TypeConverter
                                 {
                                     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
                                     {
@@ -683,7 +685,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
             source.AppendLine($$"""
-                                public class {{symbolName}}JsonConverter : JsonConverter<{{symbolName}}>
+                                {{(isPublic ? "public" : "internal")}} sealed class {{symbolName}}JsonConverter : JsonConverter<{{symbolName}}>
                                 {
                                     public override void Write(Utf8JsonWriter writer, {{symbolName}} identifier, JsonSerializerOptions options)
                                     {
@@ -730,6 +732,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
         EquatableImmutableArray<Declaration> ContainingDeclarations,
         string Name,
         bool IsStruct,
+        bool IsPublic,
         string DeclaredValueType,
         string FullValueType
     )
@@ -737,6 +740,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
         public EquatableImmutableArray<Declaration> ContainingDeclarations { get; } = ContainingDeclarations;
         public string Name { get; } = Name;
         public bool IsStruct { get; } = IsStruct;
+        public bool IsPublic { get; } = IsPublic;
         public string DeclaredValueType { get; } = DeclaredValueType;
         public string FullValueType { get; } = FullValueType;
     }

@@ -21,7 +21,7 @@ namespace MyProject.Identifiers;
 
 [TypeConverter(typeof(TestStringIdTypeConverter))]
 [JsonConverter(typeof(TestStringIdJsonConverter))]
-sealed partial class TestStringId :
+public sealed partial class TestStringId :
     ICreatableValueObject<string, TestStringId>,
     IValueObject<string, TestStringId>,
     IComparable<TestStringId>,
@@ -182,7 +182,7 @@ sealed partial class TestStringId :
     }
 }
 
-public class TestStringIdTypeConverter : TypeConverter
+public sealed class TestStringIdTypeConverter : TypeConverter
 {
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
@@ -198,7 +198,7 @@ public class TestStringIdTypeConverter : TypeConverter
     }
 }
 
-public class TestStringIdJsonConverter : JsonConverter<TestStringId>
+public sealed class TestStringIdJsonConverter : JsonConverter<TestStringId>
 {
     public override void Write(Utf8JsonWriter writer, TestStringId identifier, JsonSerializerOptions options)
     {
