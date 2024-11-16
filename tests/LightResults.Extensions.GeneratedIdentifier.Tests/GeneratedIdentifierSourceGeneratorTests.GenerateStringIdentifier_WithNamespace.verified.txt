@@ -66,7 +66,7 @@ sealed partial class TestStringId :
           return false;
       if (ReferenceEquals(this, other))
           return true;
-      return _value == other._value;
+      return string.Equals(_value, other._value, StringComparison.Ordinal);
   }
 
     /// <inheritdoc />
@@ -82,25 +82,25 @@ sealed partial class TestStringId :
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        return _value.GetHashCode();
+        return StringComparer.Ordinal.GetHashCode(_value);
     }
 
     /// <summary>Determines whether two instances of <see cref="TestStringId" /> are equal.</summary>
     /// <param name="left">The first instance to compare.</param>
     /// <param name="right">The second instance to compare.</param>
     /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
-    public static bool operator ==(TestStringId left, TestStringId right)
+    public static bool operator ==(TestStringId? left, TestStringId? right)
     {
-        return left.Equals(right);
+        return left is not null && left.Equals(right);
     }
 
     /// <summary>Determines whether two instances of <see cref="TestStringId" /> are not equal.</summary>
     /// <param name="left">The first instance to compare.</param>
     /// <param name="right">The second instance to compare.</param>
     /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
-    public static bool operator !=(TestStringId left, TestStringId right)
+    public static bool operator !=(TestStringId? left, TestStringId? right)
     {
-        return !left.Equals(right);
+        return left is null || !left.Equals(right);
     }
 
     /// <inheritdoc />
@@ -127,8 +127,10 @@ sealed partial class TestStringId :
     /// <param name="left">The first instance to compare.</param>
     /// <param name="right">The second instance to compare.</param>
     /// <returns><c>true</c> if the first instance is less than the second instance; otherwise, <c>false</c>.</returns>
-    public static bool operator <(TestStringId left, TestStringId right)
+    public static bool operator <(TestStringId? left, TestStringId? right)
     {
+        if (left is null)
+            return (right is null ? 0 : -1) < 0;
         return left.CompareTo(right) < 0;
     }
 
@@ -136,8 +138,10 @@ sealed partial class TestStringId :
     /// <param name="left">The first instance to compare.</param>
     /// <param name="right">The second instance to compare.</param>
     /// <returns><c>true</c> if the first instance is greater than the second instance; otherwise, <c>false</c>.</returns>
-    public static bool operator >(TestStringId left, TestStringId right)
+    public static bool operator >(TestStringId? left, TestStringId? right)
     {
+        if (left is null)
+            return false;
         return left.CompareTo(right) > 0;
     }
 
@@ -145,8 +149,10 @@ sealed partial class TestStringId :
     /// <param name="left">The first instance to compare.</param>
     /// <param name="right">The second instance to compare.</param>
     /// <returns><c>true</c> if the first instance is less than or equal to the second instance; otherwise, <c>false</c>.</returns>
-    public static bool operator <=(TestStringId left, TestStringId right)
+    public static bool operator <=(TestStringId? left, TestStringId? right)
     {
+        if (left is null)
+            return true;
         return left.CompareTo(right) <= 0;
     }
 
@@ -154,8 +160,10 @@ sealed partial class TestStringId :
     /// <param name="left">The first instance to compare.</param>
     /// <param name="right">The second instance to compare.</param>
     /// <returns><c>true</c> if the first instance is greater than or equal to the second instance; otherwise, <c>false</c>.</returns>
-    public static bool operator >=(TestStringId left, TestStringId right)
+    public static bool operator >=(TestStringId? left, TestStringId? right)
     {
+        if (left is null)
+            return (right is null ? 0 : -1) >= 0;
         return left.CompareTo(right) >= 0;
     }
 

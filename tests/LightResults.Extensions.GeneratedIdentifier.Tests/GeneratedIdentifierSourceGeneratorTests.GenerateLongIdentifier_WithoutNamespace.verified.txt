@@ -95,7 +95,7 @@ readonly partial struct TestLongId :
     /// <inheritdoc />
     public bool Equals(TestLongId other)
     {
-        return _value == other._value;
+        return _value.Equals(other._value);
     }
 
     /// <inheritdoc />

@@ -287,7 +287,9 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                         /// <inheritdoc />
                                         public bool Equals({{symbolName}} other)
                                         {
-                                            return _value == other._value;
+                                            return {{(declaredValueType is "string" ?
+                                                "string.Equals(_value, other._value, StringComparison.Ordinal)" :
+                                                "_value.Equals(other._value)")}};
                                         }
 
                                     """
@@ -301,7 +303,9 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                               return false;
                                           if (ReferenceEquals(this, other))
                                               return true;
-                                          return _value == other._value;
+                                          return {{(declaredValueType is "string" ?
+                                              "string.Equals(_value, other._value, StringComparison.Ordinal)" :
+                                              "_value.Equals(other._value)")}};
                                       }
 
                                     """
@@ -333,11 +337,13 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 );
 
             if (declaredValueType is "long" or "Guid" or "string")
-                source.AppendLine("""
+                source.AppendLine($$"""
                                       /// <inheritdoc />
                                       public override int GetHashCode()
                                       {
-                                          return _value.GetHashCode();
+                                          return {{(declaredValueType is "string" ?
+                                                  "StringComparer.Ordinal.GetHashCode(_value)" :
+                                                  "_value.GetHashCode()")}};
                                       }
 
                                   """
@@ -353,31 +359,59 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                   """
                 );
 
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are equal.</summary>
-                                    /// <param name="left">The first instance to compare.</param>
-                                    /// <param name="right">The second instance to compare.</param>
-                                    /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
-                                    public static bool operator ==({{symbolName}} left, {{symbolName}} right)
-                                    {
-                                        return left.Equals(right);
-                                    }
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are equal.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
+                                        public static bool operator ==({{symbolName}} left, {{symbolName}} right)
+                                        {
+                                            return left.Equals(right);
+                                        }
 
-                                """
-            );
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are equal.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
+                                        public static bool operator ==({{symbolName}}? left, {{symbolName}}? right)
+                                        {
+                                            return left is not null && left.Equals(right);
+                                        }
 
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are not equal.</summary>
-                                    /// <param name="left">The first instance to compare.</param>
-                                    /// <param name="right">The second instance to compare.</param>
-                                    /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
-                                    public static bool operator !=({{symbolName}} left, {{symbolName}} right)
-                                    {
-                                        return !left.Equals(right);
-                                    }
+                                    """
+                );
 
-                                """
-            );
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are not equal.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
+                                        public static bool operator !=({{symbolName}} left, {{symbolName}} right)
+                                        {
+                                            return !left.Equals(right);
+                                        }
+
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether two instances of <see cref="{{symbolName}}" /> are not equal.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
+                                        public static bool operator !=({{symbolName}}? left, {{symbolName}}? right)
+                                        {
+                                            return left is null || !left.Equals(right);
+                                        }
+
+                                    """
+                );
 
             if (isStruct)
                 source.AppendLine($$"""
@@ -398,7 +432,9 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                                 return 1;
                                             if (ReferenceEquals(this, other))
                                                 return 0;
-                                            return string.Compare(_value, other._value, StringComparison.Ordinal);
+                                            return {{(declaredValueType is "string" ?
+                                                "string.Compare(_value, other._value, StringComparison.Ordinal)" :
+                                                "_value.CompareTo(other._value)")}};
                                         }
 
                                     """
@@ -431,57 +467,121 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                     """
                 );
 
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than the second instance.</summary>
-                                    /// <param name="left">The first instance to compare.</param>
-                                    /// <param name="right">The second instance to compare.</param>
-                                    /// <returns><c>true</c> if the first instance is less than the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator <({{symbolName}} left, {{symbolName}} right)
-                                    {
-                                        return left.CompareTo(right) < 0;
-                                    }
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is less than the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator <({{symbolName}} left, {{symbolName}} right)
+                                        {
+                                            return left.CompareTo(right) < 0;
+                                        }
 
-                                """
-            );
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is less than the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator <({{symbolName}}? left, {{symbolName}}? right)
+                                        {
+                                            if (left is null)
+                                                return (right is null ? 0 : -1) < 0;
+                                            return left.CompareTo(right) < 0;
+                                        }
 
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than the second instance.</summary>
-                                    /// <param name="left">The first instance to compare.</param>
-                                    /// <param name="right">The second instance to compare.</param>
-                                    /// <returns><c>true</c> if the first instance is greater than the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator >({{symbolName}} left, {{symbolName}} right)
-                                    {
-                                        return left.CompareTo(right) > 0;
-                                    }
+                                    """
+                );
 
-                                """
-            );
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is greater than the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator >({{symbolName}} left, {{symbolName}} right)
+                                        {
+                                            return left.CompareTo(right) > 0;
+                                        }
 
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than or equal to the second instance.</summary>
-                                    /// <param name="left">The first instance to compare.</param>
-                                    /// <param name="right">The second instance to compare.</param>
-                                    /// <returns><c>true</c> if the first instance is less than or equal to the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator <=({{symbolName}} left, {{symbolName}} right)
-                                    {
-                                        return left.CompareTo(right) <= 0;
-                                    }
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is greater than the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator >({{symbolName}}? left, {{symbolName}}? right)
+                                        {
+                                            if (left is null)
+                                                return false;
+                                            return left.CompareTo(right) > 0;
+                                        }
 
-                                """
-            );
+                                    """
+                );
 
-            source.AppendLine($$"""
-                                    /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than or equal to the second instance.</summary>
-                                    /// <param name="left">The first instance to compare.</param>
-                                    /// <param name="right">The second instance to compare.</param>
-                                    /// <returns><c>true</c> if the first instance is greater than or equal to the second instance; otherwise, <c>false</c>.</returns>
-                                    public static bool operator >=({{symbolName}} left, {{symbolName}} right)
-                                    {
-                                        return left.CompareTo(right) >= 0;
-                                    }
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than or equal to the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is less than or equal to the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator <=({{symbolName}} left, {{symbolName}} right)
+                                        {
+                                            return left.CompareTo(right) <= 0;
+                                        }
 
-                                """
-            );
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is less than or equal to the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is less than or equal to the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator <=({{symbolName}}? left, {{symbolName}}? right)
+                                        {
+                                            if (left is null)
+                                                return true;
+                                            return left.CompareTo(right) <= 0;
+                                        }
+
+                                    """
+                );
+
+            if (isStruct)
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than or equal to the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is greater than or equal to the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator >=({{symbolName}} left, {{symbolName}} right)
+                                        {
+                                            return left.CompareTo(right) >= 0;
+                                        }
+
+                                    """
+                );
+            else
+                source.AppendLine($$"""
+                                        /// <summary>Determines whether the first instance of <see cref="{{symbolName}}" /> is greater than or equal to the second instance.</summary>
+                                        /// <param name="left">The first instance to compare.</param>
+                                        /// <param name="right">The second instance to compare.</param>
+                                        /// <returns><c>true</c> if the first instance is greater than or equal to the second instance; otherwise, <c>false</c>.</returns>
+                                        public static bool operator >=({{symbolName}}? left, {{symbolName}}? right)
+                                        {
+                                            if (left is null)
+                                                return (right is null ? 0 : -1) >= 0;
+                                            return left.CompareTo(right) >= 0;
+                                        }
+
+                                    """
+                );
 
             if (declaredValueType != "string")
                 source.AppendLine($$"""
