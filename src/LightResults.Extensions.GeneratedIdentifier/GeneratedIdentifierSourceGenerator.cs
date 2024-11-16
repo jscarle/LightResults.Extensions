@@ -382,7 +382,13 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                         /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
                                         public static bool operator ==({{symbolName}}? left, {{symbolName}}? right)
                                         {
-                                            return left is not null && left.Equals(right);
+                                            if (left is null && right is null)
+                                                return true;
+                                            if (left is null || right is null)
+                                                return false;
+                                            if (ReferenceEquals(left, right))
+                                                return true;
+                                            return left.Equals(right);
                                         }
 
                                     """
@@ -409,7 +415,13 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                         /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
                                         public static bool operator !=({{symbolName}}? left, {{symbolName}}? right)
                                         {
-                                            return left is null || !left.Equals(right);
+                                            if (left is null && right is null)
+                                                return false;
+                                            if (left is null || right is null)
+                                                return true;
+                                            if (ReferenceEquals(left, right))
+                                                return false;
+                                            return !left.Equals(right);
                                         }
 
                                     """

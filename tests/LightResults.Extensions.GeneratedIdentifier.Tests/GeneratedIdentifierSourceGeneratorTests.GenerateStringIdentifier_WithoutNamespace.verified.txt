@@ -89,7 +89,13 @@ public sealed partial class TestStringId :
     /// <returns><c>true</c> if the instances are equal; otherwise, <c>false</c>.</returns>
     public static bool operator ==(TestStringId? left, TestStringId? right)
     {
-        return left is not null && left.Equals(right);
+        if (left is null && right is null)
+            return true;
+        if (left is null || right is null)
+            return false;
+        if (ReferenceEquals(left, right))
+            return true;
+        return left.Equals(right);
     }
 
     /// <summary>Determines whether two instances of <see cref="TestStringId" /> are not equal.</summary>
@@ -98,7 +104,13 @@ public sealed partial class TestStringId :
     /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
     public static bool operator !=(TestStringId? left, TestStringId? right)
     {
-        return left is null || !left.Equals(right);
+        if (left is null && right is null)
+            return false;
+        if (left is null || right is null)
+            return true;
+        if (ReferenceEquals(left, right))
+            return false;
+        return !left.Equals(right);
     }
 
     /// <inheritdoc />
