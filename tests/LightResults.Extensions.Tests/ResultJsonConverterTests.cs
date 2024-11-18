@@ -36,6 +36,19 @@ public sealed class ResultJsonConverterTests
     }
 
     [Fact]
+    public void SuccessWithObjectValueResult()
+    {
+        // Arrange
+        var result = Result.Ok(new { Id = 1, Name = "Test" });
+
+        // Act
+        var json = JsonSerializer.Serialize(result, Options);
+
+        // Assert
+        json.Should().Be("{\"IsSuccess\":true,\"Value\":{\"Id\":1,\"Name\":\"Test\"}}");
+    }
+
+    [Fact]
     public void FailedResultWithSingleError()
     {
         // Arrange
