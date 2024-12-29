@@ -55,8 +55,10 @@ public sealed class TestStringIdTest
             .Should()
             .BeTrue();
         id.Should()
-            .NotBeNull();
-        id.ToString()
+            .NotBeNull()
+            .And
+            .Subject
+            .ToString()
             .Should()
             .Be(validValue);
     }

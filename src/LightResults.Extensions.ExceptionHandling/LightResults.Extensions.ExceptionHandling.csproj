@@ -16,9 +16,6 @@
     </PropertyGroup>
 
     <!-- References -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4"/>
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="LightResults" Version="8.0.10"/>
@@ -65,6 +62,9 @@
     <!-- Testing -->
     <ItemGroup>
         <InternalsVisibleTo Include="LightResults.Extensions.Tests"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.0"/>
     </ItemGroup>
 
 </Project>
