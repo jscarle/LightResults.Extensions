@@ -39,7 +39,7 @@ public sealed class ResultJsonConverterTests
     public void SuccessWithObjectValueResult()
     {
         // Arrange
-        var result = Result.Ok(new { Id = 1, Name = "Test" });
+        var result = Result.Success(new { Id = 1, Name = "Test" });
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
