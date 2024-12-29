@@ -25,9 +25,9 @@
     <!-- Output -->
     <PropertyGroup>
         <AssemblyName>LightResults.Extensions.ExceptionHandling</AssemblyName>
-        <Version>8.0.2</Version>
-        <AssemblyVersion>8.0.2.0</AssemblyVersion>
-        <FileVersion>8.0.2.0</FileVersion>
+        <Version>8.0.3</Version>
+        <AssemblyVersion>8.0.3.0</AssemblyVersion>
+        <FileVersion>8.0.3.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Optimize>true</Optimize>
         <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
