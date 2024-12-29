@@ -55,10 +55,10 @@ public readonly partial struct TestGuidId :
     public static Result<TestGuidId> TryCreate(Guid value)
     {
         var validation = Validate(value);
-        if (validation.IsFailed(out var error))
-            return Result.Fail<TestGuidId>(error);
+        if (validation.IsFailure(out var error))
+            return Result.Failure<TestGuidId>(error);
 
-        return Result.Ok<TestGuidId>(new TestGuidId(value, true));
+        return Result.Success<TestGuidId>(new TestGuidId(value, true));
     }
 
     /// <inheritdoc />
@@ -77,7 +77,7 @@ public readonly partial struct TestGuidId :
         if (Guid.TryParse(s, out var value))
             return TryCreate(value);
 
-        return Result.Fail<TestGuidId>("The string is not a valid identifier.");
+        return Result.Failure<TestGuidId>("The string is not a valid identifier.");
     }
 
     /// <inheritdoc />
@@ -193,7 +193,7 @@ public readonly partial struct TestGuidId :
 
     private static Result Validate(Guid value)
     {
-        return Result.Ok();
+        return Result.Success();
     }
 }
 

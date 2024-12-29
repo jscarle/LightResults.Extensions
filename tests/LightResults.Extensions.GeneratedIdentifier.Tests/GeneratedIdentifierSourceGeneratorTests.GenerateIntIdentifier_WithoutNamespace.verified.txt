@@ -55,10 +55,10 @@ public readonly partial struct TestIntId :
     public static Result<TestIntId> TryCreate(int value)
     {
         var validation = Validate(value);
-        if (validation.IsFailed(out var error))
-            return Result.Fail<TestIntId>(error);
+        if (validation.IsFailure(out var error))
+            return Result.Failure<TestIntId>(error);
 
-        return Result.Ok<TestIntId>(new TestIntId(value, true));
+        return Result.Success<TestIntId>(new TestIntId(value, true));
     }
 
     /// <inheritdoc />
@@ -77,7 +77,7 @@ public readonly partial struct TestIntId :
         if (int.TryParse(s, out var value))
             return TryCreate(value);
 
-        return Result.Fail<TestIntId>("The string is not a valid identifier.");
+        return Result.Failure<TestIntId>("The string is not a valid identifier.");
     }
 
     /// <inheritdoc />
@@ -194,9 +194,9 @@ public readonly partial struct TestIntId :
     private static Result Validate(int value)
     {
         if (value < 0)
-            return Result.Fail("The value must be equal to or greater than zero.");
+            return Result.Failure("The value must be equal to or greater than zero.");
 
-        return Result.Ok();
+        return Result.Success();
     }
 }
 

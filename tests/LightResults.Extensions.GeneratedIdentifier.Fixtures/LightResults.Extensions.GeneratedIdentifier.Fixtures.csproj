@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="LightResults" Version="9.0.0-preview.15"/>
+        <PackageReference Include="LightResults" Version="9.0.0" />
         <PackageReference Include="LightResults.Extensions.ValueObjects" Version="9.0.0-preview.3"/>
     </ItemGroup>
 

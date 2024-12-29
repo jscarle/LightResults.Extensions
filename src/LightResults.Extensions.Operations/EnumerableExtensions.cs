@@ -34,7 +34,7 @@ public static class EnumerableExtensions
             errors.AddRange(next.Errors);
         }
         
-        return errors is { Count: > 0 } ? Result.Fail(errors.AsReadOnly()) : Result.Ok();
+        return errors is { Count: > 0 } ? Result.Failure(errors.AsReadOnly()) : Result.Success();
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -65,7 +65,7 @@ public static class EnumerableExtensions
             errors.AddRange(next.Errors);
         }
         
-        return errors is { Count: > 0 } ? Result.Fail(errors.AsReadOnly()) : Result.Ok();
+        return errors is { Count: > 0 } ? Result.Failure(errors.AsReadOnly()) : Result.Success();
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -106,7 +106,7 @@ public static class EnumerableExtensions
         
         Debug.Assert(errors is { Count: > 0 } || values is not null);
         
-        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values!.AsReadOnly());
+        return errors is { Count: > 0 } ? Result.Failure<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Success<IReadOnlyList<TValue>>(values!.AsReadOnly());
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -146,6 +146,6 @@ public static class EnumerableExtensions
         
         Debug.Assert(errors is { Count: > 0 } || values is not null);
         
-        return errors is { Count: > 0 } ? Result.Fail<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Ok<IReadOnlyList<TValue>>(values!.AsReadOnly());
+        return errors is { Count: > 0 } ? Result.Failure<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Success<IReadOnlyList<TValue>>(values!.AsReadOnly());
     }
 }

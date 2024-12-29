@@ -225,10 +225,10 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                     public static Result<{{symbolName}}> TryCreate({{declaredValueType}} value)
                                     {
                                         var validation = Validate(value);
-                                        if (validation.IsFailed(out var error))
-                                            return Result.Fail<{{symbolName}}>(error);
+                                        if (validation.IsFailure(out var error))
+                                            return Result.Failure<{{symbolName}}>(error);
                                 
-                                        return Result.Ok<{{symbolName}}>(new {{symbolName}}(value, true));
+                                        return Result.Success<{{symbolName}}>(new {{symbolName}}(value, true));
                                     }
 
                                 """
@@ -257,7 +257,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                             if ({{declaredValueType}}.TryParse(s, out var value))
                                                 return TryCreate(value);
                                     
-                                            return Result.Fail<{{symbolName}}>("The string is not a valid identifier.");
+                                            return Result.Failure<{{symbolName}}>("The string is not a valid identifier.");
                                         }
 
                                     """
@@ -644,7 +644,7 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                 source.AppendLine($$"""
                                         private static Result Validate({{declaredValueType}} value)
                                         {
-                                            return Result.Ok();
+                                            return Result.Success();
                                         }
                                     """
                 );
@@ -653,9 +653,9 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                         private static Result Validate({{declaredValueType}} value)
                                         {
                                             if (string.IsNullOrWhiteSpace(value))
-                                                return Result.Fail("The value must not be empty.");
+                                                return Result.Failure("The value must not be empty.");
                                     
-                                            return Result.Ok();
+                                            return Result.Success();
                                         }
                                     """
                 );
@@ -664,9 +664,9 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                         private static Result Validate({{declaredValueType}} value)
                                         {
                                             if (value < 0)
-                                                return Result.Fail("The value must be equal to or greater than zero.");
+                                                return Result.Failure("The value must be equal to or greater than zero.");
                                     
-                                            return Result.Ok();
+                                            return Result.Success();
                                         }
                                     """
                 );

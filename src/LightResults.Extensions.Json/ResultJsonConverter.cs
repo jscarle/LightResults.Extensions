@@ -39,7 +39,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
     public override void Write(Utf8JsonWriter writer, Result value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
-        if (value.IsSuccess())
+        if (value.IsSuccess)
         {
             writer.WriteBoolean(IsSuccess, true);
         }

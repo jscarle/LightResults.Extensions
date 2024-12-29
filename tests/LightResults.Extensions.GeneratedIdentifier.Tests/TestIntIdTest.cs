@@ -71,7 +71,7 @@ public sealed class TestIntIdTest
         var result = TestIntId.TryCreate(invalidValue);
 
         // Assert
-        result.IsFailed()
+        result.IsFailure()
             .Should()
             .BeTrue();
         result.Errors
@@ -137,7 +137,7 @@ public sealed class TestIntIdTest
         var result = TestIntId.TryParse(invalidString);
 
         // Assert
-        result.IsFailed()
+        result.IsFailure()
             .Should()
             .BeTrue();
         result.Errors

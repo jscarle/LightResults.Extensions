@@ -41,10 +41,10 @@ public readonly struct ValueObjectCollection<TValue> : IParsableValueObject<Valu
                 .IsSuccess(out var valueObject, out var error))
                 builder.Add(valueObject);
             else
-                return Result.Fail<ValueObjectCollection<TValue>>(error);
+                return Result.Failure<ValueObjectCollection<TValue>>(error);
         }
         var values = new ValueObjectCollection<TValue>(builder.ToImmutable());
-        return Result.Ok(values);
+        return Result.Success(values);
     }
 
     public static bool TryParse(string s, out ValueObjectCollection<TValue> valueObjectCollection)

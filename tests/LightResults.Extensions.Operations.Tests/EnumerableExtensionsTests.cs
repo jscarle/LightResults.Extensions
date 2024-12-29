@@ -12,8 +12,8 @@ public sealed class EnumerableExtensionsTests
         // Arrange
         var results = new[]
         {
-            Result.Ok(),
-            Result.Ok()
+            Result.Success(),
+            Result.Success()
         };
 
         // Act
@@ -31,9 +31,9 @@ public sealed class EnumerableExtensionsTests
         var error2 = new Error("Error message 2");
         var results = new[]
         {
-            Result.Ok(),
-            Result.Fail(error),
-            Result.Fail(error2)
+            Result.Success(),
+            Result.Failure(error),
+            Result.Failure(error2)
         };
 
         // Act
@@ -50,8 +50,8 @@ public sealed class EnumerableExtensionsTests
         // Arrange
         var results = new[]
         {
-            Result.Ok(42),
-            Result.Ok(43)
+            Result.Success(42),
+            Result.Success(43)
         };
 
         // Act
@@ -70,9 +70,9 @@ public sealed class EnumerableExtensionsTests
         var error2 = new Error("Error message 2");
         var results = new[]
         {
-            Result.Ok(42),
-            Result.Fail<int>(error),
-            Result.Fail<int>(error2)
+            Result.Success(42),
+            Result.Failure<int>(error),
+            Result.Failure<int>(error2)
         };
 
         // Act

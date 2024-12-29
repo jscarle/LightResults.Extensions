@@ -17,22 +17,22 @@ public partial class Benchmarks
 
         var enumerable = new List<Result>();
         for (int i = 0; i < Iterations; i++)
-            enumerable.Add(random.Next(0, 1) == 0 ? Result.Ok() : Result.Fail(i.ToString()));
+            enumerable.Add(random.Next(0, 1) == 0 ? Result.Success() : Result.Failure(i.ToString()));
         _lightResultsEnumerable = enumerable.AsEnumerable();
 
         var readOnlyList = new List<Result>();
         for (int i = 0; i < Iterations; i++)
-            readOnlyList.Add(random.Next(0, 1) == 0 ? Result.Ok() : Result.Fail(i.ToString()));
+            readOnlyList.Add(random.Next(0, 1) == 0 ? Result.Success() : Result.Failure(i.ToString()));
         _lightResultsReadOnlyList = readOnlyList;
 
         var enumerableT = new List<Result<int>>();
         for (int i = 0; i < Iterations; i++)
-            enumerableT.Add(random.Next(0, 1) == 0 ? Result.Ok(i) : Result.Fail<int>(i.ToString()));
+            enumerableT.Add(random.Next(0, 1) == 0 ? Result.Success(i) : Result.Failure<int>(i.ToString()));
         _lightResultsTValueEnumerable = enumerableT.AsEnumerable();
 
         var readOnlyListT = new List<Result<int>>();
         for (int i = 0; i < Iterations; i++)
-            readOnlyListT.Add(random.Next(0, 1) == 0 ? Result.Ok(i) : Result.Fail<int>(i.ToString()));
+            readOnlyListT.Add(random.Next(0, 1) == 0 ? Result.Success(i) : Result.Failure<int>(i.ToString()));
         _lightResultsTValueReadOnlyList = readOnlyListT;
     }
 

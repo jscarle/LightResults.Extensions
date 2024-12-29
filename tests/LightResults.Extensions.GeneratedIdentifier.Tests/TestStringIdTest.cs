@@ -73,7 +73,7 @@ public sealed class TestStringIdTest
         var result = TestStringId.TryCreate(invalidValue);
 
         // Assert
-        result.IsFailed()
+        result.IsFailure()
             .Should()
             .BeTrue();
         result.Errors

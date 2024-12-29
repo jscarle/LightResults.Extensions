@@ -20,7 +20,7 @@ public sealed class ValueObjectException : Exception
     {
         ArgumentNullException.ThrowIfNull(result);
 
-        if (result.IsFailed(out var error))
+        if (result.IsFailure(out var error))
             throw new ValueObjectException(error.Message);
     }
 }

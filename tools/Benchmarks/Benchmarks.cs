@@ -55,7 +55,7 @@ public class Benchmarks
         var random = new Random(Seed);
         var enumerableAllOk = new List<Result>();
         for (var index = 0; index < Iterations; index++)
-            enumerableAllOk.Add(random.Next(min, max) == 0 ? Result.Ok() : Result.Fail(index.ToString()));
+            enumerableAllOk.Add(random.Next(min, max) == 0 ? Result.Success() : Result.Failure(index.ToString()));
         return enumerableAllOk.AsEnumerable();
     }
 
@@ -65,7 +65,7 @@ public class Benchmarks
         var random = new Random(Seed);
         var enumerableTAllOk = new List<Result<string>>();
         for (var index = 0; index < Iterations; index++)
-            enumerableTAllOk.Add(random.Next(min, max) == 0 ? Result.Ok(index.ToString()) : Result.Fail<string>(index.ToString()));
+            enumerableTAllOk.Add(random.Next(min, max) == 0 ? Result.Success(index.ToString()) : Result.Failure<string>(index.ToString()));
         return enumerableTAllOk.AsEnumerable();
     }
 
@@ -75,7 +75,7 @@ public class Benchmarks
         var random = new Random(Seed);
         var readOnlyListAllOk = new List<Result>();
         for (var index = 0; index < Iterations; index++)
-            readOnlyListAllOk.Add(random.Next(min, max) == 0 ? Result.Ok() : Result.Fail(index.ToString()));
+            readOnlyListAllOk.Add(random.Next(min, max) == 0 ? Result.Success() : Result.Failure(index.ToString()));
         return readOnlyListAllOk.AsReadOnly();
     }
 
@@ -85,7 +85,7 @@ public class Benchmarks
         var random = new Random(Seed);
         var readOnlyListTAllOk = new List<Result<string>>();
         for (var index = 0; index < Iterations; index++)
-            readOnlyListTAllOk.Add(random.Next(min, max) == 0 ? Result.Ok(index.ToString()) : Result.Fail<string>(index.ToString()));
+            readOnlyListTAllOk.Add(random.Next(min, max) == 0 ? Result.Success(index.ToString()) : Result.Failure<string>(index.ToString()));
         return readOnlyListTAllOk.AsReadOnly();
     }
 

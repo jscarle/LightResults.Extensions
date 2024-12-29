@@ -108,7 +108,7 @@ public sealed class TestGuidIdTest
         var result = TestGuidId.TryParse(invalidString);
 
         // Assert
-        result.IsFailed()
+        result.IsFailure()
             .Should()
             .BeTrue();
         result.Errors

@@ -41,10 +41,10 @@ public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
     public override void Write(Utf8JsonWriter writer, Result<TValue> value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
-        if (value.IsSuccess(out var resultValue))
+        if (value.IsSuccess)
         {
             writer.WriteBoolean(IsSuccess, true);
-            WriteObject(writer, Value, resultValue);
+            WriteObject(writer, Value, value.Value);
         }
         else
         {

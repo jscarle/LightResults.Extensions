@@ -51,10 +51,10 @@ public sealed partial class TestStringId :
     public static Result<TestStringId> TryCreate(string value)
     {
         var validation = Validate(value);
-        if (validation.IsFailed(out var error))
-            return Result.Fail<TestStringId>(error);
+        if (validation.IsFailure(out var error))
+            return Result.Failure<TestStringId>(error);
 
-        return Result.Ok<TestStringId>(new TestStringId(value, true));
+        return Result.Success<TestStringId>(new TestStringId(value, true));
     }
 
   /// <inheritdoc />
@@ -186,9 +186,9 @@ public sealed partial class TestStringId :
     private static Result Validate(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            return Result.Fail("The value must not be empty.");
+            return Result.Failure("The value must not be empty.");
 
-        return Result.Ok();
+        return Result.Success();
     }
 }
 
