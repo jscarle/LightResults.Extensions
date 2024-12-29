@@ -13,7 +13,7 @@ public sealed class ResultJsonConverterTests
     public void SuccessResult()
     {
         // Arrange
-        var result = Result.Ok();
+        var result = Result.Success();
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -26,7 +26,7 @@ public sealed class ResultJsonConverterTests
     public void SuccessWithValueResult()
     {
         // Arrange
-        var result = Result.Ok(42);
+        var result = Result.Success(42);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -40,7 +40,7 @@ public sealed class ResultJsonConverterTests
     {
         // Arrange
         const string errorMessage = "Sample error message";
-        var result = Result.Fail(errorMessage);
+        var result = Result.Failure(errorMessage);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -54,8 +54,8 @@ public sealed class ResultJsonConverterTests
     {
         // Arrange
         const string errorMessage = "Sample error message";
-        IDictionary<string, object> metadata = new Dictionary<string, object> { { "Key", 0 } };
-        var result = Result.Fail(errorMessage, metadata);
+        IReadOnlyDictionary<string, object> metadata = new Dictionary<string, object> { { "Key", 0 } };
+        var result = Result.Failure(errorMessage, metadata);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -73,8 +73,8 @@ public sealed class ResultJsonConverterTests
         // Arrange
         const string errorMessage = "Sample error message";
         var exception = new InvalidOperationException();
-        IDictionary<string, object> metadata = new Dictionary<string, object> { { "Exception", exception } };
-        var result = Result.Fail(errorMessage, metadata);
+        IReadOnlyDictionary<string, object> metadata = new Dictionary<string, object> { { "Exception", exception } };
+        var result = Result.Failure(errorMessage, metadata);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -92,8 +92,8 @@ public sealed class ResultJsonConverterTests
         // Arrange
         const string errorMessage = "Sample error message";
         var exception = new InvalidProgramException("Invalid program!", new InvalidOperationException());
-        IDictionary<string, object> metadata = new Dictionary<string, object> { { "Exception", exception } };
-        var result = Result.Fail(errorMessage, metadata);
+        IReadOnlyDictionary<string, object> metadata = new Dictionary<string, object> { { "Exception", exception } };
+        var result = Result.Failure(errorMessage, metadata);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -110,8 +110,8 @@ public sealed class ResultJsonConverterTests
     {
         // Arrange
         const string errorMessage = "Sample error message";
-        IDictionary<string, object> metadata = new Dictionary<string, object> { { "Key", 0 }, { "OtherKey", 1 } };
-        var result = Result.Fail(errorMessage, metadata);
+        IReadOnlyDictionary<string, object> metadata = new Dictionary<string, object> { { "Key", 0 }, { "OtherKey", 1 } };
+        var result = Result.Failure(errorMessage, metadata);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
@@ -128,7 +128,7 @@ public sealed class ResultJsonConverterTests
     {
         // Arrange
         var errors = new List<IError> { new Error("Error 1"), new Error("Error 2") };
-        var result = Result.Fail(errors);
+        var result = Result.Failure(errors);
 
         // Act
         var json = JsonSerializer.Serialize(result, Options);
