@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using FluentAssertions;
+using Shouldly;
 using LightResults.Extensions.Json;
 using Xunit;
 
@@ -19,7 +19,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should().Be("{\"IsSuccess\":true}");
+        json.ShouldBe("{\"IsSuccess\":true}");
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should().Be("{\"IsSuccess\":true,\"Value\":42}");
+        json.ShouldBe("{\"IsSuccess\":true,\"Value\":42}");
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should().Be("{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\"}]}");
+        json.ShouldBe("{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\"}]}");
     }
 
     [Fact]
@@ -61,8 +61,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should()
-            .Be(
+        json.ShouldBe(
                 "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Key\":{\"$type\":\"System.Int32\",\"Value\":0}}}]}"
             );
     }
@@ -80,8 +79,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should()
-            .Be(
+        json.ShouldBe(
                 "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Exception\":{\"$type\":\"System.InvalidOperationException\",\"Message\":\"Operation is not valid due to the current state of the object.\",\"StackTrace\":null}}}]}"
             );
     }
@@ -99,8 +97,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should()
-            .Be(
+        json.ShouldBe(
                 "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Exception\":{\"$type\":\"System.InvalidProgramException\",\"Message\":\"Invalid program!\",\"StackTrace\":null,\"InnerException\":{\"$type\":\"System.InvalidOperationException\",\"Message\":\"Operation is not valid due to the current state of the object.\",\"StackTrace\":null}}}}]}"
             );
     }
@@ -117,8 +114,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should()
-            .Be(
+        json.ShouldBe(
                 "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Sample error message\",\"Metadata\":{\"Key\":{\"$type\":\"System.Int32\",\"Value\":0},\"OtherKey\":{\"$type\":\"System.Int32\",\"Value\":1}}}]}"
             );
     }
@@ -134,8 +130,7 @@ public sealed class ResultJsonConverterTests
         var json = JsonSerializer.Serialize(result, Options);
 
         // Assert
-        json.Should()
-            .Be(
+        json.ShouldBe(
                 "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Error 1\"},{\"$type\":\"LightResults.Error\",\"Message\":\"Error 2\"}]}"
             );
     }

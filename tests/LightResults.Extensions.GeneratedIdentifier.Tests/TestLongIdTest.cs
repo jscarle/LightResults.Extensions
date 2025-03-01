@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using LightResults.Extensions.GeneratedIdentifier.Fixtures.Identifiers;
 using LightResults.Extensions.ValueObjects;
 
@@ -20,11 +20,7 @@ public sealed class TestLongIdTest
         var id = TestLongId.Create(validValue);
 
         // Assert
-        id.Should()
-            .NotBeNull();
-        id.ToInt64()
-            .Should()
-            .Be(validValue);
+        id.ToInt64().ShouldBe(validValue);
     }
 
     [Fact]
@@ -34,11 +30,10 @@ public sealed class TestLongIdTest
         const int invalidValue = -1;
 
         // Act
-        var create = () => TestLongId.Create(invalidValue);
+        Func<object?> create = () => TestLongId.Create(invalidValue);
 
         // Assert
-        create.Should()
-            .Throw<ValueObjectException>();
+        Should.Throw<ValueObjectException>(create);
     }
 
     [Fact]
@@ -51,14 +46,8 @@ public sealed class TestLongIdTest
         var result = TestLongId.TryCreate(validValue);
 
         // Assert
-        result.IsSuccess(out var id)
-            .Should()
-            .BeTrue();
-        id.Should()
-            .NotBeNull();
-        id.ToInt64()
-            .Should()
-            .Be(validValue);
+        result.IsSuccess(out var id).ShouldBeTrue();
+        id.ToInt64().ShouldBe(validValue);
     }
 
     [Fact]
@@ -71,12 +60,8 @@ public sealed class TestLongIdTest
         var result = TestLongId.TryCreate(invalidValue);
 
         // Assert
-        result.IsFailure()
-            .Should()
-            .BeTrue();
-        result.Errors
-            .Should()
-            .ContainSingle();
+        result.IsFailure().ShouldBeTrue();
+        result.Errors.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -89,10 +74,7 @@ public sealed class TestLongIdTest
         var result = TestLongId.Parse(validString);
 
         // Assert
-
-        result.ToInt64()
-            .Should()
-            .Be(long.Parse(validString));
+        result.ToInt64().ShouldBe(long.Parse(validString));
     }
 
     [Theory]
@@ -101,11 +83,10 @@ public sealed class TestLongIdTest
     public void Parse_InvalidString_ShouldThrowException(string invalidString)
     {
         // Act
-        var parse = () => TestLongId.Parse(invalidString);
+        Func<object?> parse = () => TestLongId.Parse(invalidString);
 
         // Assert
-        parse.Should()
-            .Throw<ValueObjectException>();
+        Should.Throw<ValueObjectException>(parse);
     }
 
     [Fact]
@@ -118,14 +99,8 @@ public sealed class TestLongIdTest
         var result = TestLongId.TryParse(validString);
 
         // Assert
-        result.IsSuccess(out var id)
-            .Should()
-            .BeTrue();
-        id.Should()
-            .NotBeNull();
-        id.ToInt64()
-            .Should()
-            .Be(long.Parse(validString));
+        result.IsSuccess(out var id).ShouldBeTrue();
+        id.ToInt64().ShouldBe(long.Parse(validString));
     }
 
     [Theory]
@@ -137,12 +112,8 @@ public sealed class TestLongIdTest
         var result = TestLongId.TryParse(invalidString);
 
         // Assert
-        result.IsFailure()
-            .Should()
-            .BeTrue();
-        result.Errors
-            .Should()
-            .ContainSingle();
+        result.IsFailure().ShouldBeTrue();
+        result.Errors.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -153,12 +124,9 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(42);
 
         // Assert
-        id1.Should()
-            .Be(id2);
-        (id1 == id2).Should()
-            .BeTrue();
-        (id1 != id2).Should()
-            .BeFalse();
+        id1.ShouldBe(id2);
+        (id1 == id2).ShouldBeTrue();
+        (id1 != id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -169,12 +137,9 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(99);
 
         // Assert
-        id1.Should()
-            .NotBe(id2);
-        (id1 == id2).Should()
-            .BeFalse();
-        (id1 != id2).Should()
-            .BeTrue();
+        id1.ShouldNotBe(id2);
+        (id1 == id2).ShouldBeFalse();
+        (id1 != id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -187,8 +152,7 @@ public sealed class TestLongIdTest
         var result = id.Equals(null);
 
         // Assert
-        result.Should()
-            .BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -201,8 +165,7 @@ public sealed class TestLongIdTest
         var result = id.Equals("not an TestLongId");
 
         // Assert
-        result.Should()
-            .BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -217,8 +180,7 @@ public sealed class TestLongIdTest
         var hashCode2 = underlyingValue.GetHashCode();
 
         // Assert
-        hashCode1.Should()
-            .Be(hashCode2);
+        hashCode1.ShouldBe(hashCode2);
     }
 
     [Fact]
@@ -229,10 +191,8 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(42);
 
         // Assert
-        (id1 == id2).Should()
-            .BeTrue();
-        (id1 != id2).Should()
-            .BeFalse();
+        (id1 == id2).ShouldBeTrue();
+        (id1 != id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -243,10 +203,8 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(99);
 
         // Assert
-        (id1 != id2).Should()
-            .BeTrue();
-        (id1 == id2).Should()
-            .BeFalse();
+        (id1 != id2).ShouldBeTrue();
+        (id1 == id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -260,8 +218,7 @@ public sealed class TestLongIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .Be(0);
+        result.ShouldBe(0);
     }
 
     [Fact]
@@ -275,8 +232,7 @@ public sealed class TestLongIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .BeNegative();
+        result.ShouldBeLessThan(0);
     }
 
     [Fact]
@@ -290,8 +246,7 @@ public sealed class TestLongIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .BePositive();
+        result.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -302,8 +257,7 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(99);
 
         // Assert
-        (id1 < id2).Should()
-            .BeTrue();
+        (id1 < id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -314,8 +268,7 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(42);
 
         // Assert
-        (id1 > id2).Should()
-            .BeTrue();
+        (id1 > id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -326,10 +279,8 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(99);
 
         // Assert
-        (id1 <= id2).Should()
-            .BeTrue();
-        (id1 <= id1).Should()
-            .BeTrue();
+        (id1 <= id2).ShouldBeTrue();
+        (id1 <= id1).ShouldBeTrue();
     }
 
     [Fact]
@@ -340,10 +291,8 @@ public sealed class TestLongIdTest
         var id2 = TestLongId.Create(42);
 
         // Assert
-        (id1 >= id2).Should()
-            .BeTrue();
-        (id1 >= id1).Should()
-            .BeTrue();
+        (id1 >= id2).ShouldBeTrue();
+        (id1 >= id1).ShouldBeTrue();
     }
 
     [Fact]
@@ -356,8 +305,7 @@ public sealed class TestLongIdTest
         var result = id.CompareTo(null);
 
         // Assert
-        result.Should()
-            .BePositive();
+        result.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -367,11 +315,10 @@ public sealed class TestLongIdTest
         var id = TestLongId.Create(42);
 
         // Act
-        var compareTo = () => id.CompareTo("not an TestLongId");
+        Func<object?> compareTo = () => id.CompareTo("not an TestLongId");
 
         // Assert
-        compareTo.Should()
-            .Throw<ArgumentException>();
+        Should.Throw<ArgumentException>(compareTo);
     }
 
     [Fact]
@@ -384,8 +331,7 @@ public sealed class TestLongIdTest
         var integerValue = id.ToInt64();
 
         // Assert
-        integerValue.Should()
-            .Be(42);
+        integerValue.ShouldBe(42);
     }
 
     [Fact]
@@ -398,7 +344,6 @@ public sealed class TestLongIdTest
         var stringValue = id.ToString();
 
         // Assert
-        stringValue.Should()
-            .Be("42");
+        stringValue.ShouldBe("42");
     }
 }

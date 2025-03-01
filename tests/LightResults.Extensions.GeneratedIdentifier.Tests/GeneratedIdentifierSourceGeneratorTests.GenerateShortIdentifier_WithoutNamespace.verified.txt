@@ -26,9 +26,6 @@ public readonly partial struct TestShortId :
     IComparable<TestShortId>,
     IComparable
 {
-    /// <summary>Gets whether this identifier is the default value.</summary>
-    public bool IsDefault => _value == default;
-
     short IValueObject<short, TestShortId>.Value => _value;
 
     private readonly short _value;

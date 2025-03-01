@@ -28,9 +28,6 @@ public readonly partial struct TestGuidId :
     IComparable<TestGuidId>,
     IComparable
 {
-    /// <summary>Gets whether this identifier is the default value.</summary>
-    public bool IsDefault => _value == default;
-
     Guid IValueObject<Guid, TestGuidId>.Value => _value;
 
     private readonly Guid _value;

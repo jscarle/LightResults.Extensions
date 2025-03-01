@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using LightResults.Extensions.GeneratedIdentifier.Fixtures.Identifiers;
 using LightResults.Extensions.ValueObjects;
 
@@ -23,11 +23,7 @@ public sealed class TestGuidIdTest
         var id = TestGuidId.Create(validValue);
 
         // Assert
-        id.Should()
-            .NotBeNull();
-        id.ToGuid()
-            .Should()
-            .Be(validValue);
+        id.ToGuid().ShouldBe(validValue);
     }
 
     [Fact]
@@ -40,14 +36,8 @@ public sealed class TestGuidIdTest
         var result = TestGuidId.TryCreate(validValue);
 
         // Assert
-        result.IsSuccess(out var id)
-            .Should()
-            .BeTrue();
-        id.Should()
-            .NotBeNull();
-        id.ToGuid()
-            .Should()
-            .Be(validValue);
+        result.IsSuccess(out var id).ShouldBeTrue();
+        id.ToGuid().ShouldBe(validValue);
     }
 
     [Fact]
@@ -60,10 +50,7 @@ public sealed class TestGuidIdTest
         var result = TestGuidId.Parse(validString);
 
         // Assert
-
-        result.ToGuid()
-            .Should()
-            .Be(Guid.Parse(validString));
+        result.ToGuid().ShouldBe(Guid.Parse(validString));
     }
 
     [Theory]
@@ -72,11 +59,10 @@ public sealed class TestGuidIdTest
     public void Parse_InvalidString_ShouldThrowException(string invalidString)
     {
         // Act
-        var parse = () => TestGuidId.Parse(invalidString);
+        Func<object?> parse = () => TestGuidId.Parse(invalidString);
 
         // Assert
-        parse.Should()
-            .Throw<ValueObjectException>();
+        Should.Throw<ValueObjectException>(parse);
     }
 
     [Fact]
@@ -89,14 +75,8 @@ public sealed class TestGuidIdTest
         var result = TestGuidId.TryParse(validString);
 
         // Assert
-        result.IsSuccess(out var id)
-            .Should()
-            .BeTrue();
-        id.Should()
-            .NotBeNull();
-        id.ToGuid()
-            .Should()
-            .Be(Guid.Parse(validString));
+        result.IsSuccess(out var id).ShouldBeTrue();
+        id.ToGuid().ShouldBe(Guid.Parse(validString));
     }
 
     [Theory]
@@ -108,12 +88,8 @@ public sealed class TestGuidIdTest
         var result = TestGuidId.TryParse(invalidString);
 
         // Assert
-        result.IsFailure()
-            .Should()
-            .BeTrue();
-        result.Errors
-            .Should()
-            .ContainSingle();
+        result.IsFailure().ShouldBeTrue();
+        result.Errors.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -124,12 +100,9 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid1);
 
         // Assert
-        id1.Should()
-            .Be(id2);
-        (id1 == id2).Should()
-            .BeTrue();
-        (id1 != id2).Should()
-            .BeFalse();
+        id1.ShouldBe(id2);
+        (id1 == id2).ShouldBeTrue();
+        (id1 != id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -140,12 +113,9 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid2);
 
         // Assert
-        id1.Should()
-            .NotBe(id2);
-        (id1 == id2).Should()
-            .BeFalse();
-        (id1 != id2).Should()
-            .BeTrue();
+        id1.ShouldNotBe(id2);
+        (id1 == id2).ShouldBeFalse();
+        (id1 != id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -158,8 +128,7 @@ public sealed class TestGuidIdTest
         var result = id.Equals(null);
 
         // Assert
-        result.Should()
-            .BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -172,8 +141,7 @@ public sealed class TestGuidIdTest
         var result = id.Equals("not an TestGuidId");
 
         // Assert
-        result.Should()
-            .BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -188,8 +156,7 @@ public sealed class TestGuidIdTest
         var hashCode2 = underlyingValue.GetHashCode();
 
         // Assert
-        hashCode1.Should()
-            .Be(hashCode2);
+        hashCode1.ShouldBe(hashCode2);
     }
 
     [Fact]
@@ -200,10 +167,8 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid1);
 
         // Assert
-        (id1 == id2).Should()
-            .BeTrue();
-        (id1 != id2).Should()
-            .BeFalse();
+        (id1 == id2).ShouldBeTrue();
+        (id1 != id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -214,10 +179,8 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid2);
 
         // Assert
-        (id1 != id2).Should()
-            .BeTrue();
-        (id1 == id2).Should()
-            .BeFalse();
+        (id1 != id2).ShouldBeTrue();
+        (id1 == id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -231,8 +194,7 @@ public sealed class TestGuidIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .Be(0);
+        result.ShouldBe(0);
     }
 
     [Fact]
@@ -246,8 +208,7 @@ public sealed class TestGuidIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .BeNegative();
+        result.ShouldBeLessThan(0);
     }
 
     [Fact]
@@ -261,8 +222,7 @@ public sealed class TestGuidIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .BePositive();
+        result.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -273,8 +233,7 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid2);
 
         // Assert
-        (id1 < id2).Should()
-            .BeTrue();
+        (id1 < id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -285,8 +244,7 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid1);
 
         // Assert
-        (id1 > id2).Should()
-            .BeTrue();
+        (id1 > id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -297,10 +255,8 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid2);
 
         // Assert
-        (id1 <= id2).Should()
-            .BeTrue();
-        (id1 <= id1).Should()
-            .BeTrue();
+        (id1 <= id2).ShouldBeTrue();
+        (id1 <= id1).ShouldBeTrue();
     }
 
     [Fact]
@@ -311,10 +267,8 @@ public sealed class TestGuidIdTest
         var id2 = TestGuidId.Create(Guid1);
 
         // Assert
-        (id1 >= id2).Should()
-            .BeTrue();
-        (id1 >= id1).Should()
-            .BeTrue();
+        (id1 >= id2).ShouldBeTrue();
+        (id1 >= id1).ShouldBeTrue();
     }
 
     [Fact]
@@ -327,8 +281,7 @@ public sealed class TestGuidIdTest
         var result = id.CompareTo(null);
 
         // Assert
-        result.Should()
-            .BePositive();
+        result.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -338,11 +291,10 @@ public sealed class TestGuidIdTest
         var id = TestGuidId.Create(Guid1);
 
         // Act
-        var compareTo = () => id.CompareTo("not an TestGuidId");
+        Func<object?> compareTo = () => id.CompareTo("not an TestGuidId");
 
         // Assert
-        compareTo.Should()
-            .Throw<ArgumentException>();
+        Should.Throw<ArgumentException>(compareTo);
     }
 
     [Fact]
@@ -355,8 +307,7 @@ public sealed class TestGuidIdTest
         var integerValue = id.ToGuid();
 
         // Assert
-        integerValue.Should()
-            .Be(Guid1);
+        integerValue.ShouldBe(Guid1);
     }
 
     [Fact]
@@ -369,7 +320,6 @@ public sealed class TestGuidIdTest
         var stringValue = id.ToString();
 
         // Assert
-        stringValue.Should()
-            .Be(Guid1.ToString());
+        stringValue.ShouldBe(Guid1.ToString());
     }
 }

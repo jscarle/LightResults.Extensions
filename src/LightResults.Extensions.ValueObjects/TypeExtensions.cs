@@ -16,7 +16,7 @@ public static class TypeExtensions
         }
         if (valueObjectInterface is null)
         {
-            valueObjectType = default!;
+            valueObjectType = null!;
             return false;
         }
 

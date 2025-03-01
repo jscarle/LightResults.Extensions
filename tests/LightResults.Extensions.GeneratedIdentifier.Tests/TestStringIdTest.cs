@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using LightResults.Extensions.GeneratedIdentifier.Fixtures.Identifiers;
 using LightResults.Extensions.ValueObjects;
 
@@ -20,11 +20,8 @@ public sealed class TestStringIdTest
         var id = TestStringId.Create(validValue);
 
         // Assert
-        id.Should()
-            .NotBeNull();
-        id.ToString()
-            .Should()
-            .Be(validValue);
+        id.ShouldNotBeNull();
+        id.ToString().ShouldBe(validValue);
     }
 
     [Fact]
@@ -37,8 +34,7 @@ public sealed class TestStringIdTest
         var create = () => TestStringId.Create(invalidValue);
 
         // Assert
-        create.Should()
-            .Throw<ValueObjectException>();
+        Should.Throw<ValueObjectException>(create);
     }
 
     [Fact]
@@ -51,16 +47,9 @@ public sealed class TestStringIdTest
         var result = TestStringId.TryCreate(validValue);
 
         // Assert
-        result.IsSuccess(out var id)
-            .Should()
-            .BeTrue();
-        id.Should()
-            .NotBeNull()
-            .And
-            .Subject
-            .ToString()
-            .Should()
-            .Be(validValue);
+        result.IsSuccess(out var id).ShouldBeTrue();
+        id.ShouldNotBeNull();
+        id.ToString().ShouldBe(validValue);
     }
 
     [Fact]
@@ -73,12 +62,8 @@ public sealed class TestStringIdTest
         var result = TestStringId.TryCreate(invalidValue);
 
         // Assert
-        result.IsFailure()
-            .Should()
-            .BeTrue();
-        result.Errors
-            .Should()
-            .ContainSingle();
+        result.IsFailure().ShouldBeTrue();
+        result.Errors.Count.ShouldBe(1);
     }
 
     [Fact]
@@ -89,12 +74,9 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("42");
 
         // Assert
-        id1.Should()
-            .Be(id2);
-        (id1 == id2).Should()
-            .BeTrue();
-        (id1 != id2).Should()
-            .BeFalse();
+        id1.ShouldBe(id2);
+        (id1 == id2).ShouldBeTrue();
+        (id1 != id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -105,12 +87,9 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("99");
 
         // Assert
-        id1.Should()
-            .NotBe(id2);
-        (id1 == id2).Should()
-            .BeFalse();
-        (id1 != id2).Should()
-            .BeTrue();
+        id1.ShouldNotBe(id2);
+        (id1 == id2).ShouldBeFalse();
+        (id1 != id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -123,8 +102,7 @@ public sealed class TestStringIdTest
         var result = id.Equals(null);
 
         // Assert
-        result.Should()
-            .BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -137,8 +115,7 @@ public sealed class TestStringIdTest
         var result = id.Equals("not an TestStringId");
 
         // Assert
-        result.Should()
-            .BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -153,8 +130,7 @@ public sealed class TestStringIdTest
         var hashCode2 = underlyingValue.GetHashCode();
 
         // Assert
-        hashCode1.Should()
-            .Be(hashCode2);
+        hashCode1.ShouldBe(hashCode2);
     }
 
     [Fact]
@@ -165,10 +141,8 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("42");
 
         // Assert
-        (id1 == id2).Should()
-            .BeTrue();
-        (id1 != id2).Should()
-            .BeFalse();
+        (id1 == id2).ShouldBeTrue();
+        (id1 != id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -179,10 +153,8 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("99");
 
         // Assert
-        (id1 != id2).Should()
-            .BeTrue();
-        (id1 == id2).Should()
-            .BeFalse();
+        (id1 != id2).ShouldBeTrue();
+        (id1 == id2).ShouldBeFalse();
     }
 
     [Fact]
@@ -196,8 +168,7 @@ public sealed class TestStringIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .Be(0);
+        result.ShouldBe(0);
     }
 
     [Fact]
@@ -211,8 +182,7 @@ public sealed class TestStringIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .BeNegative();
+        result.ShouldBeLessThan(0);
     }
 
     [Fact]
@@ -226,8 +196,7 @@ public sealed class TestStringIdTest
         var result = id1.CompareTo(id2);
 
         // Assert
-        result.Should()
-            .BePositive();
+        result.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -238,8 +207,7 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("99");
 
         // Assert
-        (id1 < id2).Should()
-            .BeTrue();
+        (id1 < id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -250,8 +218,7 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("42");
 
         // Assert
-        (id1 > id2).Should()
-            .BeTrue();
+        (id1 > id2).ShouldBeTrue();
     }
 
     [Fact]
@@ -262,10 +229,8 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("99");
 
         // Assert
-        (id1 <= id2).Should()
-            .BeTrue();
-        (id1 <= id1).Should()
-            .BeTrue();
+        (id1 <= id2).ShouldBeTrue();
+        (id1 <= id1).ShouldBeTrue();
     }
 
     [Fact]
@@ -276,10 +241,8 @@ public sealed class TestStringIdTest
         var id2 = TestStringId.Create("42");
 
         // Assert
-        (id1 >= id2).Should()
-            .BeTrue();
-        (id1 >= id1).Should()
-            .BeTrue();
+        (id1 >= id2).ShouldBeTrue();
+        (id1 >= id1).ShouldBeTrue();
     }
 
     [Fact]
@@ -292,8 +255,7 @@ public sealed class TestStringIdTest
         var result = id.CompareTo(null);
 
         // Assert
-        result.Should()
-            .BePositive();
+        result.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -303,11 +265,10 @@ public sealed class TestStringIdTest
         var id = TestStringId.Create("42");
 
         // Act
-        var compareTo = () => id.CompareTo("not an TestStringId");
+        Func<object?> compareTo = () => id.CompareTo("not an TestStringId");
 
         // Assert
-        compareTo.Should()
-            .Throw<ArgumentException>();
+        Should.Throw<ArgumentException>(compareTo);
     }
 
     [Fact]
@@ -320,8 +281,7 @@ public sealed class TestStringIdTest
         var integerValue = id.ToString();
 
         // Assert
-        integerValue.Should()
-            .Be("42");
+        integerValue.ShouldBe("42");
     }
 
     [Fact]
@@ -334,7 +294,6 @@ public sealed class TestStringIdTest
         var stringValue = id.ToString();
 
         // Assert
-        stringValue.Should()
-            .Be("42");
+        stringValue.ShouldBe("42");
     }
 }

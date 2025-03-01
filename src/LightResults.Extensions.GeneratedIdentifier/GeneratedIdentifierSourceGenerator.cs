@@ -178,14 +178,6 @@ public sealed class GeneratedIdentifierSourceGenerator : IIncrementalGenerator
                                 """
             );
 
-            if (isStruct)
-                source.AppendLine("""
-                                      /// <summary>Gets whether this identifier is the default value.</summary>
-                                      public bool IsDefault => _value == default;
-
-                                  """
-                );
-
             source.AppendLine($"""
                                    {declaredValueType} IValueObject<{declaredValueType}, {symbolName}>.Value => _value;
                                

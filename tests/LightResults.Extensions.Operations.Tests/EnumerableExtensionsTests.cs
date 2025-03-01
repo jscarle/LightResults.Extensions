@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using LightResults.Extensions.Operations;
 using Xunit;
 
@@ -20,7 +20,7 @@ public sealed class EnumerableExtensionsTests
         var result = results.Collect();
 
         // Assert
-        result.IsSuccess().Should().BeTrue();
+        result.IsSuccess().ShouldBeTrue();
     }
 
     [Fact]
@@ -40,8 +40,9 @@ public sealed class EnumerableExtensionsTests
         var result = results.Collect();
 
         // Assert
-        result.IsSuccess().Should().BeFalse();
-        result.Errors.Should().HaveCount(2).And.BeEquivalentTo([error, error2]);
+        result.IsSuccess().ShouldBeFalse();
+        result.Errors.Count.ShouldBe(2);
+        result.Errors.ShouldBe([error, error2], ignoreOrder: true);
     }
 
     [Fact]
@@ -58,8 +59,9 @@ public sealed class EnumerableExtensionsTests
         var result = results.Collect();
 
         // Assert
-        result.IsSuccess(out var values).Should().BeTrue();
-        values.Should().HaveCount(2).And.BeEquivalentTo([42, 43]);
+        result.IsSuccess(out var values).ShouldBeTrue();
+        values.Count.ShouldBe(2);
+        values.ShouldBe([42, 43], ignoreOrder: true);
     }
 
     [Fact]
@@ -79,7 +81,8 @@ public sealed class EnumerableExtensionsTests
         var result = results.Collect();
 
         // Assert
-        result.IsSuccess().Should().BeFalse();
-        result.Errors.Should().HaveCount(2).And.BeEquivalentTo([error, error2]);
+        result.IsSuccess().ShouldBeFalse();
+        result.Errors.Count.ShouldBe(2);
+        result.Errors.ShouldBe([error, error2], ignoreOrder: true);
     }
 }
