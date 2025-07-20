@@ -26,7 +26,7 @@ exception occurs, a failed result will be returned and the `Exception` will be a
 
 ```csharp
 var result = action.Try();
-if (result.IsSuccess)
+if (result.IsSuccess())
 {
     // Do something
 }
@@ -36,7 +36,7 @@ if (result.IsSuccess)
 
 ```csharp
 var result = action.Try(42);
-if (result.IsSuccess)
+if (result.IsSuccess())
 {
     // Do something
 }
@@ -46,10 +46,9 @@ if (result.IsSuccess)
 
 ```csharp
 var result = func.Try();
-if (result.IsSuccess)
+if (result.IsSuccess(out var value))
 {
-    var value = result.Value;
-    // Do something
+    // Do something with value
 }
 ```
 
@@ -57,10 +56,9 @@ if (result.IsSuccess)
 
 ```csharp
 var result = func.Try(42);
-if (result.IsSuccess)
+if (result.IsSuccess(out var value))
 {
-    var value = result.Value;
-    // Do something
+    // Do something with value
 }
 ```
 
@@ -83,7 +81,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethod()
     {
         var result = ExceptionHandler.Try(OrdinaryMethod);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -93,7 +91,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithArguments()
     {
         var result = ExceptionHandler.Try(OrdinaryMethodWithArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -103,10 +101,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturn()
     {
         var result = ExceptionHandler.Try(OrdinaryMethodWithReturn);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 
@@ -114,10 +111,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturnAndArguments()
     {
         var result = ExceptionHandler.Try(OrdinaryMethodWithReturnAndArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 }
@@ -134,7 +130,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethod()
     {
         var result = Try(OrdinaryMethod);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -144,7 +140,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithArguments()
     {
         var result = Try(OrdinaryMethodWithArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -154,10 +150,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturn()
     {
         var result = Try(OrdinaryMethodWithReturn);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 
@@ -165,10 +160,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturnAndArguments()
     {
         var result = Try(OrdinaryMethodWithReturnAndArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 }
@@ -178,9 +172,9 @@ public class OrdinaryClass
 
 ```csharp
 var result = action.Try();
-if (result.IsFailed)
+if (result.IsFailure(out var error))
 {
-    var ex = (Exception)result.Error.Metadata["Exception"];
+    var ex = (Exception)error.Metadata["Exception"];
     // Do something with the base exception type or...
     
     if (ex is ArgumentNullException argumentNullException)

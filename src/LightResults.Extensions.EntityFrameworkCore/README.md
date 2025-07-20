@@ -37,9 +37,9 @@ will be added to the result as metadata.
 
 ```csharp
 var result = dbContext.SaveChangesAsync();
-if (result.IsFailed)
+if (result.IsFailure(out var error))
 {
-    var ex = (Exception)result.Error.Metadata["Exception"];
+    var ex = (Exception)error.Metadata["Exception"];
     // Do something with the base exception type or...
     
     if (ex is DbUpdateException dbUpdateException)
