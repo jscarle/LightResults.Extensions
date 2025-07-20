@@ -12,7 +12,7 @@ public static partial class ExceptionHandler
         try
         {
             await valueTask.ConfigureAwait(false);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -31,7 +31,7 @@ public static partial class ExceptionHandler
         try
         {
             var result = await valueTask.ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {

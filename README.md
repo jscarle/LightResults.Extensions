@@ -4,7 +4,7 @@
 
 Extensions for [LightResults](https://github.com/jscarle/LightResults), an extremely light and modern Operation Result Pattern library for .NET.
 
-[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/develop.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/publish.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
 
 - [ExceptionHandling](https://jscarle.github.io/LightResults.Extensions/docs/exceptionhandling.html) - Provides extension methods for exception handling.
 
@@ -25,16 +25,6 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Operations)](https://www.nuget.org/packages/LightResults.Extensions.Operations)
   [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.Operations)](https://www.nuget.org/packages/LightResults.Extensions.Operations)
-
-- [ValueObjects](https://jscarle.github.io/LightResults.Extensions/docs/valueobjects.html) - Provides the elements to build value objects.
-
-  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.ValueObjects)](https://www.nuget.org/packages/LightResults.Extensions.ValueObjects)
-  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.ValueObjects)](https://www.nuget.org/packages/LightResults.Extensions.ValueObjects)
-
-- [GeneratedIdentifier](https://jscarle.github.io/LightResults.Extensions/docs/generatedidentifier.html) - Provides strongly-typed identifiers.
-
-  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.GeneratedIdentifier)](https://www.nuget.org/packages/LightResults.Extensions.GeneratedIdentifier)
-  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.GeneratedIdentifier)](https://www.nuget.org/packages/LightResults.Extensions.GeneratedIdentifier)
 
 ## Documentation
 

@@ -2,7 +2,7 @@
 
 Provides extension methods for exception handling using LightResults.
 
-[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/develop.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/publish.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.ExceptionHandling)](https://www.nuget.org/packages/LightResults.Extensions.ExceptionHandling)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.ExceptionHandling)](https://www.nuget.org/packages/LightResults.Extensions.ExceptionHandling)
 
@@ -55,8 +55,8 @@ if (result.IsSuccess)
 
 ### Using the Try method with methods
 
-Although extension methods for `Action` or `Func` cannot be attached to ordinary methods, the compiler will 
-automatically cast ordinary methods to `Action` or `Func` if only the method name is manually passed as the 
+Although extension methods for `Action` or `Func` cannot be attached to ordinary methods, the compiler will
+automatically cast ordinary methods to `Action` or `Func` if only the method name is manually passed as the
 argument to the extension method.
 
 There are two ways this can be achieved, both of which are explained below.

@@ -4,7 +4,7 @@
 
 Extensions for [LightResults](https://github.com/jscarle/LightResults), an extremely light and modern Operation Result Pattern library for .NET.
 
-[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/develop.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/publish.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
 
 ## ExceptionHandling
 

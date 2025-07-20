@@ -2,14 +2,14 @@
 
 Provides a DbContext that wraps context operations using LightResults.
 
-[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/develop.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/publish.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.EntityFrameworkCore)](https://www.nuget.org/packages/LightResults.Extensions.EntityFrameworkCore)
 
 ### New method definitions
 
 The following methods are wrapped internally with a `try { } catch { }` block and have their signatures
-updated to result a `Result`.  If an exception occurs, a failed result will be returned and the `Exception`
+updated to result a `Result`. If an exception occurs, a failed result will be returned and the `Exception`
 will be added to the result as metadata.
 
 - `AddAsync()`

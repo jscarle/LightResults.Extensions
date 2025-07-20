@@ -11,8 +11,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            await func().ConfigureAwait(false);
-            return Result.Ok();
+            await func()
+                .ConfigureAwait(false);
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -30,8 +31,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func().ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func()
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -51,8 +53,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -74,8 +77,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -99,8 +103,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -126,8 +131,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -162,8 +168,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -201,8 +208,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -243,8 +251,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -288,8 +297,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -336,8 +346,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -387,8 +398,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -441,8 +453,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -498,8 +511,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -558,8 +572,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -621,8 +636,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -687,8 +703,9 @@ public static partial class ExceptionHandler
     {
         try
         {
-            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15).ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15)
+                .ConfigureAwait(false);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
@@ -758,7 +775,7 @@ public static partial class ExceptionHandler
         {
             var result = await func(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16)
                 .ConfigureAwait(false);
-            return Result<TResult>.Ok(result);
+            return Result.Success(result);
         }
         catch (Exception ex)
         {
