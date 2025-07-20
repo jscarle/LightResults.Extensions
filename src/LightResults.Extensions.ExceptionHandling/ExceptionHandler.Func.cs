@@ -1,4 +1,4 @@
-﻿namespace LightResults.Extensions.ExceptionHandling;
+namespace LightResults.Extensions.ExceptionHandling;
 
 public static partial class ExceptionHandler
 {
