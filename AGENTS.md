@@ -1,6 +1,6 @@
 # Guidelines for AI Contributors
 
-Welcome to **LightResults.Extensions**. This repository contains high-performance C# libraries that extend the [LightResults](https://github.com/jscarle/LightResults) result pattern. The packages here are distributed to millions of consumers and many APIs are executed in extremely hot paths. All contributions must maintain very high quality and performance.
+This repository contains high-performance C# libraries that extend the [LightResults](https://github.com/jscarle/LightResults) result pattern. The packages here are distributed to millions of consumers and many APIs are executed in extremely hot paths. All contributions must maintain very high quality and performance.
 
 ## Repository layout
 
@@ -53,7 +53,7 @@ Many APIs are used millions of times per second. Pay attention to:
 - Avoiding exceptions for control flow. Instead, return `Result` failures.
 - Using `readonly struct` or `in` parameters when appropriate.
 - Avoiding boxing by using generic overloads when needed.
-- Profiling complex changes with the benchmarks in `tools/Benchmarks` if performance could be affected.
+- Never run the benchmarks in `tools/Benchmarks`.
 
 ## Commit guidelines
 
