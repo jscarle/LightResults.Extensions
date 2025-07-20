@@ -1,8 +1,8 @@
-﻿using Shouldly;
 using LightResults.Extensions.Operations;
+using Shouldly;
 using Xunit;
 
-namespace LightResults.Extensions.Tests;
+namespace LightResults.Extensions.Tests.Operations;
 
 public sealed class EnumerableExtensionsTests
 {
@@ -113,4 +113,4 @@ public sealed class EnumerableExtensionsTests
         result.IsSuccess(out var values).ShouldBeTrue();
         values!.Count.ShouldBe(0);
     }
-}
+} 

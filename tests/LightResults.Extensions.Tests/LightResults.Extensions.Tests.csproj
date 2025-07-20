@@ -13,6 +13,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\LightResults.Extensions.ExceptionHandling\LightResults.Extensions.ExceptionHandling.csproj"/>
         <ProjectReference Include="..\..\src\LightResults.Extensions.Json\LightResults.Extensions.Json.csproj"/>
+        <ProjectReference Include="..\..\src\LightResults.Extensions.Operations\LightResults.Extensions.Operations.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

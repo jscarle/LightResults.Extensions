@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <!-- Compilation -->
     <PropertyGroup>
@@ -25,9 +25,9 @@
     <!-- Output -->
     <PropertyGroup>
         <AssemblyName>LightResults.Extensions.ExceptionHandling</AssemblyName>
-        <Version>9.0.0</Version>
-        <AssemblyVersion>9.0.0.0</AssemblyVersion>
-        <FileVersion>9.0.0.0</FileVersion>
+        <Version>9.0.1</Version>
+        <AssemblyVersion>9.0.1.0</AssemblyVersion>
+        <FileVersion>9.0.1.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Optimize>true</Optimize>
         <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
