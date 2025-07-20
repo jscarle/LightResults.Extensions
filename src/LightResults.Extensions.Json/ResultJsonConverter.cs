@@ -179,6 +179,10 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
             case ulong value:
                 writer.WriteNumber(name, value);
                 break;
+            default:
+                writer.WritePropertyName(name);
+                JsonSerializer.Serialize(writer, obj, obj.GetType());
+                break;
         }
     }
 
