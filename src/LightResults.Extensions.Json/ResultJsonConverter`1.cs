@@ -88,8 +88,15 @@ public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
         writer.WriteEndObject();
     }
 
-    private static void WriteMetadataItem(Utf8JsonWriter writer, string key, object obj)
+    private static void WriteMetadataItem(Utf8JsonWriter writer, string key, object? obj)
     {
+        if (obj is null)
+        {
+            writer.WritePropertyName(key);
+            writer.WriteNullValue();
+            return;
+        }
+        
         if (obj is Exception ex)
         {
             writer.WritePropertyName(key);
