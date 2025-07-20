@@ -6,13 +6,13 @@
         <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <!-- Analysis -->
     <PropertyGroup>
         <AnalysisLevel>latest-All</AnalysisLevel>
-        <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     </PropertyGroup>
 
     <!-- References -->

@@ -31,7 +31,7 @@ public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
     /// <exception cref="NotImplementedException">Thrown when the method is called as it's not implemented.</exception>
     public override Result<TValue> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Converter does not support deserialization as Result types cannot be reliably deserialized without losing data.");
     }
 
     /// <summary>Writes a <see cref="Result"/> object to JSON.</summary>
