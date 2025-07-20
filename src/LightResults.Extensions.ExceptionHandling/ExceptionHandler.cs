@@ -1,4 +1,4 @@
-﻿namespace LightResults.Extensions.ExceptionHandling;
+namespace LightResults.Extensions.ExceptionHandling;
 
 /// <summary>Provides extension methods for handling exceptions using the <see cref="Result"/> type.</summary>
 public static partial class ExceptionHandler
@@ -8,13 +8,13 @@ public static partial class ExceptionHandler
     private static Result HandleException(Exception ex)
     {
         var error = GetExceptionError(ex);
-        return Result.Fail(error);
+        return Result.Failure(error);
     }
 
     private static Result<TResult> HandleException<TResult>(Exception ex)
     {
         var error = GetExceptionError(ex);
-        return Result<TResult>.Fail(error);
+        return Result.Failure<TResult>(error);
     }
 
     private static Error GetExceptionError(Exception ex)

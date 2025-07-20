@@ -4,7 +4,7 @@
 
 Extensions for [LightResults](https://github.com/jscarle/LightResults), an extremely light and modern Operation Result Pattern library for .NET.
 
-[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/main.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/publish.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
 
 ## EntityFrameworkCore
 
@@ -37,9 +37,9 @@ will be added to the result as metadata.
 
 ```csharp
 var result = dbContext.SaveChangesAsync();
-if (result.IsFailed)
+if (result.IsFailure(out var error))
 {
-    var ex = (Exception)result.Error.Metadata["Exception"];
+    var ex = (Exception)error.Metadata["Exception"];
     // Do something with the base exception type or...
     
     if (ex is DbUpdateException dbUpdateException)

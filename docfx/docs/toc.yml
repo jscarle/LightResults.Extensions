@@ -6,7 +6,3 @@
   href: json.md
 - name: Operations
   href: operations.md
-- name: ValueObjects
-  href: valueobjects.md
-- name: GeneratedIdentifier
-  href: generatedidentifier.md

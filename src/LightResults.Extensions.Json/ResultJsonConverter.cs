@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -29,7 +29,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
     /// <exception cref="NotImplementedException">Thrown when the method is called as it's not implemented.</exception>
     public override Result Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Converter does not support deserialization as Result types cannot be reliably deserialized without losing data.");
     }
 
     /// <summary>Writes a <see cref="Result"/> object to JSON.</summary>
@@ -39,7 +39,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
     public override void Write(Utf8JsonWriter writer, Result value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
-        if (value.IsSuccess)
+        if (value.IsSuccess())
         {
             writer.WriteBoolean(IsSuccess, true);
         }
@@ -63,7 +63,11 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
     private static void WriteError(Utf8JsonWriter writer, IError error)
     {
         writer.WriteStartObject();
-        writer.WriteString(TypeDiscriminator, error.GetType().FullName ?? error.GetType().Name);
+        writer.WriteString(TypeDiscriminator, error.GetType()
+                                                  .FullName
+                                              ?? error.GetType()
+                                                  .Name
+        );
         writer.WriteString(Message, error.Message);
         if (error.Metadata.Count > 0)
             WriteMetadata(writer, error);
@@ -81,8 +85,15 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
         writer.WriteEndObject();
     }
 
-    private static void WriteMetadataItem(Utf8JsonWriter writer, string key, object obj)
+    private static void WriteMetadataItem(Utf8JsonWriter writer, string key, object? obj)
     {
+        if (obj is null)
+        {
+            writer.WritePropertyName(key);
+            writer.WriteNullValue();
+            return;
+        }
+
         if (obj is Exception ex)
         {
             writer.WritePropertyName(key);
@@ -92,7 +103,11 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
 
         writer.WritePropertyName(key);
         writer.WriteStartObject();
-        writer.WriteString(TypeDiscriminator, obj.GetType().FullName ?? obj.GetType().Name);
+        writer.WriteString(TypeDiscriminator, obj.GetType()
+                                                  .FullName
+                                              ?? obj.GetType()
+                                                  .Name
+        );
         WriteObject(writer, MetadataValue, obj);
         writer.WriteEndObject();
     }
@@ -120,12 +135,12 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
                 writer.WriteString(name, value);
                 break;
             case DateOnly value:
-                writer.WritePropertyName(name);
-                writer.WriteStringValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+                var dateOnlyValue = value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                writer.WriteString(name, dateOnlyValue);
                 break;
             case TimeOnly value:
-                writer.WritePropertyName(name);
-                writer.WriteStringValue(value.ToString("HH:mm:ss", CultureInfo.InvariantCulture));
+                var timeOnlyValue = value.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+                writer.WriteString(name, timeOnlyValue);
                 break;
             case TimeSpan value:
                 writer.WritePropertyName(name);
@@ -164,13 +179,39 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
             case ulong value:
                 writer.WriteNumber(name, value);
                 break;
+#pragma warning disable IL2026
+#pragma warning disable IL3050
+#pragma warning disable CA1031
+            default:
+                try
+                {
+                    var json = JsonSerializer.Serialize(obj, obj.GetType());
+                    writer.WritePropertyName(name);
+                    writer.WriteRawValue(json);
+                }
+                catch
+                {
+                    var typeName = obj.GetType()
+                                       .FullName
+                                   ?? obj.GetType()
+                                       .Name;
+                    writer.WriteString(name, typeName);
+                }
+                break;
+#pragma warning restore IL3050
+#pragma warning restore IL2026
+#pragma warning restore CA1031
         }
     }
 
     private static void WriteExceptionValue(Utf8JsonWriter writer, Exception ex)
     {
         writer.WriteStartObject();
-        writer.WriteString(TypeDiscriminator, ex.GetType().FullName ?? ex.GetType().Name);
+        writer.WriteString(TypeDiscriminator, ex.GetType()
+                                                  .FullName
+                                              ?? ex.GetType()
+                                                  .Name
+        );
         writer.WriteString(ExceptionMessage, ex.Message);
         writer.WriteString(ExceptionStackTrace, ex.StackTrace);
         if (ex.InnerException is not null)

@@ -2,7 +2,7 @@
 
 Provides extension methods for exception handling using LightResults.
 
-[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/main.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
+[![main](https://img.shields.io/github/actions/workflow/status/jscarle/LightResults.Extensions/publish.yml?logo=github)](https://github.com/jscarle/LightResults.Extensions)
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.ExceptionHandling)](https://www.nuget.org/packages/LightResults.Extensions.ExceptionHandling)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.ExceptionHandling)](https://www.nuget.org/packages/LightResults.Extensions.ExceptionHandling)
 
@@ -15,7 +15,7 @@ exception occurs, a failed result will be returned and the `Exception` will be a
 
 ```csharp
 var result = action.Try();
-if (result.IsSuccess)
+if (result.IsSuccess())
 {
     // Do something
 }
@@ -25,7 +25,7 @@ if (result.IsSuccess)
 
 ```csharp
 var result = action.Try(42);
-if (result.IsSuccess)
+if (result.IsSuccess())
 {
     // Do something
 }
@@ -35,10 +35,9 @@ if (result.IsSuccess)
 
 ```csharp
 var result = func.Try();
-if (result.IsSuccess)
+if (result.IsSuccess(out var value))
 {
-    var value = result.Value;
-    // Do something
+    // Do something with value
 }
 ```
 
@@ -46,17 +45,16 @@ if (result.IsSuccess)
 
 ```csharp
 var result = func.Try(42);
-if (result.IsSuccess)
+if (result.IsSuccess(out var value))
 {
-    var value = result.Value;
-    // Do something
+    // Do something with value
 }
 ```
 
 ### Using the Try method with methods
 
-Although extension methods for `Action` or `Func` cannot be attached to ordinary methods, the compiler will 
-automatically cast ordinary methods to `Action` or `Func` if only the method name is manually passed as the 
+Although extension methods for `Action` or `Func` cannot be attached to ordinary methods, the compiler will
+automatically cast ordinary methods to `Action` or `Func` if only the method name is manually passed as the
 argument to the extension method.
 
 There are two ways this can be achieved, both of which are explained below.
@@ -72,7 +70,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethod()
     {
         var result = ExceptionHandler.Try(OrdinaryMethod);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -82,7 +80,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithArguments()
     {
         var result = ExceptionHandler.Try(OrdinaryMethodWithArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -92,10 +90,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturn()
     {
         var result = ExceptionHandler.Try(OrdinaryMethodWithReturn);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 
@@ -103,10 +100,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturnAndArguments()
     {
         var result = ExceptionHandler.Try(OrdinaryMethodWithReturnAndArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 }
@@ -123,7 +119,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethod()
     {
         var result = Try(OrdinaryMethod);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -133,7 +129,7 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithArguments()
     {
         var result = Try(OrdinaryMethodWithArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess())
         {
             // Do something
         }
@@ -143,10 +139,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturn()
     {
         var result = Try(OrdinaryMethodWithReturn);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 
@@ -154,10 +149,9 @@ public class OrdinaryClass
     public void TryOrdinaryMethodWithReturnAndArguments()
     {
         var result = Try(OrdinaryMethodWithReturnAndArguments, 1, 2);
-        if (result.IsSuccess)
+        if (result.IsSuccess(out var value))
         {
-            var value = result.Value;
-            // Do something
+            // Do something with value
         }
     }
 }
@@ -167,9 +161,9 @@ public class OrdinaryClass
 
 ```csharp
 var result = action.Try();
-if (result.IsFailed)
+if (result.IsFailure(out var error))
 {
-    var ex = (Exception)result.Error.Metadata["Exception"];
+    var ex = (Exception)error.Metadata["Exception"];
     // Do something with the base exception type or...
     
     if (ex is ArgumentNullException argumentNullException)

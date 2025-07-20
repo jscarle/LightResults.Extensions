@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 namespace LightResults.Extensions.Operations;
 
@@ -104,9 +104,14 @@ public static class EnumerableExtensions
             }
         }
         
+        if (errors is null)
+            values ??= [];
+
         Debug.Assert(errors is { Count: > 0 } || values is not null);
-        
-        return errors is { Count: > 0 } ? Result.Failure<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Success<IReadOnlyList<TValue>>(values!.AsReadOnly());
+
+        return errors is { Count: > 0 }
+            ? Result.Failure<IReadOnlyList<TValue>>(errors.AsReadOnly())
+            : Result.Success<IReadOnlyList<TValue>>(values!.AsReadOnly());
     }
 
     /// <summary>Combine multiple results into a single result.</summary>
@@ -144,8 +149,13 @@ public static class EnumerableExtensions
             }
         }
         
+        if (errors is null)
+            values ??= [];
+
         Debug.Assert(errors is { Count: > 0 } || values is not null);
-        
-        return errors is { Count: > 0 } ? Result.Failure<IReadOnlyList<TValue>>(errors.AsReadOnly()) : Result.Success<IReadOnlyList<TValue>>(values!.AsReadOnly());
+
+        return errors is { Count: > 0 }
+            ? Result.Failure<IReadOnlyList<TValue>>(errors.AsReadOnly())
+            : Result.Success<IReadOnlyList<TValue>>(values!.AsReadOnly());
     }
 }

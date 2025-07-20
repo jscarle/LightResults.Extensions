@@ -60,7 +60,7 @@ public sealed class EnumerableExtensionsTests
 
         // Assert
         result.IsSuccess(out var values).ShouldBeTrue();
-        values.Count.ShouldBe(2);
+        values!.Count.ShouldBe(2);
         values.ShouldBe([42, 43], ignoreOrder: true);
     }
 
@@ -84,5 +84,33 @@ public sealed class EnumerableExtensionsTests
         result.IsSuccess().ShouldBeFalse();
         result.Errors.Count.ShouldBe(2);
         result.Errors.ShouldBe([error, error2], ignoreOrder: true);
+    }
+
+    [Fact]
+    public void CollectTValue_WhenResultsAreEmpty_ShouldReturnOkResultWithEmptyValues()
+    {
+        // Arrange
+        var results = Array.Empty<Result<int>>();
+
+        // Act
+        var result = results.Collect();
+
+        // Assert
+        result.IsSuccess(out var values).ShouldBeTrue();
+        values!.Count.ShouldBe(0);
+    }
+
+    [Fact]
+    public void CollectTValue_WhenResultsListIsEmpty_ShouldReturnOkResultWithEmptyValues()
+    {
+        // Arrange
+        IReadOnlyList<Result<int>> results = new List<Result<int>>();
+
+        // Act
+        var result = results.Collect();
+
+        // Assert
+        result.IsSuccess(out var values).ShouldBeTrue();
+        values!.Count.ShouldBe(0);
     }
 }

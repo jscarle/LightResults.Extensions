@@ -1,4 +1,4 @@
-﻿namespace LightResults.Extensions.ExceptionHandling;
+namespace LightResults.Extensions.ExceptionHandling;
 
 public static partial class ExceptionHandler
 {
@@ -12,7 +12,7 @@ public static partial class ExceptionHandler
         try
         {
             action();
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -32,7 +32,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -54,7 +54,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -78,7 +78,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -104,7 +104,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -132,7 +132,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -162,7 +162,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -203,7 +203,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -247,7 +247,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -294,7 +294,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -344,7 +344,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -397,7 +397,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -453,7 +453,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -512,7 +512,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -574,7 +574,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -639,7 +639,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
@@ -707,7 +707,7 @@ public static partial class ExceptionHandler
         try
         {
             action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
-            return Result.Ok();
+            return Result.Success();
         }
         catch (Exception ex)
         {
