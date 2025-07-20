@@ -3,7 +3,7 @@ using LightResults.Extensions.Json;
 using Shouldly;
 using Xunit;
 
-namespace LightResults.Extensions.Tests;
+namespace LightResults.Extensions.Tests.Json;
 
 public sealed class ResultJsonConverterTests
 {
