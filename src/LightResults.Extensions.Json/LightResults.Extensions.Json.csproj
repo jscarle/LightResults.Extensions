@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <!-- Compilation -->
     <PropertyGroup>
@@ -53,9 +53,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false"/>
-        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="\" Visible="false"/>
-        <None Include="..\..\Icon.png" Pack="true" PackagePath="\" Visible="false"/>
+        <None Include="..\..\README.md" Pack="true" PackagePath="" Visible="false"/>
+        <None Include="..\..\LICENSE.md" Pack="true" PackagePath="" Visible="false"/>
+        <None Include="..\..\Icon.png" Pack="true" PackagePath="" Visible="false"/>
     </ItemGroup>
 
     <!-- Testing -->
