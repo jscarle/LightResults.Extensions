@@ -93,7 +93,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
             writer.WriteNullValue();
             return;
         }
-        
+
         if (obj is Exception ex)
         {
             writer.WritePropertyName(key);
@@ -135,12 +135,12 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
                 writer.WriteString(name, value);
                 break;
             case DateOnly value:
-                writer.WritePropertyName(name);
-                writer.WriteStringValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+                var dateOnlyValue = value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                writer.WriteString(name, dateOnlyValue);
                 break;
             case TimeOnly value:
-                writer.WritePropertyName(name);
-                writer.WriteStringValue(value.ToString("HH:mm:ss", CultureInfo.InvariantCulture));
+                var timeOnlyValue = value.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+                writer.WriteString(name, timeOnlyValue);
                 break;
             case TimeSpan value:
                 writer.WritePropertyName(name);
@@ -179,10 +179,28 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
             case ulong value:
                 writer.WriteNumber(name, value);
                 break;
+#pragma warning disable IL2026
+#pragma warning disable IL3050
+#pragma warning disable CA1031
             default:
-                writer.WritePropertyName(name);
-                JsonSerializer.Serialize(writer, obj, obj.GetType());
+                try
+                {
+                    var json = JsonSerializer.Serialize(obj, obj.GetType());
+                    writer.WritePropertyName(name);
+                    writer.WriteRawValue(json);
+                }
+                catch
+                {
+                    var typeName = obj.GetType()
+                                       .FullName
+                                   ?? obj.GetType()
+                                       .Name;
+                    writer.WriteString(name, typeName);
+                }
                 break;
+#pragma warning restore IL3050
+#pragma warning restore IL2026
+#pragma warning restore CA1031
         }
     }
 
