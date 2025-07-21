@@ -21,6 +21,11 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
   [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.Json)](https://www.nuget.org/packages/LightResults.Extensions.Json)
 
+- [OpenAI](https://jscarle.github.io/LightResults.Extensions/docs/openai.html) - Provides OpenAI integration with Result pattern.
+
+  [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
+  [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
+
 - [Operations](https://jscarle.github.io/LightResults.Extensions/docs/operations.html) - Provides operations.
 
   [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.Operations)](https://www.nuget.org/packages/LightResults.Extensions.Operations)

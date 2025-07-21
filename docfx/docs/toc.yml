@@ -4,5 +4,7 @@
   href: entityframeworkcore.md
 - name: Json
   href: json.md
+- name: OpenAI
+  href: openai.md
 - name: Operations
   href: operations.md
