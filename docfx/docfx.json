@@ -3,51 +3,6 @@
     {
       "src": [
         {
-          "src": "../src/LightResults.Extensions.ExceptionHandling",
-          "files": [
-            "**/*.csproj"
-          ]
-        }
-      ],
-      "outputFormat": "apiPage",
-      "dest": "netstandard2.0",
-      "properties": {
-        "TargetFramework": "netstandard2.0"
-      }
-    },
-    {
-      "src": [
-        {
-          "src": "../src",
-          "files": [
-            "**/*.csproj"
-          ]
-        }
-      ],
-      "outputFormat": "apiPage",
-      "dest": "net6.0",
-      "properties": {
-        "TargetFramework": "net6.0"
-      }
-    },
-    {
-      "src": [
-        {
-          "src": "../src",
-          "files": [
-            "**/*.csproj"
-          ]
-        }
-      ],
-      "outputFormat": "apiPage",
-      "dest": "net7.0",
-      "properties": {
-        "TargetFramework": "net7.0"
-      }
-    },
-    {
-      "src": [
-        {
           "src": "../src",
           "files": [
             "**/*.csproj"
@@ -73,6 +28,21 @@
       "dest": "net9.0",
       "properties": {
         "TargetFramework": "net9.0"
+      }
+    },
+    {
+      "src": [
+        {
+          "src": "../src",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "outputFormat": "apiPage",
+      "dest": "net10.0",
+      "properties": {
+        "TargetFramework": "net10.0"
       }
     }
   ],
