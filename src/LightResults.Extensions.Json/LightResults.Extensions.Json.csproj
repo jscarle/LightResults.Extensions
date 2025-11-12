@@ -3,7 +3,7 @@
     <!-- Compilation -->
     <PropertyGroup>
         <RootNamespace>LightResults.Extensions.Json</RootNamespace>
-        <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
@@ -17,19 +17,19 @@
 
     <!-- References -->
     <ItemGroup>
-        <PackageReference Include="LightResults" Version="9.0.5"/>
+        <PackageReference Include="LightResults" Version="10.0.0"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
     </ItemGroup>
 
     <!-- Output -->
     <PropertyGroup>
         <AssemblyName>LightResults.Extensions.Json</AssemblyName>
-        <Version>9.0.1</Version>
-        <AssemblyVersion>9.0.1.0</AssemblyVersion>
-        <FileVersion>9.0.1.0</FileVersion>
+        <Version>10.0.0</Version>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+        <FileVersion>10.0.0.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Optimize>true</Optimize>
-        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
+        <IsAotCompatible>true</IsAotCompatible>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
 
@@ -61,15 +61,6 @@
     <!-- Testing -->
     <ItemGroup>
         <InternalsVisibleTo Include="LightResults.Extensions.Tests"/>
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-        <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.7"/>
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.7"/>
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-        <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.7"/>
     </ItemGroup>
 
 </Project>

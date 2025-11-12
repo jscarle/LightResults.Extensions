@@ -25,7 +25,7 @@ Always verify your changes by running the same steps as CI:
  dotnet test --configuration Release --no-build --verbosity normal --framework net8.0
 ```
 
-The solution targets multiple frameworks (net6.0–net9.0). Make sure all target frameworks compile.
+The solution targets multiple frameworks (net8.0–net10.0). Make sure all target frameworks compile.
 
 ## Coding style
 

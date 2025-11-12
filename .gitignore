@@ -14,7 +14,6 @@ obj/
 
 # Docs
 docfx/_site/**
-docfx/netstandard2.0/**
-docfx/net6.0/**
-docfx/net7.0/**
 docfx/net8.0/**
+docfx/net9.0/**
+docfx/net10.0/**
