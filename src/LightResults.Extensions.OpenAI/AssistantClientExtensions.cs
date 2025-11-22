@@ -882,29 +882,6 @@ public static class AssistantClientExtensions
         return funcResult.AsFailure<IAsyncEnumerable<Result<Assistant>>>();
     }
 
-    /// <summary>Attempts to asynchronously retrieve assistants with continuation token and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{Assistant}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<Assistant>>> TryGetAssistantsAsync(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, AsyncCollectionResult<Assistant>> func = client.GetAssistantsAsync;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<Assistant>>>();
-    }
-
     /// <summary>Attempts to synchronously retrieve assistants and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The assistant client instance.</param>
     /// <param name="options">Assistant collection options.</param>
@@ -922,29 +899,6 @@ public static class AssistantClientExtensions
         Func<AssistantCollectionOptions?, CancellationToken, CollectionResult<Assistant>> func = client.GetAssistants;
 
         var funcResult = func.Try(options, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<Assistant>>>();
-    }
-
-    /// <summary>Attempts to synchronously retrieve assistants with continuation token and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{Assistant}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<Assistant>>> TryGetAssistants(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, CollectionResult<Assistant>> func = client.GetAssistants;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult.AsEnumerableResult());
 
@@ -976,29 +930,6 @@ public static class AssistantClientExtensions
         return funcResult.AsFailure<IAsyncEnumerable<Result<ThreadMessage>>>();
     }
 
-    /// <summary>Attempts to asynchronously retrieve messages with continuation token and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ThreadMessage}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<ThreadMessage>>> TryGetMessagesAsync(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, AsyncCollectionResult<ThreadMessage>> func = client.GetMessagesAsync;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<ThreadMessage>>>();
-    }
-
     /// <summary>Attempts to synchronously retrieve messages and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The assistant client instance.</param>
     /// <param name="threadId">The thread ID to retrieve messages from.</param>
@@ -1018,29 +949,6 @@ public static class AssistantClientExtensions
         Func<string, MessageCollectionOptions?, CancellationToken, CollectionResult<ThreadMessage>> func = client.GetMessages;
 
         var funcResult = func.Try(threadId, options, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<ThreadMessage>>>();
-    }
-
-    /// <summary>Attempts to synchronously retrieve messages with continuation token and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ThreadMessage}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<ThreadMessage>>> TryGetMessages(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, CollectionResult<ThreadMessage>> func = client.GetMessages;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult.AsEnumerableResult());
 
@@ -1117,29 +1025,6 @@ public static class AssistantClientExtensions
         return funcResult.AsFailure<IAsyncEnumerable<Result<ThreadRun>>>();
     }
 
-    /// <summary>Attempts to asynchronously retrieve runs with continuation token and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ThreadRun}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<ThreadRun>>> TryGetRunsAsync(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, AsyncCollectionResult<ThreadRun>> func = client.GetRunsAsync;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<ThreadRun>>>();
-    }
-
     /// <summary>Attempts to synchronously retrieve runs and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The assistant client instance.</param>
     /// <param name="threadId">The thread ID to retrieve runs from.</param>
@@ -1159,29 +1044,6 @@ public static class AssistantClientExtensions
         Func<string, RunCollectionOptions?, CancellationToken, CollectionResult<ThreadRun>> func = client.GetRuns;
 
         var funcResult = func.Try(threadId, options, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<ThreadRun>>>();
-    }
-
-    /// <summary>Attempts to synchronously retrieve runs with continuation token and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ThreadRun}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<ThreadRun>>> TryGetRuns(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, CollectionResult<ThreadRun>> func = client.GetRuns;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult.AsEnumerableResult());
 
@@ -1269,29 +1131,6 @@ public static class AssistantClientExtensions
         return funcResult.AsFailure<IAsyncEnumerable<Result<RunStep>>>();
     }
 
-    /// <summary>Attempts to asynchronously retrieve run steps with continuation token and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{RunStep}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<RunStep>>> TryGetRunStepsAsync(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, AsyncCollectionResult<RunStep>> func = client.GetRunStepsAsync;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<RunStep>>>();
-    }
-
     /// <summary>Attempts to synchronously retrieve run steps and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The assistant client instance.</param>
     /// <param name="threadId">The thread ID containing the run.</param>
@@ -1313,29 +1152,6 @@ public static class AssistantClientExtensions
         Func<string, string, RunStepCollectionOptions?, CancellationToken, CollectionResult<RunStep>> func = client.GetRunSteps;
 
         var funcResult = func.Try(threadId, runId, options, cancellationToken);
-        if (funcResult.IsSuccess(out var collectionResult))
-            return Result.Success(collectionResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<RunStep>>>();
-    }
-
-    /// <summary>Attempts to synchronously retrieve run steps with continuation token and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="firstPageToken">The continuation token for the first page.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{RunStep}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<RunStep>>> TryGetRunSteps(
-        this AssistantClient client,
-        ContinuationToken firstPageToken,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<ContinuationToken, CancellationToken, CollectionResult<RunStep>> func = client.GetRunSteps;
-
-        var funcResult = func.Try(firstPageToken, cancellationToken);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult.AsEnumerableResult());
 
