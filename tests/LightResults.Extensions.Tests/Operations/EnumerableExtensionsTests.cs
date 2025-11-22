@@ -60,7 +60,7 @@ public sealed class EnumerableExtensionsTests
 
         // Assert
         result.IsSuccess(out var values).ShouldBeTrue();
-        values!.Count.ShouldBe(2);
+        values.Count.ShouldBe(2);
         values.ShouldBe([42, 43], ignoreOrder: true);
     }
 
@@ -97,7 +97,7 @@ public sealed class EnumerableExtensionsTests
 
         // Assert
         result.IsSuccess(out var values).ShouldBeTrue();
-        values!.Count.ShouldBe(0);
+        values.Count.ShouldBe(0);
     }
 
     [Fact]
@@ -111,6 +111,6 @@ public sealed class EnumerableExtensionsTests
 
         // Assert
         result.IsSuccess(out var values).ShouldBeTrue();
-        values!.Count.ShouldBe(0);
+        values.Count.ShouldBe(0);
     }
-} 
+}
