@@ -8,7 +8,7 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 ## OpenAI
 
-Provides comprehensive OpenAI integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
+Provides comprehensive an OpenAI (v2.7.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
 
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
@@ -22,16 +22,18 @@ Make sure to [read the docs](https://jscarle.github.io/LightResults.Extensions/)
 This package provides a `Try` extension method version of all public methods for all OpenAI clients, wrapping operations in a `try { } catch { }` block. If an exception occurs, a failed result will be returned and the `Exception` will be added to the result as metadata.
 
 **Supported Clients:**
-- **Chat Completions** - `ChatClient` extensions for chat completions and streaming
-- **Embeddings** - `EmbeddingClient` extensions for text embeddings
-- **Image Generation** - `ImageClient` extensions for image generation and editing
+- **Assistants** - `AssistantClient` extensions for AI assistants
 - **Audio Processing** - `AudioClient` extensions for speech-to-text and text-to-speech
-- **Assistants** - `AssistantClient` extensions for AI assistants and conversations
-- **Vector Stores** - `VectorStoreClient` extensions for vector storage and retrieval
-- **File Operations** - `OpenAIFileClient` extensions for file uploads and management
 - **Batch Processing** - `BatchClient` extensions for batch operations
-- **Fine-tuning** - `FineTuningClient` extensions for model fine-tuning
+- **Chat Completions** - `ChatClient` extensions for chat completions and streaming
+- **Conversations** - `ConversationClient` extensions for conversations
+- **Embeddings** - `EmbeddingClient` extensions for text embeddings
 - **Evaluations** - `EvaluationClient` extensions for model evaluations
+- **File Operations** - `OpenAIFileClient` extensions for file uploads and management
+- **Fine-tuning** - `FineTuningClient` extensions for model fine-tuning
+- **Image Generation** - `ImageClient` extensions for image generation and editing
+- **Responses** - `OpenAIResponseClient` extensions for responses and streaming
+- **Vector Stores** - `VectorStoreClient` extensions for vector storage and retrieval
 
 ### Usage Examples
 
@@ -184,7 +186,7 @@ var result = await client.TryCompleteChatAsync("Hello!");
 if (result.IsFailure(out var error))
 {
     var ex = error.Exception;
-    
+
     // Handle specific exception types
     if (ex is ClientResultException clientException)
     {
@@ -209,7 +211,7 @@ if (result.IsFailure(out var error))
 {
     var ex = error.Exception;
     // Do something with the base exception type or...
-    
+
     if (ex is ClientResultException clientResultException)
     {
         // Handle OpenAI-specific errors

@@ -2,12 +2,7 @@ using System.ClientModel;
 using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Files;
-
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -27,9 +22,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="contentType">The content type of the upload part.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryAddUploadPart(
         this OpenAIFileClient client,
         string uploadId,
@@ -56,9 +49,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="contentType">The content type of the upload part.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryAddUploadPartAsync(
         this OpenAIFileClient client,
         string uploadId,
@@ -83,9 +74,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="uploadId">The upload identifier.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCancelUpload(this OpenAIFileClient client, string uploadId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -104,9 +93,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="uploadId">The upload identifier.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCancelUploadAsync(this OpenAIFileClient client, string uploadId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -126,9 +113,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="content">The binary content to complete the upload.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCompleteUpload(this OpenAIFileClient client, string uploadId, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -148,9 +133,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="content">The binary content to complete the upload.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCompleteUploadAsync(
         this OpenAIFileClient client,
         string uploadId,
@@ -174,9 +157,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="content">The binary content to create the upload.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateUpload(this OpenAIFileClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -195,9 +176,7 @@ public static class OpenAIFileClientExtensions
     /// <param name="content">The binary content to create the upload.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateUploadAsync(this OpenAIFileClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);

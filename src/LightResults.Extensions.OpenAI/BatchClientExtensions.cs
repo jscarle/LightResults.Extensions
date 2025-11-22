@@ -3,12 +3,7 @@ using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Batch;
 
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -25,9 +20,7 @@ public static class BatchClientExtensions
     /// <param name="waitUntilCompleted">Indicates whether the method should wait until the operation has completed before returning.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{CreateBatchOperation}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<CreateBatchOperation>> TryCreateBatchAsync(
         this BatchClient client,
         BinaryContent content,
@@ -52,9 +45,7 @@ public static class BatchClientExtensions
     /// <param name="waitUntilCompleted">Indicates whether the method should wait until the operation has completed before returning.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A <see cref="Result{CreateBatchOperation}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CreateBatchOperation> TryCreateBatch(
         this BatchClient client,
         BinaryContent content,
@@ -79,9 +70,7 @@ public static class BatchClientExtensions
     /// <param name="limit">A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{AsyncCollectionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<AsyncCollectionResult> TryGetBatchesAsync(this BatchClient client, string after, int? limit, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -101,9 +90,7 @@ public static class BatchClientExtensions
     /// <param name="limit">A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{AsyncCollectionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CollectionResult> TryGetBatches(this BatchClient client, string after, int? limit, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);

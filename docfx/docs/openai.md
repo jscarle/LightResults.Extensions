@@ -1,7 +1,6 @@
 # OpenAI
 
-
-Provides a extension methods that wrap all OpenAI operations using LightResults.
+Provides extension methods that wrap all OpenAI operations using LightResults.
 
 ### Chat Completions example
 

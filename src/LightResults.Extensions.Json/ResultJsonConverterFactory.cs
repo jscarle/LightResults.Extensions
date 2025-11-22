@@ -1,16 +1,12 @@
-#if NET7_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#endif
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace LightResults.Extensions.Json;
 
 /// <summary>JsonConverterFactory for converting Result types to and from JSON.</summary>
-#if NET7_0_OR_GREATER
 [RequiresDynamicCode("The native code for this instantiation might not be available at runtime.")]
-[RequiresUnreferencedCode("If some of the generic arguments are annotated (either with DynamicallyAccessedMembersAttribute, or generic constraints), trimming can\'t validate that the requirements of those annotations are met.")]
-#endif
+[RequiresUnreferencedCode("If some of the generic arguments are annotated (either with DynamicallyAccessedMembersAttribute, or generic constraints), trimming can't validate that the requirements of those annotations are met.")]
 public class ResultJsonConverterFactory : JsonConverterFactory
 {
     /// <inheritdoc/>

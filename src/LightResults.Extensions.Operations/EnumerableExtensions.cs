@@ -14,12 +14,7 @@ public static class EnumerableExtensions
     /// <remarks>This will enumerate the <paramref name="results"/>.</remarks>
     public static Result Collect(this IEnumerable<Result> results)
     {
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(results);
-#else
-        if (results is null)
-            throw new ArgumentNullException(nameof(results));
-#endif
 
         List<IError>? errors = null;
         
@@ -45,12 +40,7 @@ public static class EnumerableExtensions
     /// </returns>
     public static Result Collect(this IReadOnlyList<Result> results)
     {
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(results);
-#else
-        if (results is null)
-            throw new ArgumentNullException(nameof(results));
-#endif
 
         List<IError>? errors = null;
         
@@ -78,12 +68,7 @@ public static class EnumerableExtensions
     /// <remarks>This will enumerate the <paramref name="results"/>.</remarks>
     public static Result<IReadOnlyList<TValue>> Collect<TValue>(this IEnumerable<Result<TValue>> results)
     {
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(results);
-#else
-        if (results is null)
-            throw new ArgumentNullException(nameof(results));
-#endif
 
         List<TValue>? values = null;
         List<IError>? errors = null;
@@ -123,12 +108,7 @@ public static class EnumerableExtensions
     /// </returns>
     public static Result<IReadOnlyList<TValue>> Collect<TValue>(this IReadOnlyList<Result<TValue>> results)
     {
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(results);
-#else
-        if (results is null)
-            throw new ArgumentNullException(nameof(results));
-#endif
 
         List<TValue>? values = null;
         List<IError>? errors = null;
