@@ -98,7 +98,6 @@ public sealed class EnumerableExtensionsTests
         results.ShouldBe(new[] { 2, 4, 6, 8, 10 });
     }
 
-#if NET6_0_OR_GREATER
     [Fact]
     public async Task AsAsyncEnumerableResult_ValidSequence_ShouldReturnAllItemsAsSuccessResults()
     {
@@ -148,8 +147,6 @@ public sealed class EnumerableExtensionsTests
             yield return item;
         }
     }
-
-#endif
 
     private class ExceptionThrowingEnumerable<T> : IEnumerable<T>
     {
