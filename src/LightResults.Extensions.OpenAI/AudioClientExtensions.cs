@@ -3,12 +3,7 @@ using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Audio;
 
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -252,9 +247,7 @@ public static class AudioClientExtensions
     /// <param name="options">Optional transcription options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreamingAsync(
         this AudioClient client,
         Stream audio,
@@ -282,9 +275,7 @@ public static class AudioClientExtensions
     /// <param name="options">Optional transcription options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreaming(
         this AudioClient client,
         Stream audio,
@@ -314,9 +305,7 @@ public static class AudioClientExtensions
     /// <param name="options">Optional transcription options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreamingAsync(
         this AudioClient client,
         string audioFilePath,
@@ -342,9 +331,7 @@ public static class AudioClientExtensions
     /// <param name="options">Optional transcription options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreaming(
         this AudioClient client,
         string audioFilePath,

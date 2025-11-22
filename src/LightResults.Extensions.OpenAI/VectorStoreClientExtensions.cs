@@ -1,13 +1,7 @@
 using System.ClientModel;
-using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.VectorStores;
-
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -24,9 +18,7 @@ public static class VectorStoreClientExtensions
     /// <param name="options">The creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStore}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStore>> TryCreateVectorStoreAsync(
         this VectorStoreClient client,
         VectorStoreCreationOptions options,
@@ -49,9 +41,7 @@ public static class VectorStoreClientExtensions
     /// <param name="options">The creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStore}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStore> TryCreateVectorStore(
         this VectorStoreClient client,
         VectorStoreCreationOptions options,
@@ -74,9 +64,7 @@ public static class VectorStoreClientExtensions
     /// <param name="vectorStoreId">The vector store identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStore}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStore>> TryGetVectorStoreAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -99,9 +87,7 @@ public static class VectorStoreClientExtensions
     /// <param name="vectorStoreId">The vector store identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStore}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStore> TryGetVectorStore(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -125,9 +111,7 @@ public static class VectorStoreClientExtensions
     /// <param name="options">The modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStore}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStore>> TryModifyVectorStoreAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -152,9 +136,7 @@ public static class VectorStoreClientExtensions
     /// <param name="options">The modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStore}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStore> TryModifyVectorStore(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -178,9 +160,7 @@ public static class VectorStoreClientExtensions
     /// <param name="vectorStoreId">The vector store identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStoreDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStoreDeletionResult>> TryDeleteVectorStoreAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -203,9 +183,7 @@ public static class VectorStoreClientExtensions
     /// <param name="vectorStoreId">The vector store identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStoreDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStoreDeletionResult> TryDeleteVectorStore(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -229,9 +207,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileId">The file identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStoreFile}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStoreFile>> TryAddFileToVectorStoreAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -256,9 +232,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileId">The file identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStoreFile}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStoreFile> TryAddFileToVectorStore(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -283,9 +257,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileId">The file identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStoreFile}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStoreFile>> TryGetVectorStoreFileAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -310,9 +282,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileId">The file identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStoreFile}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStoreFile> TryGetVectorStoreFile(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -337,9 +307,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileId">The file identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{FileFromStoreRemovalResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<FileFromStoreRemovalResult>> TryRemoveFileFromVectorStoreAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -364,9 +332,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileId">The file identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{FileFromStoreRemovalResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<FileFromStoreRemovalResult> TryRemoveFileFromVectorStore(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -391,9 +357,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileIds">The file identifiers.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStoreFileBatch}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStoreFileBatch>> TryAddFileBatchToVectorStoreAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -418,9 +382,7 @@ public static class VectorStoreClientExtensions
     /// <param name="fileIds">The file identifiers.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStoreFileBatch}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStoreFileBatch> TryAddFileBatchToVectorStore(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -445,9 +407,7 @@ public static class VectorStoreClientExtensions
     /// <param name="batchId">The batch identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStoreFileBatch}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStoreFileBatch>> TryGetVectorStoreFileBatchAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -472,9 +432,7 @@ public static class VectorStoreClientExtensions
     /// <param name="batchId">The batch identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStoreFileBatch}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStoreFileBatch> TryGetVectorStoreFileBatch(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -499,9 +457,7 @@ public static class VectorStoreClientExtensions
     /// <param name="batchId">The batch identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing a <see cref="Result{VectorStoreFileBatch}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<VectorStoreFileBatch>> TryCancelVectorStoreFileBatchAsync(
         this VectorStoreClient client,
         string vectorStoreId,
@@ -526,9 +482,7 @@ public static class VectorStoreClientExtensions
     /// <param name="batchId">The batch identifier.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{VectorStoreFileBatch}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<VectorStoreFileBatch> TryCancelVectorStoreFileBatch(
         this VectorStoreClient client,
         string vectorStoreId,

@@ -3,12 +3,7 @@ using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.FineTuning;
 
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -27,9 +22,7 @@ public static class FineTuningClientExtensions
     /// <param name="options">Optional fine-tuning options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{FineTuningJob}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<FineTuningJob>> TryFineTuneAsync(
         this FineTuningClient client,
         string baseModel,
@@ -58,9 +51,7 @@ public static class FineTuningClientExtensions
     /// <param name="options">Optional fine-tuning options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{FineTuningJob}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<FineTuningJob> TryFineTune(
         this FineTuningClient client,
         string baseModel,
@@ -87,9 +78,7 @@ public static class FineTuningClientExtensions
     /// <param name="waitUntilCompleted">Whether to wait until the fine-tuning job is completed.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{FineTuningJob}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<FineTuningJob>> TryFineTuneAsync(
         this FineTuningClient client,
         BinaryContent content,
@@ -114,9 +103,7 @@ public static class FineTuningClientExtensions
     /// <param name="waitUntilCompleted">Whether to wait until the fine-tuning job is completed.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{FineTuningJob}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<FineTuningJob> TryFineTune(
         this FineTuningClient client,
         BinaryContent content,
@@ -140,9 +127,7 @@ public static class FineTuningClientExtensions
     /// <param name="jobId">The ID of the fine-tuning job to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{FineTuningJob}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<FineTuningJob>> TryGetJobAsync(this FineTuningClient client, string jobId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -161,9 +146,7 @@ public static class FineTuningClientExtensions
     /// <param name="jobId">The ID of the fine-tuning job to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{FineTuningJob}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<FineTuningJob> TryGetJob(this FineTuningClient client, string jobId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -182,9 +165,7 @@ public static class FineTuningClientExtensions
     /// <param name="options">Fine-tuning job collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{FineTuningJob}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<FineTuningJob>>> TryGetJobsAsync(
         this FineTuningClient client,
         FineTuningJobCollectionOptions? options = null,
@@ -207,9 +188,7 @@ public static class FineTuningClientExtensions
     /// <param name="options">Fine-tuning job collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{FineTuningJob}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<FineTuningJob>>> TryGetJobs(
         this FineTuningClient client,
         FineTuningJobCollectionOptions? options = null,
@@ -233,9 +212,7 @@ public static class FineTuningClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateFineTuningCheckpointPermissionAsync(
         this FineTuningClient client,
         string fineTunedModelCheckpoint,
@@ -260,9 +237,7 @@ public static class FineTuningClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateFineTuningCheckpointPermission(
         this FineTuningClient client,
         string fineTunedModelCheckpoint,
@@ -287,9 +262,7 @@ public static class FineTuningClientExtensions
     /// <param name="permissionId">The permission ID to delete.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteFineTuningCheckpointPermissionAsync(
         this FineTuningClient client,
         string fineTunedModelCheckpoint,
@@ -314,9 +287,7 @@ public static class FineTuningClientExtensions
     /// <param name="permissionId">The permission ID to delete.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteFineTuningCheckpointPermission(
         this FineTuningClient client,
         string fineTunedModelCheckpoint,
@@ -344,9 +315,7 @@ public static class FineTuningClientExtensions
     /// <param name="projectId">The project ID to filter by.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetFineTuningCheckpointPermissionsAsync(
         this FineTuningClient client,
         string fineTunedModelCheckpoint,
@@ -377,9 +346,7 @@ public static class FineTuningClientExtensions
     /// <param name="projectId">The project ID to filter by.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetFineTuningCheckpointPermissions(
         this FineTuningClient client,
         string fineTunedModelCheckpoint,
@@ -406,9 +373,7 @@ public static class FineTuningClientExtensions
     /// <param name="fineTuningJobId">The ID of the fine-tuning job to pause.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryPauseFineTuningJobAsync(
         this FineTuningClient client,
         string fineTuningJobId,
@@ -431,9 +396,7 @@ public static class FineTuningClientExtensions
     /// <param name="fineTuningJobId">The ID of the fine-tuning job to pause.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryPauseFineTuningJob(this FineTuningClient client, string fineTuningJobId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -452,9 +415,7 @@ public static class FineTuningClientExtensions
     /// <param name="fineTuningJobId">The ID of the fine-tuning job to resume.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryResumeFineTuningJobAsync(
         this FineTuningClient client,
         string fineTuningJobId,
@@ -477,9 +438,7 @@ public static class FineTuningClientExtensions
     /// <param name="fineTuningJobId">The ID of the fine-tuning job to resume.</param>
     /// <param name="options">Optional request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryResumeFineTuningJob(this FineTuningClient client, string fineTuningJobId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);

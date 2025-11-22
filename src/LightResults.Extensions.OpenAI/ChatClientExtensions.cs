@@ -2,12 +2,7 @@ using System.ClientModel;
 using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Chat;
-
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -198,9 +193,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ChatCompletion}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ChatCompletion>> TryGetChatCompletionAsync(
         this ChatClient client,
         string completionId,
@@ -222,9 +215,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ChatCompletion}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ChatCompletion> TryGetChatCompletion(this ChatClient client, string completionId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -242,9 +233,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ChatCompletionDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ChatCompletionDeletionResult>> TryDeleteChatCompletionAsync(
         this ChatClient client,
         string completionId,
@@ -266,9 +255,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ChatCompletionDeletionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ChatCompletionDeletionResult> TryDeleteChatCompletion(
         this ChatClient client,
         string completionId,
@@ -326,9 +313,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to delete.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteChatCompletionAsync(this ChatClient client, string completionId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -347,9 +332,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to delete.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteChatCompletion(this ChatClient client, string completionId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -368,9 +351,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to retrieve.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetChatCompletionAsync(this ChatClient client, string completionId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -389,9 +370,7 @@ public static class ChatClientExtensions
     /// <param name="completionId">The ID of the chat completion to retrieve.</param>
     /// <param name="options">Optional request options to override default client pipeline behaviors.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetChatCompletion(this ChatClient client, string completionId, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);

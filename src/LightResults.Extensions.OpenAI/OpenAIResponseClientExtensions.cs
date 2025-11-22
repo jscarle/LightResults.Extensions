@@ -3,12 +3,7 @@ using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Responses;
 
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -26,9 +21,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to cancel.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{OpenAIResponse}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<OpenAIResponse>> TryCancelResponseAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -51,9 +44,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to cancel.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{OpenAIResponse}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<OpenAIResponse> TryCancelResponse(this OpenAIResponseClient client, string responseId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -73,9 +64,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{OpenAIResponse}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<OpenAIResponse>> TryCreateResponseAsync(
         this OpenAIResponseClient client,
         IEnumerable<ResponseItem> inputItems,
@@ -100,9 +89,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{OpenAIResponse}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<OpenAIResponse> TryCreateResponse(
         this OpenAIResponseClient client,
         IEnumerable<ResponseItem> inputItems,
@@ -127,9 +114,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{OpenAIResponse}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<OpenAIResponse>> TryCreateResponseAsync(
         this OpenAIResponseClient client,
         string userInputText,
@@ -154,9 +139,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{OpenAIResponse}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<OpenAIResponse> TryCreateResponse(
         this OpenAIResponseClient client,
         string userInputText,
@@ -180,9 +163,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to delete.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ResponseDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ResponseDeletionResult>> TryDeleteResponseAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -205,9 +186,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to delete.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{ResponseDeletionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ResponseDeletionResult> TryDeleteResponse(
         this OpenAIResponseClient client,
         string responseId,
@@ -230,9 +209,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to retrieve.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{OpenAIResponse}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<OpenAIResponse>> TryGetResponseAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -255,9 +232,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to retrieve.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{OpenAIResponse}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<OpenAIResponse> TryGetResponse(this OpenAIResponseClient client, string responseId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -277,9 +252,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response item collection options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ResponseItem}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<ResponseItem>>> TryGetResponseInputItemsAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -304,9 +277,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response item collection options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ResponseItem}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<ResponseItem>>> TryGetResponseInputItems(
         this OpenAIResponseClient client,
         string responseId,
@@ -331,9 +302,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this OpenAIResponseClient client,
         IEnumerable<ResponseItem> inputItems,
@@ -359,9 +328,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
         this OpenAIResponseClient client,
         IEnumerable<ResponseItem> inputItems,
@@ -390,9 +357,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this OpenAIResponseClient client,
         string userInputText,
@@ -417,9 +382,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="options">Response creation options.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
         this OpenAIResponseClient client,
         string userInputText,
@@ -444,9 +407,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="startingAfter">Optional starting position for streaming.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryGetResponseStreamingAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -471,9 +432,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="startingAfter">Optional starting position for streaming.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryGetResponseStreaming(
         this OpenAIResponseClient client,
         string responseId,
@@ -497,9 +456,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to cancel.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCancelResponseAsync(this OpenAIResponseClient client, string responseId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -518,9 +475,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to cancel.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCancelResponse(this OpenAIResponseClient client, string responseId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -539,9 +494,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateResponseAsync(
         this OpenAIResponseClient client,
         BinaryContent content,
@@ -564,9 +517,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateResponse(this OpenAIResponseClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -585,9 +536,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteResponseAsync(this OpenAIResponseClient client, string responseId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -606,9 +555,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="responseId">The response ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteResponse(this OpenAIResponseClient client, string responseId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -629,9 +576,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="startingAfter">Starting position for the response.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetResponseAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -658,9 +603,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="startingAfter">Starting position for the response.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetResponse(
         this OpenAIResponseClient client,
         string responseId,
@@ -689,9 +632,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="before">A cursor for pagination.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<AsyncCollectionResult> TryGetResponseInputItemsAsync(
         this OpenAIResponseClient client,
         string responseId,
@@ -722,9 +663,7 @@ public static class OpenAIResponseClientExtensions
     /// <param name="before">A cursor for pagination.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{CollectionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CollectionResult> TryGetResponseInputItems(
         this OpenAIResponseClient client,
         string responseId,

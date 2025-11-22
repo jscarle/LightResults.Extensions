@@ -3,12 +3,7 @@ using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Assistants;
 
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -25,9 +20,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Optional creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<Assistant>> TryCreateAssistantAsync(
         this AssistantClient client,
         string model,
@@ -52,9 +45,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Optional creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{Assistant}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<Assistant> TryCreateAssistant(
         this AssistantClient client,
         string model,
@@ -78,9 +69,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<Assistant>> TryGetAssistantAsync(
         this AssistantClient client,
         string assistantId,
@@ -103,9 +92,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{Assistant}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<Assistant> TryGetAssistant(this AssistantClient client, string assistantId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -125,9 +112,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<Assistant>> TryModifyAssistantAsync(
         this AssistantClient client,
         string assistantId,
@@ -152,9 +137,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{Assistant}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<Assistant> TryModifyAssistant(
         this AssistantClient client,
         string assistantId,
@@ -178,9 +161,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AssistantDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AssistantDeletionResult>> TryDeleteAssistantAsync(
         this AssistantClient client,
         string assistantId,
@@ -203,9 +184,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{AssistantDeletionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<AssistantDeletionResult> TryDeleteAssistant(
         this AssistantClient client,
         string assistantId,
@@ -228,9 +207,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Thread creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AssistantThread}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AssistantThread>> TryCreateThreadAsync(
         this AssistantClient client,
         ThreadCreationOptions? options = null,
@@ -253,9 +230,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Thread creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{AssistantThread}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<AssistantThread> TryCreateThread(
         this AssistantClient client,
         ThreadCreationOptions? options = null,
@@ -278,9 +253,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AssistantThread}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AssistantThread>> TryGetThreadAsync(
         this AssistantClient client,
         string threadId,
@@ -303,9 +276,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{AssistantThread}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<AssistantThread> TryGetThread(this AssistantClient client, string threadId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -325,9 +296,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Thread modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AssistantThread}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AssistantThread>> TryModifyThreadAsync(
         this AssistantClient client,
         string threadId,
@@ -352,9 +321,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Thread modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{AssistantThread}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<AssistantThread> TryModifyThread(
         this AssistantClient client,
         string threadId,
@@ -378,9 +345,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadDeletionResult>> TryDeleteThreadAsync(
         this AssistantClient client,
         string threadId,
@@ -403,9 +368,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadDeletionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadDeletionResult> TryDeleteThread(this AssistantClient client, string threadId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -427,9 +390,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Additional message options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadMessage>> TryCreateMessageAsync(
         this AssistantClient client,
         string threadId,
@@ -459,9 +420,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Additional message options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadMessage}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadMessage> TryCreateMessage(
         this AssistantClient client,
         string threadId,
@@ -489,9 +448,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadMessage>> TryGetMessageAsync(
         this AssistantClient client,
         string threadId,
@@ -516,9 +473,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadMessage}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadMessage> TryGetMessage(
         this AssistantClient client,
         string threadId,
@@ -544,9 +499,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadMessage>> TryModifyMessageAsync(
         this AssistantClient client,
         string threadId,
@@ -573,9 +526,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Modification options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadMessage}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadMessage> TryModifyMessage(
         this AssistantClient client,
         string threadId,
@@ -601,9 +552,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{MessageDeletionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<MessageDeletionResult>> TryDeleteMessageAsync(
         this AssistantClient client,
         string threadId,
@@ -628,9 +577,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to delete.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{MessageDeletionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<MessageDeletionResult> TryDeleteMessage(
         this AssistantClient client,
         string threadId,
@@ -656,9 +603,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadRun>> TryCreateRunAsync(
         this AssistantClient client,
         string threadId,
@@ -685,9 +630,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadRun}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadRun> TryCreateRun(
         this AssistantClient client,
         string threadId,
@@ -714,9 +657,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingUpdate>>> TryCreateRunStreamingAsync(
         this AssistantClient client,
         string threadId,
@@ -743,9 +684,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingUpdate>>> TryCreateRunStreaming(
         this AssistantClient client,
         string threadId,
@@ -772,9 +711,7 @@ public static class AssistantClientExtensions
     /// <param name="runOptions">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadRun>> TryCreateThreadAndRunAsync(
         this AssistantClient client,
         string assistantId,
@@ -801,9 +738,7 @@ public static class AssistantClientExtensions
     /// <param name="runOptions">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadRun}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadRun> TryCreateThreadAndRun(
         this AssistantClient client,
         string assistantId,
@@ -830,9 +765,7 @@ public static class AssistantClientExtensions
     /// <param name="runOptions">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingUpdate>>> TryCreateThreadAndRunStreamingAsync(
         this AssistantClient client,
         string assistantId,
@@ -860,9 +793,7 @@ public static class AssistantClientExtensions
     /// <param name="runOptions">Run creation options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingUpdate>>> TryCreateThreadAndRunStreaming(
         this AssistantClient client,
         string assistantId,
@@ -889,9 +820,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to cancel.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadRun>> TryCancelRunAsync(
         this AssistantClient client,
         string threadId,
@@ -916,9 +845,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to cancel.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadRun}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadRun> TryCancelRun(this AssistantClient client, string threadId, string runId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -937,9 +864,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Assistant collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<Assistant>>> TryGetAssistantsAsync(
         this AssistantClient client,
         AssistantCollectionOptions? options = null,
@@ -962,9 +887,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<Assistant>>> TryGetAssistantsAsync(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -987,9 +910,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Assistant collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<Assistant>>> TryGetAssistants(
         this AssistantClient client,
         AssistantCollectionOptions? options = null,
@@ -1012,9 +933,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{Assistant}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<Assistant>>> TryGetAssistants(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1038,9 +957,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Message collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<ThreadMessage>>> TryGetMessagesAsync(
         this AssistantClient client,
         string threadId,
@@ -1064,9 +981,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<ThreadMessage>>> TryGetMessagesAsync(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1090,9 +1005,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Message collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<ThreadMessage>>> TryGetMessages(
         this AssistantClient client,
         string threadId,
@@ -1116,9 +1029,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ThreadMessage}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<ThreadMessage>>> TryGetMessages(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1142,9 +1053,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadRun>> TryGetRunAsync(
         this AssistantClient client,
         string threadId,
@@ -1169,9 +1078,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadRun}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadRun> TryGetRun(this AssistantClient client, string threadId, string runId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1191,9 +1098,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<ThreadRun>>> TryGetRunsAsync(
         this AssistantClient client,
         string threadId,
@@ -1217,9 +1122,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<ThreadRun>>> TryGetRunsAsync(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1243,9 +1146,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<ThreadRun>>> TryGetRuns(
         this AssistantClient client,
         string threadId,
@@ -1269,9 +1170,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<ThreadRun>>> TryGetRuns(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1296,9 +1195,7 @@ public static class AssistantClientExtensions
     /// <param name="stepId">The step ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{RunStep}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<RunStep>> TryGetRunStepAsync(
         this AssistantClient client,
         string threadId,
@@ -1325,9 +1222,7 @@ public static class AssistantClientExtensions
     /// <param name="stepId">The step ID to retrieve.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{RunStep}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<RunStep> TryGetRunStep(
         this AssistantClient client,
         string threadId,
@@ -1354,9 +1249,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run step collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{RunStep}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<RunStep>>> TryGetRunStepsAsync(
         this AssistantClient client,
         string threadId,
@@ -1381,9 +1274,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{RunStep}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<RunStep>>> TryGetRunStepsAsync(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1408,9 +1299,7 @@ public static class AssistantClientExtensions
     /// <param name="options">Run step collection options.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{RunStep}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<RunStep>>> TryGetRunSteps(
         this AssistantClient client,
         string threadId,
@@ -1435,9 +1324,7 @@ public static class AssistantClientExtensions
     /// <param name="firstPageToken">The continuation token for the first page.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{RunStep}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<RunStep>>> TryGetRunSteps(
         this AssistantClient client,
         ContinuationToken firstPageToken,
@@ -1462,9 +1349,7 @@ public static class AssistantClientExtensions
     /// <param name="toolOutputs">The tool outputs to submit.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ThreadRun}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ThreadRun>> TrySubmitToolOutputsToRunAsync(
         this AssistantClient client,
         string threadId,
@@ -1491,9 +1376,7 @@ public static class AssistantClientExtensions
     /// <param name="toolOutputs">The tool outputs to submit.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{ThreadRun}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ThreadRun> TrySubmitToolOutputsToRun(
         this AssistantClient client,
         string threadId,
@@ -1520,9 +1403,7 @@ public static class AssistantClientExtensions
     /// <param name="toolOutputs">The tool outputs to submit.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IAsyncEnumerable<Result<StreamingUpdate>>> TrySubmitToolOutputsToRunStreamingAsync(
         this AssistantClient client,
         string threadId,
@@ -1550,9 +1431,7 @@ public static class AssistantClientExtensions
     /// <param name="toolOutputs">The tool outputs to submit.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<IEnumerable<Result<StreamingUpdate>>> TrySubmitToolOutputsToRunStreaming(
         this AssistantClient client,
         string threadId,
@@ -1577,9 +1456,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateAssistantAsync(this AssistantClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1598,9 +1475,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateAssistant(this AssistantClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1619,9 +1494,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetAssistantAsync(this AssistantClient client, string assistantId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1640,9 +1513,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetAssistant(this AssistantClient client, string assistantId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1662,9 +1533,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryModifyAssistantAsync(
         this AssistantClient client,
         string assistantId,
@@ -1689,9 +1558,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryModifyAssistant(
         this AssistantClient client,
         string assistantId,
@@ -1715,9 +1582,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteAssistantAsync(this AssistantClient client, string assistantId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1736,9 +1601,7 @@ public static class AssistantClientExtensions
     /// <param name="assistantId">The assistant ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteAssistant(this AssistantClient client, string assistantId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1759,9 +1622,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryModifyRunAsync(
         this AssistantClient client,
         string threadId,
@@ -1788,9 +1649,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryModifyRun(
         this AssistantClient client,
         string threadId,
@@ -1816,9 +1675,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to cancel.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCancelRunAsync(this AssistantClient client, string threadId, string runId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1838,9 +1695,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to cancel.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCancelRun(this AssistantClient client, string threadId, string runId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1859,9 +1714,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateThreadAsync(this AssistantClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1880,9 +1733,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateThread(this AssistantClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1901,9 +1752,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateThreadAndRunAsync(
         this AssistantClient client,
         BinaryContent content,
@@ -1926,9 +1775,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateThreadAndRun(this AssistantClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -1949,9 +1796,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TrySubmitToolOutputsToRunAsync(
         this AssistantClient client,
         string threadId,
@@ -1978,9 +1823,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TrySubmitToolOutputsToRun(
         this AssistantClient client,
         string threadId,
@@ -2006,9 +1849,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateMessageAsync(
         this AssistantClient client,
         string threadId,
@@ -2033,9 +1874,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateMessage(this AssistantClient client, string threadId, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2055,9 +1894,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetMessageAsync(this AssistantClient client, string threadId, string messageId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2077,9 +1914,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetMessage(this AssistantClient client, string threadId, string messageId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2100,9 +1935,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryModifyMessageAsync(
         this AssistantClient client,
         string threadId,
@@ -2129,9 +1962,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryModifyMessage(
         this AssistantClient client,
         string threadId,
@@ -2157,9 +1988,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteMessageAsync(this AssistantClient client, string threadId, string messageId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2179,9 +2008,7 @@ public static class AssistantClientExtensions
     /// <param name="messageId">The message ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteMessage(this AssistantClient client, string threadId, string messageId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2200,9 +2027,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetThreadAsync(this AssistantClient client, string threadId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2221,9 +2046,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetThread(this AssistantClient client, string threadId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2243,9 +2066,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryModifyThreadAsync(
         this AssistantClient client,
         string threadId,
@@ -2270,9 +2091,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryModifyThread(this AssistantClient client, string threadId, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2291,9 +2110,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteThreadAsync(this AssistantClient client, string threadId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2312,9 +2129,7 @@ public static class AssistantClientExtensions
     /// <param name="threadId">The thread ID to delete.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteThread(this AssistantClient client, string threadId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2334,9 +2149,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetRunAsync(this AssistantClient client, string threadId, string runId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2356,9 +2169,7 @@ public static class AssistantClientExtensions
     /// <param name="runId">The run ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetRun(this AssistantClient client, string threadId, string runId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2379,9 +2190,7 @@ public static class AssistantClientExtensions
     /// <param name="stepId">The step ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetRunStepAsync(
         this AssistantClient client,
         string threadId,
@@ -2408,9 +2217,7 @@ public static class AssistantClientExtensions
     /// <param name="stepId">The step ID to retrieve.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetRunStep(this AssistantClient client, string threadId, string runId, string stepId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -2432,9 +2239,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AsyncCollectionResult>> TryGetAssistantsAsync(
         this AssistantClient client,
         int? limit,
@@ -2463,9 +2268,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{CollectionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CollectionResult> TryGetAssistants(
         this AssistantClient client,
         int? limit,
@@ -2495,9 +2298,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AsyncCollectionResult>> TryGetMessagesAsync(
         this AssistantClient client,
         string threadId,
@@ -2528,9 +2329,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{CollectionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CollectionResult> TryGetMessages(
         this AssistantClient client,
         string threadId,
@@ -2561,9 +2360,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AsyncCollectionResult>> TryGetRunsAsync(
         this AssistantClient client,
         string threadId,
@@ -2594,9 +2391,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{CollectionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CollectionResult> TryGetRuns(
         this AssistantClient client,
         string threadId,
@@ -2628,9 +2423,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<AsyncCollectionResult>> TryGetRunStepsAsync(
         this AssistantClient client,
         string threadId,
@@ -2663,9 +2456,7 @@ public static class AssistantClientExtensions
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{CollectionResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<CollectionResult> TryGetRunSteps(
         this AssistantClient client,
         string threadId,
@@ -2694,9 +2485,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateRunAsync(
         this AssistantClient client,
         string threadId,
@@ -2721,9 +2510,7 @@ public static class AssistantClientExtensions
     /// <param name="content">The binary content for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateRun(this AssistantClient client, string threadId, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);

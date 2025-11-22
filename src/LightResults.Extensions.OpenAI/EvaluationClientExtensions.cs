@@ -2,12 +2,7 @@ using System.ClientModel;
 using System.ClientModel.Primitives;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Evals;
-
-#if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-#else
-#pragma warning disable OPENAI001
-#endif
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -26,9 +21,7 @@ public static class EvaluationClientExtensions
     /// <param name="after">The pagination cursor.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetEvaluations(
         this EvaluationClient client,
         int? limit,
@@ -57,9 +50,7 @@ public static class EvaluationClientExtensions
     /// <param name="after">The pagination cursor.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetEvaluationsAsync(
         this EvaluationClient client,
         int? limit,
@@ -85,9 +76,7 @@ public static class EvaluationClientExtensions
     /// <param name="content">The evaluation binary content.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateEvaluation(this EvaluationClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -106,9 +95,7 @@ public static class EvaluationClientExtensions
     /// <param name="content">The evaluation binary content.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateEvaluationAsync(this EvaluationClient client, BinaryContent content, RequestOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -127,9 +114,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationId">The evaluation ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetEvaluation(this EvaluationClient client, string evaluationId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -148,9 +133,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationId">The evaluation ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetEvaluationAsync(this EvaluationClient client, string evaluationId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -170,9 +153,7 @@ public static class EvaluationClientExtensions
     /// <param name="content">The evaluation binary content.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryUpdateEvaluation(
         this EvaluationClient client,
         string evaluationId,
@@ -197,9 +178,7 @@ public static class EvaluationClientExtensions
     /// <param name="content">The evaluation binary content.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryUpdateEvaluationAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -223,9 +202,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationId">The evaluation ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteEvaluation(this EvaluationClient client, string evaluationId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -244,9 +221,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationId">The evaluation ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteEvaluationAsync(this EvaluationClient client, string evaluationId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -269,9 +244,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunStatus">The evaluation run status.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetEvaluationRuns(
         this EvaluationClient client,
         string evaluationId,
@@ -302,9 +275,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunStatus">The evaluation run status.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetEvaluationRunsAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -332,9 +303,7 @@ public static class EvaluationClientExtensions
     /// <param name="content">The evaluation run binary content.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCreateEvaluationRun(
         this EvaluationClient client,
         string evaluationId,
@@ -359,9 +328,7 @@ public static class EvaluationClientExtensions
     /// <param name="content">The evaluation run binary content.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCreateEvaluationRunAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -386,9 +353,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunId">The evaluation run ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetEvaluationRun(this EvaluationClient client, string evaluationId, string evaluationRunId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -408,9 +373,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunId">The evaluation run ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetEvaluationRunAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -435,9 +398,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunId">The evaluation run ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryCancelEvaluationRun(this EvaluationClient client, string evaluationId, string evaluationRunId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -457,9 +418,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunId">The evaluation run ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryCancelEvaluationRunAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -484,9 +443,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunId">The evaluation run ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryDeleteEvaluationRun(this EvaluationClient client, string evaluationId, string evaluationRunId, RequestOptions options)
     {
         ArgumentNullException.ThrowIfNull(client);
@@ -506,9 +463,7 @@ public static class EvaluationClientExtensions
     /// <param name="evaluationRunId">The evaluation run ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryDeleteEvaluationRunAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -537,9 +492,7 @@ public static class EvaluationClientExtensions
     /// <param name="outputItemStatus">The output item status.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetEvaluationRunOutputItems(
         this EvaluationClient client,
         string evaluationId,
@@ -572,9 +525,7 @@ public static class EvaluationClientExtensions
     /// <param name="outputItemStatus">The output item status.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetEvaluationRunOutputItemsAsync(
         this EvaluationClient client,
         string evaluationId,
@@ -604,9 +555,7 @@ public static class EvaluationClientExtensions
     /// <param name="outputItemId">The output item ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static Result<ClientResult> TryGetEvaluationRunOutputItem(
         this EvaluationClient client,
         string evaluationId,
@@ -633,9 +582,7 @@ public static class EvaluationClientExtensions
     /// <param name="outputItemId">The output item ID.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
-#if NET8_0_OR_GREATER
     [Experimental("OPENAI001")]
-#endif
     public static async Task<Result<ClientResult>> TryGetEvaluationRunOutputItemAsync(
         this EvaluationClient client,
         string evaluationId,
