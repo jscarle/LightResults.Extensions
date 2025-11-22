@@ -22,7 +22,7 @@ Always verify your changes by running the same steps as CI:
  dotnet build --configuration Release --no-restore
 
 # Run tests (targeting .NET 8)
- dotnet test --configuration Release --no-build --verbosity normal --framework net8.0
+ dotnet test --configuration Release --no-build --verbosity normal --framework net10.0
 ```
 
 The solution targets multiple frameworks (net8.0–net10.0). Make sure all target frameworks compile.
