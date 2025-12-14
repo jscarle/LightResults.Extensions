@@ -32,7 +32,7 @@ This package provides a `Try` extension method version of all public methods for
 - **File Operations** - `OpenAIFileClient` extensions for file uploads and management
 - **Fine-tuning** - `FineTuningClient` extensions for model fine-tuning
 - **Image Generation** - `ImageClient` extensions for image generation and editing
-- **Responses** - `OpenAIResponseClient` extensions for responses and streaming
+- **Responses** - `ResponsesClient` extensions for responses and streaming
 - **Vector Stores** - `VectorStoreClient` extensions for vector storage and retrieval
 
 ### Usage Examples
