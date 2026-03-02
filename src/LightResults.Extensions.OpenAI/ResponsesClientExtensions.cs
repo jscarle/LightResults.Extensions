@@ -60,6 +60,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to asynchronously create a response with input items and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="inputItems">The input items for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -67,6 +68,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static async Task<Result<ResponseResult>> TryCreateResponseAsync(
         this ResponsesClient client,
+        string model,
         IEnumerable<ResponseItem> inputItems,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -74,9 +76,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<IEnumerable<ResponseItem>, string?, CancellationToken, Task<ClientResult<ResponseResult>>> func = client.CreateResponseAsync;
+        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, Task<ClientResult<ResponseResult>>> func = client.CreateResponseAsync;
 
-        var funcResult = await func.TryAsync(inputItems, previousResponseId, cancellationToken).ConfigureAwait(false);
+        var funcResult = await func.TryAsync(model, inputItems, previousResponseId, cancellationToken).ConfigureAwait(false);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult.Value);
 
@@ -85,6 +87,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to synchronously create a response with input items and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="inputItems">The input items for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -92,6 +95,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static Result<ResponseResult> TryCreateResponse(
         this ResponsesClient client,
+        string model,
         IEnumerable<ResponseItem> inputItems,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -99,9 +103,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<IEnumerable<ResponseItem>, string?, CancellationToken, ClientResult<ResponseResult>> func = client.CreateResponse;
+        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, ClientResult<ResponseResult>> func = client.CreateResponse;
 
-        var funcResult = func.Try(inputItems, previousResponseId, cancellationToken);
+        var funcResult = func.Try(model, inputItems, previousResponseId, cancellationToken);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult.Value);
 
@@ -110,6 +114,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to asynchronously create a response with user input text and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="userInputText">The user input text for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -117,6 +122,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static async Task<Result<ResponseResult>> TryCreateResponseAsync(
         this ResponsesClient client,
+        string model,
         string userInputText,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -124,9 +130,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string?, CancellationToken, Task<ClientResult<ResponseResult>>> func = client.CreateResponseAsync;
+        Func<string, string, string?, CancellationToken, Task<ClientResult<ResponseResult>>> func = client.CreateResponseAsync;
 
-        var funcResult = await func.TryAsync(userInputText, previousResponseId, cancellationToken).ConfigureAwait(false);
+        var funcResult = await func.TryAsync(model, userInputText, previousResponseId, cancellationToken).ConfigureAwait(false);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult.Value);
 
@@ -135,6 +141,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to synchronously create a response with user input text and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="userInputText">The user input text for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -142,6 +149,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static Result<ResponseResult> TryCreateResponse(
         this ResponsesClient client,
+        string model,
         string userInputText,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -149,9 +157,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string?, CancellationToken, ClientResult<ResponseResult>> func = client.CreateResponse;
+        Func<string, string, string?, CancellationToken, ClientResult<ResponseResult>> func = client.CreateResponse;
 
-        var funcResult = func.Try(userInputText, previousResponseId, cancellationToken);
+        var funcResult = func.Try(model, userInputText, previousResponseId, cancellationToken);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult.Value);
 
@@ -386,6 +394,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to asynchronously create a streaming response with input items and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="inputItems">The input items for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -393,6 +402,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this ResponsesClient client,
+        string model,
         IEnumerable<ResponseItem> inputItems,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -400,9 +410,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<IEnumerable<ResponseItem>, string?, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
+        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
 
-        var funcResult = func.Try(inputItems, previousResponseId, cancellationToken);
+        var funcResult = func.Try(model, inputItems, previousResponseId, cancellationToken);
         if (funcResult.IsSuccess(out var streamResult))
             return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
 
@@ -411,6 +421,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to synchronously create a streaming response with input items and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="inputItems">The input items for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -418,6 +429,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
         this ResponsesClient client,
+        string model,
         IEnumerable<ResponseItem> inputItems,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -425,9 +437,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<IEnumerable<ResponseItem>, string?, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
+        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
 
-        var funcResult = func.Try(inputItems, previousResponseId, cancellationToken);
+        var funcResult = func.Try(model, inputItems, previousResponseId, cancellationToken);
         if (funcResult.IsSuccess(out var streamResult))
             return Result.Success(streamResult.AsEnumerableResult());
 
@@ -436,6 +448,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to asynchronously create a streaming response with user input text and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="userInputText">The user input text for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -443,6 +456,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this ResponsesClient client,
+        string model,
         string userInputText,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -450,9 +464,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string?, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
+        Func<string, string, string?, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
 
-        var funcResult = func.Try(userInputText, previousResponseId, cancellationToken);
+        var funcResult = func.Try(model, userInputText, previousResponseId, cancellationToken);
         if (funcResult.IsSuccess(out var streamResult))
             return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
 
@@ -461,6 +475,7 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to synchronously create a streaming response with user input text and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
+    /// <param name="model">The model to use for the response.</param>
     /// <param name="userInputText">The user input text for the response.</param>
     /// <param name="previousResponseId">The optional previous response ID.</param>
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
@@ -468,6 +483,7 @@ public static class ResponsesClientExtensions
     [Experimental("OPENAI001")]
     public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
         this ResponsesClient client,
+        string model,
         string userInputText,
         string? previousResponseId = null,
         CancellationToken cancellationToken = default
@@ -475,9 +491,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string?, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
+        Func<string, string, string?, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
 
-        var funcResult = func.Try(userInputText, previousResponseId, cancellationToken);
+        var funcResult = func.Try(model, userInputText, previousResponseId, cancellationToken);
         if (funcResult.IsSuccess(out var streamResult))
             return Result.Success(streamResult.AsEnumerableResult());
 
@@ -604,6 +620,106 @@ public static class ResponsesClientExtensions
         Func<BinaryContent, RequestOptions?, ClientResult> func = client.CreateResponse;
 
         var funcResult = func.Try(content, options);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
+
+    /// <summary>Attempts to asynchronously compact a response and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The response client instance.</param>
+    /// <param name="contentType">The content type for the request.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="options">Request options.</param>
+    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
+    [Experimental("OPENAI001")]
+    public static async Task<Result<ClientResult>> TryCompactResponseAsync(
+        this ResponsesClient client,
+        string contentType,
+        BinaryContent content,
+        RequestOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<string, BinaryContent, RequestOptions, Task<ClientResult>> func = client.CompactResponseAsync;
+
+        var funcResult = await func.TryAsync(contentType, content, options).ConfigureAwait(false);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
+
+    /// <summary>Attempts to synchronously compact a response and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The response client instance.</param>
+    /// <param name="contentType">The content type for the request.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="options">Request options.</param>
+    /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
+    [Experimental("OPENAI001")]
+    public static Result<ClientResult> TryCompactResponse(
+        this ResponsesClient client,
+        string contentType,
+        BinaryContent content,
+        RequestOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<string, BinaryContent, RequestOptions, ClientResult> func = client.CompactResponse;
+
+        var funcResult = func.Try(contentType, content, options);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
+
+    /// <summary>Attempts to asynchronously get input token count and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The response client instance.</param>
+    /// <param name="contentType">The content type for the request.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="options">Request options.</param>
+    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
+    [Experimental("OPENAI001")]
+    public static async Task<Result<ClientResult>> TryGetInputTokenCountAsync(
+        this ResponsesClient client,
+        string contentType,
+        BinaryContent content,
+        RequestOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<string, BinaryContent, RequestOptions, Task<ClientResult>> func = client.GetInputTokenCountAsync;
+
+        var funcResult = await func.TryAsync(contentType, content, options).ConfigureAwait(false);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
+
+    /// <summary>Attempts to synchronously get input token count and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The response client instance.</param>
+    /// <param name="contentType">The content type for the request.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="options">Request options.</param>
+    /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
+    [Experimental("OPENAI001")]
+    public static Result<ClientResult> TryGetInputTokenCount(
+        this ResponsesClient client,
+        string contentType,
+        BinaryContent content,
+        RequestOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<string, BinaryContent, RequestOptions, ClientResult> func = client.GetInputTokenCount;
+
+        var funcResult = func.Try(contentType, content, options);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult);
 
