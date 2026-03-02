@@ -692,4 +692,79 @@ public static class OpenAIFileClientExtensions
 
         return funcResult.AsFailure<ClientResult>();
     }
+
+/// <summary>
+    /// Attempts to execute <c>GetFiles</c> and wraps the outcome in a Result.
+    /// </summary>
+    /// <param name="client">The OpenAIFileClient instance.</param>
+    /// <param name="purpose">Parameter forwarded to <c>GetFiles</c>.</param>
+    /// <param name="limit">Parameter forwarded to <c>GetFiles</c>.</param>
+    /// <param name="order">Parameter forwarded to <c>GetFiles</c>.</param>
+    /// <param name="after">Parameter forwarded to <c>GetFiles</c>.</param>
+    /// <param name="options">Parameter forwarded to <c>GetFiles</c>.</param>
+    /// <returns>The wrapped result.</returns>
+    [Experimental("OPENAI001")]
+    public static Result<ClientResult> TryGetFiles(
+        this OpenAIFileClient client,
+        string purpose,
+        long? limit,
+        string order,
+        string after,
+        RequestOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<
+            string,
+            long?,
+            string,
+            string,
+            RequestOptions,
+            ClientResult> func = client.GetFiles;
+
+        var funcResult = func.Try(purpose, limit, order, after, options);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
+
+    /// <summary>
+    /// Attempts to execute <c>GetFilesAsync</c> and wraps the outcome in a Result.
+    /// </summary>
+    /// <param name="client">The OpenAIFileClient instance.</param>
+    /// <param name="purpose">Parameter forwarded to <c>GetFilesAsync</c>.</param>
+    /// <param name="limit">Parameter forwarded to <c>GetFilesAsync</c>.</param>
+    /// <param name="order">Parameter forwarded to <c>GetFilesAsync</c>.</param>
+    /// <param name="after">Parameter forwarded to <c>GetFilesAsync</c>.</param>
+    /// <param name="options">Parameter forwarded to <c>GetFilesAsync</c>.</param>
+    /// <returns>The wrapped result.</returns>
+    [Experimental("OPENAI001")]
+    public static async Task<Result<ClientResult>> TryGetFilesAsync(
+        this OpenAIFileClient client,
+        string purpose,
+        long? limit,
+        string order,
+        string after,
+        RequestOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<
+            string,
+            long?,
+            string,
+            string,
+            RequestOptions,
+            Task<ClientResult>> func = client.GetFilesAsync;
+
+        var funcResult = await func.TryAsync(purpose, limit, order, after, options).ConfigureAwait(false);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
 }
+

@@ -1,6 +1,31 @@
 # OpenAI
 
-Provides extension methods that wrap all OpenAI operations using LightResults.
+Provides extension methods that wrap OpenAI operations using LightResults.
+
+The package targets OpenAI `v2.9.0` and provides `Try*` wrappers for all public methods on all OpenAI clients.
+
+### Supported clients
+
+- `AssistantClient`
+- `AudioClient`
+- `BatchClient`
+- `ChatClient`
+- `ContainerClient`
+- `ConversationClient`
+- `EmbeddingClient`
+- `EvaluationClient`
+- `FineTuningClient`
+- `GraderClient`
+- `ImageClient`
+- `ModerationClient`
+- `OpenAIClient`
+- `OpenAIFileClient`
+- `OpenAIModelClient`
+- `RealtimeClient`
+- `RealtimeSessionClient`
+- `ResponsesClient`
+- `VectorStoreClient`
+- `VideoClient`
 
 ### Chat Completions example
 

@@ -8,7 +8,7 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 ## OpenAI
 
-Provides comprehensive an OpenAI (v2.7.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
+Provides comprehensive OpenAI (v2.9.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
 
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
@@ -22,18 +22,26 @@ Make sure to [read the docs](https://jscarle.github.io/LightResults.Extensions/)
 This package provides a `Try` extension method version of all public methods for all OpenAI clients, wrapping operations in a `try { } catch { }` block. If an exception occurs, a failed result will be returned and the `Exception` will be added to the result as metadata.
 
 **Supported Clients:**
-- **Assistants** - `AssistantClient` extensions for AI assistants
+- **Assistants** - `AssistantClient` extensions for assistant operations
 - **Audio Processing** - `AudioClient` extensions for speech-to-text and text-to-speech
 - **Batch Processing** - `BatchClient` extensions for batch operations
 - **Chat Completions** - `ChatClient` extensions for chat completions and streaming
-- **Conversations** - `ConversationClient` extensions for conversations
-- **Embeddings** - `EmbeddingClient` extensions for text embeddings
-- **Evaluations** - `EvaluationClient` extensions for model evaluations
-- **File Operations** - `OpenAIFileClient` extensions for file uploads and management
-- **Fine-tuning** - `FineTuningClient` extensions for model fine-tuning
+- **Containers** - `ContainerClient` extensions for container operations
+- **Conversations** - `ConversationClient` extensions for conversation operations
+- **Embeddings** - `EmbeddingClient` extensions for text embedding operations
+- **Evaluations** - `EvaluationClient` extensions for evaluation operations
+- **File Operations** - `OpenAIFileClient` extensions for file and upload operations
+- **Fine-tuning** - `FineTuningClient` extensions for fine-tuning operations
+- **Graders** - `GraderClient` extensions for grader operations
 - **Image Generation** - `ImageClient` extensions for image generation and editing
-- **Responses** - `ResponsesClient` extensions for responses and streaming
-- **Vector Stores** - `VectorStoreClient` extensions for vector storage and retrieval
+- **Moderation** - `ModerationClient` extensions for moderation operations
+- **OpenAI Root Client** - `OpenAIClient` extensions for client factory helpers
+- **Model Operations** - `OpenAIModelClient` extensions for model operations
+- **Realtime** - `RealtimeClient` extensions for realtime operations
+- **Realtime Sessions** - `RealtimeSessionClient` extensions for realtime session operations
+- **Responses** - `ResponsesClient` extensions for responses and streaming, including token-count and compact helpers
+- **Vector Stores** - `VectorStoreClient` extensions for vector store operations
+- **Video** - `VideoClient` extensions for video generation operations
 
 ### Usage Examples
 

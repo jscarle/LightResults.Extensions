@@ -1,6 +1,7 @@
 using System.ClientModel;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Embeddings;
+using System.ClientModel.Primitives;
 
 namespace LightResults.Extensions.OpenAI;
 
@@ -157,4 +158,59 @@ public static class EmbeddingClientExtensions
 
         return funcResult.AsFailure<OpenAIEmbeddingCollection>();
     }
+
+/// <summary>
+    /// Attempts to execute <c>GenerateEmbeddings</c> and wraps the outcome in a Result.
+    /// </summary>
+    /// <param name="client">The EmbeddingClient instance.</param>
+    /// <param name="content">Parameter forwarded to <c>GenerateEmbeddings</c>.</param>
+    /// <param name="options">Parameter forwarded to <c>GenerateEmbeddings</c>.</param>
+    /// <returns>The wrapped result.</returns>
+    public static Result<ClientResult> TryGenerateEmbeddings(
+        this EmbeddingClient client,
+        BinaryContent content,
+        RequestOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<
+            BinaryContent,
+            RequestOptions?,
+            ClientResult> func = client.GenerateEmbeddings;
+
+        var funcResult = func.Try(content, options);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
+
+    /// <summary>
+    /// Attempts to execute <c>GenerateEmbeddingsAsync</c> and wraps the outcome in a Result.
+    /// </summary>
+    /// <param name="client">The EmbeddingClient instance.</param>
+    /// <param name="content">Parameter forwarded to <c>GenerateEmbeddingsAsync</c>.</param>
+    /// <param name="options">Parameter forwarded to <c>GenerateEmbeddingsAsync</c>.</param>
+    /// <returns>The wrapped result.</returns>
+    public static async Task<Result<ClientResult>> TryGenerateEmbeddingsAsync(
+        this EmbeddingClient client,
+        BinaryContent content,
+        RequestOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<
+            BinaryContent,
+            RequestOptions?,
+            Task<ClientResult>> func = client.GenerateEmbeddingsAsync;
+
+        var funcResult = await func.TryAsync(content, options).ConfigureAwait(false);
+        if (funcResult.IsSuccess(out var clientResult))
+            return Result.Success(clientResult);
+
+        return funcResult.AsFailure<ClientResult>();
+    }
 }
+
