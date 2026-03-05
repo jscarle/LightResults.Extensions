@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides missing Try wrappers for <see cref="ContainerClient"/> methods in OpenAI 2.9.0.
+/// Provides missing Try wrappers for <see cref="ContainerClient"/> methods in OpenAI 2.9.1.
 /// </summary>
 public static class ContainerClientExtensions
 {

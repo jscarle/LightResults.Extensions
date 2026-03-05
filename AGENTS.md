@@ -4,10 +4,11 @@ This repository contains high-performance C# libraries that extend the [LightRes
 
 ## Repository layout
 
-- **src** – Contains four projects:
+- **src** – Contains five projects:
   - `LightResults.Extensions.ExceptionHandling`
   - `LightResults.Extensions.EntityFrameworkCore`
   - `LightResults.Extensions.Json`
+  - `LightResults.Extensions.OpenAI`
   - `LightResults.Extensions.Operations`
 - **tests** – xUnit test project located in `tests/LightResults.Extensions.Tests`.
 - **tools** – Benchmark projects under `tools/Benchmarks`.
@@ -21,7 +22,7 @@ Always verify your changes by running the same steps as CI:
  dotnet restore
  dotnet build --configuration Release --no-restore
 
-# Run tests (targeting .NET 8)
+# Run tests (targeting .NET 10)
  dotnet test --configuration Release --no-build --verbosity normal --framework net10.0
 ```
 
