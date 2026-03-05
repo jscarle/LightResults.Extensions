@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides missing Try wrappers for <see cref="RealtimeClient"/> methods in OpenAI 2.9.0.
+/// Provides missing Try wrappers for <see cref="RealtimeClient"/> methods in OpenAI 2.9.1.
 /// </summary>
 [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope")]
 public static class RealtimeClientExtensions
