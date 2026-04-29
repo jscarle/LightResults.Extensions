@@ -8,7 +8,7 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 ## OpenAI
 
-Provides comprehensive OpenAI (v2.9.1) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
+Provides comprehensive OpenAI (v2.10.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
 
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
@@ -23,7 +23,7 @@ This package provides a `Try` extension method version of all public methods for
 
 **Supported Clients:**
 - **Assistants** - `AssistantClient` extensions for assistant operations
-- **Audio Processing** - `AudioClient` extensions for speech-to-text and text-to-speech
+- **Audio Processing** - `AudioClient` extensions for transcription, translation, speech, voice, and consent operations
 - **Batch Processing** - `BatchClient` extensions for batch operations
 - **Chat Completions** - `ChatClient` extensions for chat completions and streaming
 - **Containers** - `ContainerClient` extensions for container operations
@@ -142,8 +142,8 @@ using LightResults.Extensions.OpenAI;
 var audioClient = new AudioClient("whisper-1", apiKey);
 
 // Transcribe audio
-var audioData = File.ReadAllBytes("audio.mp3");
-var transcriptionResult = await audioClient.TryTranscribeAudioAsync(audioData, "audio.mp3");
+await using var audio = File.OpenRead("audio.mp3");
+var transcriptionResult = await audioClient.TryTranscribeAudioAsync(audio, "audio.mp3");
 if (transcriptionResult.IsSuccess(out var transcription))
 {
     Console.WriteLine($"Transcription: {transcription.Text}");
@@ -167,8 +167,8 @@ using LightResults.Extensions.OpenAI;
 var fileClient = new OpenAIFileClient(apiKey);
 
 // Upload file
-var fileData = File.ReadAllBytes("document.txt");
-var uploadResult = await fileClient.TryUploadFileAsync(fileData, "document.txt", FileUploadPurpose.Assistants);
+await using var file = File.OpenRead("document.txt");
+var uploadResult = await fileClient.TryUploadFileAsync(file, "document.txt", FileUploadPurpose.Assistants);
 if (uploadResult.IsSuccess(out var uploadedFile))
 {
     Console.WriteLine($"Uploaded file ID: {uploadedFile.Id}");

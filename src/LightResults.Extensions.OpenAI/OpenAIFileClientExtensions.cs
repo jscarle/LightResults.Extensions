@@ -707,7 +707,7 @@ public static class OpenAIFileClientExtensions
     public static Result<ClientResult> TryGetFiles(
         this OpenAIFileClient client,
         string purpose,
-        long? limit,
+        int? limit,
         string order,
         string after,
         RequestOptions options
@@ -717,7 +717,7 @@ public static class OpenAIFileClientExtensions
 
         Func<
             string,
-            long?,
+            int?,
             string,
             string,
             RequestOptions,
@@ -744,7 +744,7 @@ public static class OpenAIFileClientExtensions
     public static async Task<Result<ClientResult>> TryGetFilesAsync(
         this OpenAIFileClient client,
         string purpose,
-        long? limit,
+        int? limit,
         string order,
         string after,
         RequestOptions options
@@ -754,7 +754,7 @@ public static class OpenAIFileClientExtensions
 
         Func<
             string,
-            long?,
+            int?,
             string,
             string,
             RequestOptions,
@@ -767,4 +767,3 @@ public static class OpenAIFileClientExtensions
         return funcResult.AsFailure<ClientResult>();
     }
 }
-

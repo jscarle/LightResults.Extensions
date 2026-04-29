@@ -325,7 +325,7 @@ public static class ConversationClientExtensions
     public static async Task<Result<AsyncCollectionResult>> TryGetConversationItemsAsync(
         this ConversationClient client,
         string conversationId,
-        long? limit = null,
+        int? limit = null,
         string? order = null,
         string? after = null,
         IEnumerable<IncludedConversationItemProperty>? include = null,
@@ -334,7 +334,7 @@ public static class ConversationClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, long?, string?, string?, IEnumerable<IncludedConversationItemProperty>?, RequestOptions?, AsyncCollectionResult> func =
+        Func<string, int?, string?, string?, IEnumerable<IncludedConversationItemProperty>?, RequestOptions?, AsyncCollectionResult> func =
             client.GetConversationItemsAsync;
 
         var funcResult = await Task.Run(() => func.Try(conversationId, limit, order, after, include, options)).ConfigureAwait(false);
@@ -357,7 +357,7 @@ public static class ConversationClientExtensions
     public static Result<CollectionResult> TryGetConversationItems(
         this ConversationClient client,
         string conversationId,
-        long? limit = null,
+        int? limit = null,
         string? order = null,
         string? after = null,
         IEnumerable<IncludedConversationItemProperty>? include = null,
@@ -366,7 +366,7 @@ public static class ConversationClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, long?, string?, string?, IEnumerable<IncludedConversationItemProperty>?, RequestOptions?, CollectionResult> func =
+        Func<string, int?, string?, string?, IEnumerable<IncludedConversationItemProperty>?, RequestOptions?, CollectionResult> func =
             client.GetConversationItems;
 
         var funcResult = func.Try(conversationId, limit, order, after, include, options);

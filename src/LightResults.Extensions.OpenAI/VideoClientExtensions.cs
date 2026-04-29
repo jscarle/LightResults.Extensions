@@ -327,7 +327,7 @@ public static class VideoClientExtensions
     [Experimental("OPENAI001")]
     public static Result<CollectionResult> TryGetVideos(
         this VideoClient client,
-        long? limit = null,
+        int? limit = null,
         string? order = null,
         string? after = null,
         RequestOptions? options = null
@@ -336,7 +336,7 @@ public static class VideoClientExtensions
         ArgumentNullException.ThrowIfNull(client);
 
         Func<
-            long?,
+            int?,
             string?,
             string?,
             RequestOptions?,
@@ -361,7 +361,7 @@ public static class VideoClientExtensions
     [Experimental("OPENAI001")]
     public static Result<AsyncCollectionResult> TryGetVideosAsync(
         this VideoClient client,
-        long? limit = null,
+        int? limit = null,
         string? order = null,
         string? after = null,
         RequestOptions? options = null
@@ -370,7 +370,7 @@ public static class VideoClientExtensions
         ArgumentNullException.ThrowIfNull(client);
 
         Func<
-            long?,
+            int?,
             string?,
             string?,
             RequestOptions?,

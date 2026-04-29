@@ -2,7 +2,7 @@
 
 Provides extension methods that wrap OpenAI operations using LightResults.
 
-The package targets OpenAI `v2.9.1` and provides `Try*` wrappers for all public methods on all OpenAI clients.
+The package targets OpenAI `v2.10.0` and provides `Try*` wrappers for all public methods on all OpenAI clients.
 
 ### Supported clients
 
@@ -76,7 +76,7 @@ if (chatResult.IsSuccess(out var chatCompletion))
 using OpenAI.Images;
 using LightResults.Extensions.OpenAI;
 
-var imageClient = new ImageClient("gpt-4.1-image", apiKey);
+var imageClient = new ImageClient("dall-e-3", apiKey);
 
 // Generate single image
 var imageResult = await imageClient.TryGenerateImageAsync(
