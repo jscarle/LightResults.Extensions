@@ -18,16 +18,16 @@
     <!-- References -->
 
     <ItemGroup>
-        <PackageReference Include="LightResults" Version="10.0.3" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All" />
+        <PackageReference Include="LightResults" Version="10.0.4"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All"/>
     </ItemGroup>
 
     <!-- Output -->
     <PropertyGroup>
         <AssemblyName>LightResults.Extensions.ExceptionHandling</AssemblyName>
-        <Version>10.0.2</Version>
-        <AssemblyVersion>10.0.2.0</AssemblyVersion>
-        <FileVersion>10.0.2.0</FileVersion>
+        <Version>10.0.3</Version>
+        <AssemblyVersion>10.0.3.0</AssemblyVersion>
+        <FileVersion>10.0.3.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Optimize>true</Optimize>
         <IsAotCompatible>true</IsAotCompatible>
@@ -46,7 +46,7 @@
         <RepositoryUrl>https://github.com/jscarle/LightResults.Extensions</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <Authors>Jean-Sebastien Carle</Authors>
-        <Copyright>Copyright © Jean-Sebastien Carle 2024</Copyright>
+        <Copyright>Copyright © Jean-Sebastien Carle 2024-2026</Copyright>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageIcon>Icon.png</PackageIcon>
         <IncludeSymbols>true</IncludeSymbols>
