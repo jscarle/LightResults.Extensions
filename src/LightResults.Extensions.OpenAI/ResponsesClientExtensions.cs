@@ -628,23 +628,23 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to asynchronously compact a response and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
-    /// <param name="contentType">The content type for the request.</param>
     /// <param name="content">The binary content for the request.</param>
+    /// <param name="contentType">The content type for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
     [Experimental("OPENAI001")]
     public static async Task<Result<ClientResult>> TryCompactResponseAsync(
         this ResponsesClient client,
-        string contentType,
         BinaryContent content,
+        string contentType,
         RequestOptions options
     )
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, BinaryContent, RequestOptions, Task<ClientResult>> func = client.CompactResponseAsync;
+        Func<BinaryContent, string, RequestOptions, Task<ClientResult>> func = client.CompactResponseAsync;
 
-        var funcResult = await func.TryAsync(contentType, content, options).ConfigureAwait(false);
+        var funcResult = await func.TryAsync(content, contentType, options).ConfigureAwait(false);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult);
 
@@ -653,23 +653,23 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to synchronously compact a response and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
-    /// <param name="contentType">The content type for the request.</param>
     /// <param name="content">The binary content for the request.</param>
+    /// <param name="contentType">The content type for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
     public static Result<ClientResult> TryCompactResponse(
         this ResponsesClient client,
-        string contentType,
         BinaryContent content,
+        string contentType,
         RequestOptions options
     )
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, BinaryContent, RequestOptions, ClientResult> func = client.CompactResponse;
+        Func<BinaryContent, string, RequestOptions, ClientResult> func = client.CompactResponse;
 
-        var funcResult = func.Try(contentType, content, options);
+        var funcResult = func.Try(content, contentType, options);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult);
 
@@ -678,23 +678,23 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to asynchronously get input token count and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
-    /// <param name="contentType">The content type for the request.</param>
     /// <param name="content">The binary content for the request.</param>
+    /// <param name="contentType">The content type for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{ClientResult}"/>.</returns>
     [Experimental("OPENAI001")]
     public static async Task<Result<ClientResult>> TryGetInputTokenCountAsync(
         this ResponsesClient client,
-        string contentType,
         BinaryContent content,
+        string contentType,
         RequestOptions options
     )
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, BinaryContent, RequestOptions, Task<ClientResult>> func = client.GetInputTokenCountAsync;
+        Func<BinaryContent, string, RequestOptions, Task<ClientResult>> func = client.GetInputTokenCountAsync;
 
-        var funcResult = await func.TryAsync(contentType, content, options).ConfigureAwait(false);
+        var funcResult = await func.TryAsync(content, contentType, options).ConfigureAwait(false);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult);
 
@@ -703,23 +703,23 @@ public static class ResponsesClientExtensions
 
     /// <summary>Attempts to synchronously get input token count and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The response client instance.</param>
-    /// <param name="contentType">The content type for the request.</param>
     /// <param name="content">The binary content for the request.</param>
+    /// <param name="contentType">The content type for the request.</param>
     /// <param name="options">Request options.</param>
     /// <returns>A <see cref="Result{ClientResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
     public static Result<ClientResult> TryGetInputTokenCount(
         this ResponsesClient client,
-        string contentType,
         BinaryContent content,
+        string contentType,
         RequestOptions options
     )
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, BinaryContent, RequestOptions, ClientResult> func = client.GetInputTokenCount;
+        Func<BinaryContent, string, RequestOptions, ClientResult> func = client.GetInputTokenCount;
 
-        var funcResult = func.Try(contentType, content, options);
+        var funcResult = func.Try(content, contentType, options);
         if (funcResult.IsSuccess(out var clientResult))
             return Result.Success(clientResult);
 

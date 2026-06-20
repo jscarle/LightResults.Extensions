@@ -16,6 +16,7 @@ using OpenAI.Models;
 using OpenAI.Moderations;
 using OpenAI.Realtime;
 using OpenAI.Responses;
+using OpenAI.Skills;
 using OpenAI.VectorStores;
 using OpenAI.Videos;
 using System.Diagnostics.CodeAnalysis;
@@ -24,7 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides missing Try wrappers for <see cref="OpenAIClient"/> methods in OpenAI 2.9.1.
+/// Provides missing Try wrappers for <see cref="OpenAIClient"/> methods in OpenAI 2.11.0.
 /// </summary>
 public static class OpenAIClientExtensions
 {
@@ -375,6 +376,27 @@ public static class OpenAIClientExtensions
             return Result.Success(value);
 
         return funcResult.AsFailure<ResponsesClient>();
+    }
+
+    /// <summary>
+    /// Attempts to execute <c>GetSkillClient</c> and wraps the outcome in a Result.
+    /// </summary>
+    /// <param name="client">The OpenAIClient instance.</param>
+    /// <returns>The wrapped result.</returns>
+    [Experimental("OPENAI001")]
+    public static Result<SkillClient> TryGetSkillClient(
+        this OpenAIClient client
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<SkillClient> func = client.GetSkillClient;
+
+        var funcResult = func.Try();
+        if (funcResult.IsSuccess(out var value))
+            return Result.Success(value);
+
+        return funcResult.AsFailure<SkillClient>();
     }
 
     /// <summary>

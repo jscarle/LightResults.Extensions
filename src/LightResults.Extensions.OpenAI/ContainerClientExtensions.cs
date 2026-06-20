@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides missing Try wrappers for <see cref="ContainerClient"/> methods in OpenAI 2.9.1.
+/// Provides missing Try wrappers for <see cref="ContainerClient"/> methods in OpenAI 2.11.0.
 /// </summary>
 public static class ContainerClientExtensions
 {
@@ -124,16 +124,16 @@ public static class ContainerClientExtensions
     }
 
     /// <summary>
-    /// Attempts to execute <c>CreateContainerFile</c> and wraps the outcome in a Result.
+    /// Attempts to execute <c>UploadContainerFile</c> and wraps the outcome in a Result.
     /// </summary>
     /// <param name="client">The ContainerClient instance.</param>
-    /// <param name="containerId">Parameter forwarded to <c>CreateContainerFile</c>.</param>
-    /// <param name="content">Parameter forwarded to <c>CreateContainerFile</c>.</param>
-    /// <param name="contentType">Parameter forwarded to <c>CreateContainerFile</c>.</param>
-    /// <param name="options">Parameter forwarded to <c>CreateContainerFile</c>.</param>
+    /// <param name="containerId">Parameter forwarded to <c>UploadContainerFile</c>.</param>
+    /// <param name="content">Parameter forwarded to <c>UploadContainerFile</c>.</param>
+    /// <param name="contentType">Parameter forwarded to <c>UploadContainerFile</c>.</param>
+    /// <param name="options">Parameter forwarded to <c>UploadContainerFile</c>.</param>
     /// <returns>The wrapped result.</returns>
     [Experimental("OPENAI001")]
-    public static Result<ClientResult> TryCreateContainerFile(
+    public static Result<ClientResult> TryUploadContainerFile(
         this ContainerClient client,
         string containerId,
         BinaryContent content,
@@ -148,7 +148,7 @@ public static class ContainerClientExtensions
             BinaryContent,
             string,
             RequestOptions?,
-            ClientResult> func = client.CreateContainerFile;
+            ClientResult> func = client.UploadContainerFile;
 
         var funcResult = func.Try(containerId, content, contentType, options);
         if (funcResult.IsSuccess(out var clientResult))
@@ -158,16 +158,16 @@ public static class ContainerClientExtensions
     }
 
     /// <summary>
-    /// Attempts to execute <c>CreateContainerFileAsync</c> and wraps the outcome in a Result.
+    /// Attempts to execute <c>UploadContainerFileAsync</c> and wraps the outcome in a Result.
     /// </summary>
     /// <param name="client">The ContainerClient instance.</param>
-    /// <param name="containerId">Parameter forwarded to <c>CreateContainerFileAsync</c>.</param>
-    /// <param name="content">Parameter forwarded to <c>CreateContainerFileAsync</c>.</param>
-    /// <param name="contentType">Parameter forwarded to <c>CreateContainerFileAsync</c>.</param>
-    /// <param name="options">Parameter forwarded to <c>CreateContainerFileAsync</c>.</param>
+    /// <param name="containerId">Parameter forwarded to <c>UploadContainerFileAsync</c>.</param>
+    /// <param name="content">Parameter forwarded to <c>UploadContainerFileAsync</c>.</param>
+    /// <param name="contentType">Parameter forwarded to <c>UploadContainerFileAsync</c>.</param>
+    /// <param name="options">Parameter forwarded to <c>UploadContainerFileAsync</c>.</param>
     /// <returns>The wrapped result.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<ClientResult>> TryCreateContainerFileAsync(
+    public static async Task<Result<ClientResult>> TryUploadContainerFileAsync(
         this ContainerClient client,
         string containerId,
         BinaryContent content,
@@ -182,7 +182,7 @@ public static class ContainerClientExtensions
             BinaryContent,
             string,
             RequestOptions?,
-            Task<ClientResult>> func = client.CreateContainerFileAsync;
+            Task<ClientResult>> func = client.UploadContainerFileAsync;
 
         var funcResult = await func.TryAsync(containerId, content, contentType, options).ConfigureAwait(false);
         if (funcResult.IsSuccess(out var clientResult))

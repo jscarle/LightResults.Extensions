@@ -17,20 +17,20 @@
 
     <!-- References -->
     <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.28"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.17"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9"/>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="LightResults" Version="10.0.3" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.203" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All" />
     </ItemGroup>
 
     <!-- Output -->

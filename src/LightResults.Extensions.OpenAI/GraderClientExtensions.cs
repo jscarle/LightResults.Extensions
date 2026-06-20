@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides missing Try wrappers for <see cref="GraderClient"/> methods in OpenAI 2.9.1.
+/// Provides missing Try wrappers for <see cref="GraderClient"/> methods in OpenAI 2.11.0.
 /// </summary>
 public static class GraderClientExtensions
 {

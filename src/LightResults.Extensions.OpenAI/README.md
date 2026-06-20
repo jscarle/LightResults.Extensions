@@ -8,7 +8,7 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 ## OpenAI
 
-Provides comprehensive OpenAI (v2.10.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
+Provides comprehensive OpenAI (v2.11.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
 
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
@@ -40,6 +40,7 @@ This package provides a `Try` extension method version of all public methods for
 - **Realtime** - `RealtimeClient` extensions for realtime operations
 - **Realtime Sessions** - `RealtimeSessionClient` extensions for realtime session operations
 - **Responses** - `ResponsesClient` extensions for responses and streaming, including token-count and compact helpers
+- **Skills** - `SkillClient` extensions for skill upload, download, versioning, and deletion operations
 - **Vector Stores** - `VectorStoreClient` extensions for vector store operations
 - **Video** - `VideoClient` extensions for video generation operations
 
