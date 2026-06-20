@@ -40,7 +40,13 @@ public static class EnumerableExtensions
         if (exception is not null)
         {
             yield return Result.Failure<T>(exception);
-            enumerator?.Dispose();
+            if (enumerator is not null)
+            {
+                var disposeException = DisposeEnumerator(enumerator);
+                if (disposeException is not null)
+                    yield return Result.Failure<T>(disposeException);
+            }
+
             yield break;
         }
 
@@ -67,11 +73,23 @@ public static class EnumerableExtensions
                 if (exception is not null)
                 {
                     yield return Result.Failure<T>(exception);
+                    var disposeException = DisposeEnumerator(enumerator);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
                     yield break;
                 }
 
                 if (!hasMoreItems)
+                {
+                    var disposeException = DisposeEnumerator(enumerator);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
                     yield break;
+                }
 
                 T current = default(T)!;
                 try
@@ -86,6 +104,11 @@ public static class EnumerableExtensions
                 if (exception is not null)
                 {
                     yield return Result.Failure<T>(exception);
+                    var disposeException = DisposeEnumerator(enumerator);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
                     yield break;
                 }
 
@@ -94,7 +117,8 @@ public static class EnumerableExtensions
         }
         finally
         {
-            enumerator.Dispose();
+            if (enumerator is not null)
+                _ = DisposeEnumerator(enumerator);
         }
     }
 
@@ -134,8 +158,13 @@ public static class EnumerableExtensions
         {
             yield return Result.Failure<T>(exception);
             if (enumerator is not null)
-                await enumerator.DisposeAsync()
+            {
+                var disposeException = await DisposeAsyncEnumerator(enumerator)
                     .ConfigureAwait(false);
+                if (disposeException is not null)
+                    yield return Result.Failure<T>(disposeException);
+            }
+
             yield break;
         }
 
@@ -163,11 +192,25 @@ public static class EnumerableExtensions
                 if (exception is not null)
                 {
                     yield return Result.Failure<T>(exception);
+                    var disposeException = await DisposeAsyncEnumerator(enumerator)
+                        .ConfigureAwait(false);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
                     yield break;
                 }
 
                 if (!hasMoreItems)
+                {
+                    var disposeException = await DisposeAsyncEnumerator(enumerator)
+                        .ConfigureAwait(false);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
                     yield break;
+                }
 
                 T current = default(T)!;
                 try
@@ -182,6 +225,12 @@ public static class EnumerableExtensions
                 if (exception is not null)
                 {
                     yield return Result.Failure<T>(exception);
+                    var disposeException = await DisposeAsyncEnumerator(enumerator)
+                        .ConfigureAwait(false);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
                     yield break;
                 }
 
@@ -190,8 +239,36 @@ public static class EnumerableExtensions
         }
         finally
         {
+            if (enumerator is not null)
+                _ = await DisposeAsyncEnumerator(enumerator)
+                    .ConfigureAwait(false);
+        }
+    }
+
+    private static Exception? DisposeEnumerator<T>(IEnumerator<T> enumerator)
+    {
+        try
+        {
+            enumerator.Dispose();
+            return null;
+        }
+        catch (Exception ex)
+        {
+            return ex;
+        }
+    }
+
+    private static async ValueTask<Exception?> DisposeAsyncEnumerator<T>(IAsyncEnumerator<T> enumerator)
+    {
+        try
+        {
             await enumerator.DisposeAsync()
                 .ConfigureAwait(false);
+            return null;
+        }
+        catch (Exception ex)
+        {
+            return ex;
         }
     }
 }

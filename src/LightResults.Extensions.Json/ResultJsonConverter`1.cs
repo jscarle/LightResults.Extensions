@@ -123,6 +123,12 @@ public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
             return;
         }
 
+        if (HasCustomConverter(obj.GetType(), options))
+        {
+            WriteObjectUsingSerializer(writer, name, obj, options);
+            return;
+        }
+
         switch (obj)
         {
             case bool value:
@@ -205,6 +211,41 @@ public sealed class ResultJsonConverter<TValue> : JsonConverter<Result<TValue>>
 #pragma warning restore IL2026
 #pragma warning restore CA1031
         }
+    }
+
+    private static bool HasCustomConverter(Type type, JsonSerializerOptions options)
+    {
+        foreach (var converter in options.Converters)
+        {
+            if (converter.CanConvert(type))
+                return true;
+        }
+
+        return false;
+    }
+
+    private static void WriteObjectUsingSerializer(Utf8JsonWriter writer, string name, object obj, JsonSerializerOptions options)
+    {
+#pragma warning disable IL2026
+#pragma warning disable IL3050
+#pragma warning disable CA1031
+        try
+        {
+            var json = JsonSerializer.Serialize(obj, obj.GetType(), options);
+            writer.WritePropertyName(name);
+            writer.WriteRawValue(json);
+        }
+        catch
+        {
+            var typeName = obj.GetType()
+                               .FullName
+                           ?? obj.GetType()
+                               .Name;
+            writer.WriteString(name, typeName);
+        }
+#pragma warning restore IL3050
+#pragma warning restore IL2026
+#pragma warning restore CA1031
     }
 
     private static void WriteDouble(Utf8JsonWriter writer, string name, double value, JsonSerializerOptions options)

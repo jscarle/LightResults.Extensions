@@ -174,6 +174,20 @@ public sealed class ResultJsonConverterTests
     }
 
     [Fact]
+    public void SuccessWithCustomDateTimeValueConverter_ShouldUseSerializerOptions()
+    {
+        // Arrange
+        var result = Result.Success(new DateTime(2026, 1, 2, 3, 4, 5, DateTimeKind.Utc));
+        var options = CreateCustomDateTimeOptions();
+
+        // Act
+        var json = JsonSerializer.Serialize(result, options);
+
+        // Assert
+        json.ShouldBe("{\"IsSuccess\":true,\"Value\":\"custom-date\"}");
+    }
+
+    [Fact]
     public void FailedResultWithComplexMetadata_ShouldUseSerializerOptions()
     {
         // Arrange
@@ -194,6 +208,29 @@ public sealed class ResultJsonConverterTests
 
         payloadValue.GetProperty("firstName").GetString().ShouldBe("Ada");
         payloadValue.GetProperty("secret").GetString().ShouldBe("redacted");
+    }
+
+    [Fact]
+    public void FailedResultWithCustomDateTimeMetadata_ShouldUseSerializerOptions()
+    {
+        // Arrange
+        var date = new DateTime(2026, 1, 2, 3, 4, 5, DateTimeKind.Utc);
+        var result = Result.Failure(new Error("Error 1", ("Timestamp", date)));
+        var options = CreateCustomDateTimeOptions();
+
+        // Act
+        var json = JsonSerializer.Serialize(result, options);
+
+        // Assert
+        using var document = JsonDocument.Parse(json);
+        var value = document.RootElement
+            .GetProperty("Errors")[0]
+            .GetProperty("Metadata")
+            .GetProperty("Timestamp")
+            .GetProperty("Value")
+            .GetString();
+
+        value.ShouldBe("custom-date");
     }
 
     [Fact]
@@ -281,6 +318,18 @@ public sealed class ResultJsonConverterTests
         };
     }
 
+    private static JsonSerializerOptions CreateCustomDateTimeOptions()
+    {
+        return new JsonSerializerOptions
+        {
+            Converters =
+            {
+                new ResultJsonConverterFactory(),
+                new CustomDateTimeConverter(),
+            },
+        };
+    }
+
     private sealed record Payload(string FirstName, Secret Secret);
 
     private sealed record Secret(string Value);
@@ -295,6 +344,19 @@ public sealed class ResultJsonConverterTests
         public override void Write(Utf8JsonWriter writer, Secret value, JsonSerializerOptions options)
         {
             writer.WriteStringValue("redacted");
+        }
+    }
+
+    private sealed class CustomDateTimeConverter : JsonConverter<DateTime>
+    {
+        public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            throw new NotSupportedException();
+        }
+
+        public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue("custom-date");
         }
     }
 }
