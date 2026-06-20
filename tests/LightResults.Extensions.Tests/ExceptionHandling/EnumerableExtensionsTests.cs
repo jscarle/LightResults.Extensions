@@ -99,6 +99,35 @@ public sealed class EnumerableExtensionsTests
     }
 
     [Fact]
+    public void AsEnumerableResult_FullEnumeration_ShouldDisposeEnumerator()
+    {
+        // Arrange
+        var source = new DisposableEnumerable();
+
+        // Act
+        _ = source.AsEnumerableResult().ToList();
+
+        // Assert
+        source.EnumeratorDisposed.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void AsEnumerableResult_EarlyEnumerationStop_ShouldDisposeEnumerator()
+    {
+        // Arrange
+        var source = new DisposableEnumerable();
+
+        // Act
+        foreach (var _ in source.AsEnumerableResult())
+        {
+            break;
+        }
+
+        // Assert
+        source.EnumeratorDisposed.ShouldBeTrue();
+    }
+
+    [Fact]
     public async Task AsAsyncEnumerableResult_ValidSequence_ShouldReturnAllItemsAsSuccessResults()
     {
         // Arrange
@@ -139,6 +168,37 @@ public sealed class EnumerableExtensionsTests
         results.Count.ShouldBe(0);
     }
 
+    [Fact]
+    public async Task AsAsyncEnumerableResult_FullEnumeration_ShouldDisposeEnumerator()
+    {
+        // Arrange
+        var source = new AsyncDisposableEnumerable();
+
+        // Act
+        await foreach (var _ in source.AsAsyncEnumerableResult())
+        {
+        }
+
+        // Assert
+        source.EnumeratorDisposed.ShouldBeTrue();
+    }
+
+    [Fact]
+    public async Task AsAsyncEnumerableResult_EarlyEnumerationStop_ShouldDisposeEnumerator()
+    {
+        // Arrange
+        var source = new AsyncDisposableEnumerable();
+
+        // Act
+        await foreach (var _ in source.AsAsyncEnumerableResult())
+        {
+            break;
+        }
+
+        // Assert
+        source.EnumeratorDisposed.ShouldBeTrue();
+    }
+
     private static async IAsyncEnumerable<T> CreateAsyncEnumerable<T>(IEnumerable<T> items)
     {
         foreach (var item in items)
@@ -158,6 +218,75 @@ public sealed class EnumerableExtensionsTests
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+    }
+
+    private sealed class DisposableEnumerable : IEnumerable<int>
+    {
+        public bool EnumeratorDisposed { get; private set; }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            return new Enumerator(this);
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private sealed class Enumerator(DisposableEnumerable owner) : IEnumerator<int>
+        {
+            private int _current;
+
+            public int Current => _current;
+
+            object System.Collections.IEnumerator.Current => Current;
+
+            public bool MoveNext()
+            {
+                _current++;
+                return _current <= 2;
+            }
+
+            public void Reset()
+            {
+                _current = 0;
+            }
+
+            public void Dispose()
+            {
+                owner.EnumeratorDisposed = true;
+            }
+        }
+    }
+
+    private sealed class AsyncDisposableEnumerable : IAsyncEnumerable<int>
+    {
+        public bool EnumeratorDisposed { get; private set; }
+
+        public IAsyncEnumerator<int> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        {
+            return new Enumerator(this);
+        }
+
+        private sealed class Enumerator(AsyncDisposableEnumerable owner) : IAsyncEnumerator<int>
+        {
+            private int _current;
+
+            public int Current => _current;
+
+            public ValueTask<bool> MoveNextAsync()
+            {
+                _current++;
+                return ValueTask.FromResult(_current <= 2);
+            }
+
+            public ValueTask DisposeAsync()
+            {
+                owner.EnumeratorDisposed = true;
+                return ValueTask.CompletedTask;
+            }
         }
     }
 }

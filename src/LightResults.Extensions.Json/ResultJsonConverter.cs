@@ -46,21 +46,21 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
         else
         {
             writer.WriteBoolean(IsSuccess, false);
-            WriteErrors(writer, value);
+            WriteErrors(writer, value, options);
         }
         writer.WriteEndObject();
     }
 
-    private static void WriteErrors(Utf8JsonWriter writer, Result result)
+    private static void WriteErrors(Utf8JsonWriter writer, Result result, JsonSerializerOptions options)
     {
         writer.WritePropertyName(Errors);
         writer.WriteStartArray();
         foreach (var error in result.Errors)
-            WriteError(writer, error);
+            WriteError(writer, error, options);
         writer.WriteEndArray();
     }
 
-    private static void WriteError(Utf8JsonWriter writer, IError error)
+    private static void WriteError(Utf8JsonWriter writer, IError error, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
         writer.WriteString(TypeDiscriminator, error.GetType()
@@ -70,22 +70,22 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
         );
         writer.WriteString(Message, error.Message);
         if (error.Metadata.Count > 0)
-            WriteMetadata(writer, error);
+            WriteMetadata(writer, error, options);
         writer.WriteEndObject();
     }
 
-    private static void WriteMetadata(Utf8JsonWriter writer, IError error)
+    private static void WriteMetadata(Utf8JsonWriter writer, IError error, JsonSerializerOptions options)
     {
         writer.WritePropertyName(Metadata);
         writer.WriteStartObject();
 
         var keys = error.Metadata.Keys.OrderBy(x => x, StringComparer.InvariantCulture);
         foreach (var key in keys)
-            WriteMetadataItem(writer, key, error.Metadata[key]);
+            WriteMetadataItem(writer, key, error.Metadata[key], options);
         writer.WriteEndObject();
     }
 
-    private static void WriteMetadataItem(Utf8JsonWriter writer, string key, object? obj)
+    private static void WriteMetadataItem(Utf8JsonWriter writer, string key, object? obj, JsonSerializerOptions options)
     {
         if (obj is null)
         {
@@ -108,11 +108,11 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
                                               ?? obj.GetType()
                                                   .Name
         );
-        WriteObject(writer, MetadataValue, obj);
+        WriteObject(writer, MetadataValue, obj, options);
         writer.WriteEndObject();
     }
 
-    private static void WriteObject(Utf8JsonWriter writer, string name, object? obj)
+    private static void WriteObject(Utf8JsonWriter writer, string name, object? obj, JsonSerializerOptions options)
     {
         if (obj is null)
         {
@@ -139,7 +139,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
                 writer.WriteString(name, dateOnlyValue);
                 break;
             case TimeOnly value:
-                var timeOnlyValue = value.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+                var timeOnlyValue = value.ToString("HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
                 writer.WriteString(name, timeOnlyValue);
                 break;
             case TimeSpan value:
@@ -185,7 +185,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
             default:
                 try
                 {
-                    var json = JsonSerializer.Serialize(obj, obj.GetType());
+                    var json = JsonSerializer.Serialize(obj, obj.GetType(), options);
                     writer.WritePropertyName(name);
                     writer.WriteRawValue(json);
                 }
