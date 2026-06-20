@@ -2054,9 +2054,9 @@ public static class AssistantClientExtensions
     /// <param name="after">The pagination cursor after.</param>
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
-    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetAssistantsAsync(
+    public static Result<AsyncCollectionResult> TryGetAssistantsAsync(
         this AssistantClient client,
         int? limit,
         string order,
@@ -2069,7 +2069,7 @@ public static class AssistantClientExtensions
 
         Func<int?, string, string, string, RequestOptions, AsyncCollectionResult> func = client.GetAssistantsAsync;
 
-        var funcResult = await Task.Run(() => func.Try(limit, order, after, before, options)).ConfigureAwait(false);
+        var funcResult = func.Try(limit, order, after, before, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 
@@ -2113,9 +2113,9 @@ public static class AssistantClientExtensions
     /// <param name="after">The pagination cursor after.</param>
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
-    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetMessagesAsync(
+    public static Result<AsyncCollectionResult> TryGetMessagesAsync(
         this AssistantClient client,
         string threadId,
         int? limit,
@@ -2129,7 +2129,7 @@ public static class AssistantClientExtensions
 
         Func<string, int?, string, string, string, RequestOptions, AsyncCollectionResult> func = client.GetMessagesAsync;
 
-        var funcResult = await Task.Run(() => func.Try(threadId, limit, order, after, before, options)).ConfigureAwait(false);
+        var funcResult = func.Try(threadId, limit, order, after, before, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 
@@ -2175,9 +2175,9 @@ public static class AssistantClientExtensions
     /// <param name="after">The pagination cursor after.</param>
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
-    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetRunsAsync(
+    public static Result<AsyncCollectionResult> TryGetRunsAsync(
         this AssistantClient client,
         string threadId,
         int? limit,
@@ -2191,7 +2191,7 @@ public static class AssistantClientExtensions
 
         Func<string, int?, string, string, string, RequestOptions, AsyncCollectionResult> func = client.GetRunsAsync;
 
-        var funcResult = await Task.Run(() => func.Try(threadId, limit, order, after, before, options)).ConfigureAwait(false);
+        var funcResult = func.Try(threadId, limit, order, after, before, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 
@@ -2238,9 +2238,9 @@ public static class AssistantClientExtensions
     /// <param name="after">The pagination cursor after.</param>
     /// <param name="before">The pagination cursor before.</param>
     /// <param name="options">Request options.</param>
-    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetRunStepsAsync(
+    public static Result<AsyncCollectionResult> TryGetRunStepsAsync(
         this AssistantClient client,
         string threadId,
         string runId,
@@ -2255,7 +2255,7 @@ public static class AssistantClientExtensions
 
         Func<string, string, int?, string, string, string, RequestOptions, AsyncCollectionResult> func = client.GetRunStepsAsync;
 
-        var funcResult = await Task.Run(() => func.Try(threadId, runId, limit, order, after, before, options)).ConfigureAwait(false);
+        var funcResult = func.Try(threadId, runId, limit, order, after, before, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 

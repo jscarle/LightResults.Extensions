@@ -147,7 +147,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
                 writer.WriteNumberValue(value.Ticks);
                 break;
             case double value:
-                writer.WriteNumber(name, value);
+                WriteDouble(writer, name, value, options);
                 break;
             case Guid value:
                 writer.WriteString(name, value);
@@ -165,7 +165,7 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
                 writer.WriteNumber(name, value);
                 break;
             case float value:
-                writer.WriteNumber(name, value);
+                WriteSingle(writer, name, value, options);
                 break;
             case string value:
                 writer.WriteString(name, value);
@@ -202,6 +202,76 @@ public sealed class ResultJsonConverter : JsonConverter<Result>
 #pragma warning restore IL2026
 #pragma warning restore CA1031
         }
+    }
+
+    private static void WriteDouble(Utf8JsonWriter writer, string name, double value, JsonSerializerOptions options)
+    {
+        if (double.IsNaN(value))
+        {
+            WriteNamedFloatingPointLiteralOrThrow(writer, name, value, options, "NaN");
+            return;
+        }
+
+        if (double.IsPositiveInfinity(value))
+        {
+            WriteNamedFloatingPointLiteralOrThrow(writer, name, value, options, "Infinity");
+            return;
+        }
+
+        if (double.IsNegativeInfinity(value))
+        {
+            WriteNamedFloatingPointLiteralOrThrow(writer, name, value, options, "-Infinity");
+            return;
+        }
+
+        if ((options.NumberHandling & JsonNumberHandling.WriteAsString) != 0)
+        {
+            writer.WriteString(name, value.ToString("G17", CultureInfo.InvariantCulture));
+            return;
+        }
+
+        writer.WriteNumber(name, value);
+    }
+
+    private static void WriteSingle(Utf8JsonWriter writer, string name, float value, JsonSerializerOptions options)
+    {
+        if (float.IsNaN(value))
+        {
+            WriteNamedFloatingPointLiteralOrThrow(writer, name, value, options, "NaN");
+            return;
+        }
+
+        if (float.IsPositiveInfinity(value))
+        {
+            WriteNamedFloatingPointLiteralOrThrow(writer, name, value, options, "Infinity");
+            return;
+        }
+
+        if (float.IsNegativeInfinity(value))
+        {
+            WriteNamedFloatingPointLiteralOrThrow(writer, name, value, options, "-Infinity");
+            return;
+        }
+
+        if ((options.NumberHandling & JsonNumberHandling.WriteAsString) != 0)
+        {
+            writer.WriteString(name, value.ToString("G9", CultureInfo.InvariantCulture));
+            return;
+        }
+
+        writer.WriteNumber(name, value);
+    }
+
+    private static void WriteNamedFloatingPointLiteralOrThrow(Utf8JsonWriter writer, string name, double value, JsonSerializerOptions options, string literal)
+    {
+        const JsonNumberHandling handling = JsonNumberHandling.AllowNamedFloatingPointLiterals | JsonNumberHandling.WriteAsString;
+        if ((options.NumberHandling & handling) != 0)
+        {
+            writer.WriteString(name, literal);
+            return;
+        }
+
+        writer.WriteNumber(name, value);
     }
 
     private static void WriteExceptionValue(Utf8JsonWriter writer, Exception ex)

@@ -320,9 +320,9 @@ public static class ConversationClientExtensions
     /// <param name="after">A pagination cursor for fetching the next set of items.</param>
     /// <param name="include">Optional item properties to include in the response.</param>
     /// <param name="options">Optional request options to override default client behaviors.</param>
-    /// <returns>A task that produces a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetConversationItemsAsync(
+    public static Result<AsyncCollectionResult> TryGetConversationItemsAsync(
         this ConversationClient client,
         string conversationId,
         int? limit = null,
@@ -337,7 +337,7 @@ public static class ConversationClientExtensions
         Func<string, int?, string?, string?, IEnumerable<IncludedConversationItemProperty>?, RequestOptions?, AsyncCollectionResult> func =
             client.GetConversationItemsAsync;
 
-        var funcResult = await Task.Run(() => func.Try(conversationId, limit, order, after, include, options)).ConfigureAwait(false);
+        var funcResult = func.Try(conversationId, limit, order, after, include, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 

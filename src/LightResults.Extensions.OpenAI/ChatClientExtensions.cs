@@ -590,9 +590,9 @@ public static class ChatClientExtensions
     /// <param name="metadata">Optional metadata filters.</param>
     /// <param name="model">The model filter.</param>
     /// <param name="options">Request options.</param>
-    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetChatCompletionsAsync(
+    public static Result<AsyncCollectionResult> TryGetChatCompletionsAsync(
         this ChatClient client,
         string after,
         int? limit,
@@ -606,7 +606,7 @@ public static class ChatClientExtensions
 
         Func<string, int?, string, IDictionary<string, string?>?, string, RequestOptions, AsyncCollectionResult> func = client.GetChatCompletionsAsync;
 
-        var funcResult = await Task.Run(() => func.Try(after, limit, order, metadata, model, options)).ConfigureAwait(false);
+        var funcResult = func.Try(after, limit, order, metadata, model, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 
@@ -651,9 +651,9 @@ public static class ChatClientExtensions
     /// <param name="limit">The maximum number of items to return.</param>
     /// <param name="order">The sorting order.</param>
     /// <param name="options">Request options.</param>
-    /// <returns>A task representing the asynchronous operation, containing a <see cref="Result{AsyncCollectionResult}"/>.</returns>
+    /// <returns>A <see cref="Result{AsyncCollectionResult}"/> representing the outcome.</returns>
     [Experimental("OPENAI001")]
-    public static async Task<Result<AsyncCollectionResult>> TryGetChatCompletionMessagesAsync(
+    public static Result<AsyncCollectionResult> TryGetChatCompletionMessagesAsync(
         this ChatClient client,
         string completionId,
         string after,
@@ -666,7 +666,7 @@ public static class ChatClientExtensions
 
         Func<string, string, int?, string, RequestOptions, AsyncCollectionResult> func = client.GetChatCompletionMessagesAsync;
 
-        var funcResult = await Task.Run(() => func.Try(completionId, after, limit, order, options)).ConfigureAwait(false);
+        var funcResult = func.Try(completionId, after, limit, order, options);
         if (funcResult.IsSuccess(out var collectionResult))
             return Result.Success(collectionResult);
 

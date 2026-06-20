@@ -211,6 +211,20 @@ public sealed class ResultJsonConverterTests
     }
 
     [Fact]
+    public void SuccessWithNamedFloatingPointLiteral_ShouldUseNumberHandlingOptions()
+    {
+        // Arrange
+        var result = Result.Success(double.NaN);
+        var options = CreateNamedFloatingPointOptions();
+
+        // Act
+        var json = JsonSerializer.Serialize(result, options);
+
+        // Assert
+        json.ShouldBe("{\"IsSuccess\":true,\"Value\":\"NaN\"}");
+    }
+
+    [Fact]
     public void FailedResultWithTimeOnlyMetadata_ShouldPreserveFractionalSeconds()
     {
         // Arrange
@@ -226,6 +240,22 @@ public sealed class ResultJsonConverterTests
         );
     }
 
+    [Fact]
+    public void FailedResultWithNamedFloatingPointMetadata_ShouldUseNumberHandlingOptions()
+    {
+        // Arrange
+        var result = Result.Failure(new Error("Error 1", ("Value", double.NaN)));
+        var options = CreateNamedFloatingPointOptions();
+
+        // Act
+        var json = JsonSerializer.Serialize(result, options);
+
+        // Assert
+        json.ShouldBe(
+            "{\"IsSuccess\":false,\"Errors\":[{\"$type\":\"LightResults.Error\",\"Message\":\"Error 1\",\"Metadata\":{\"Value\":{\"$type\":\"System.Double\",\"Value\":\"NaN\"}}}]}"
+        );
+    }
+
     private static JsonSerializerOptions CreateCustomOptions()
     {
         return new JsonSerializerOptions
@@ -235,6 +265,18 @@ public sealed class ResultJsonConverterTests
             {
                 new ResultJsonConverterFactory(),
                 new SecretConverter(),
+            },
+        };
+    }
+
+    private static JsonSerializerOptions CreateNamedFloatingPointOptions()
+    {
+        return new JsonSerializerOptions
+        {
+            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+            Converters =
+            {
+                new ResultJsonConverterFactory(),
             },
         };
     }
