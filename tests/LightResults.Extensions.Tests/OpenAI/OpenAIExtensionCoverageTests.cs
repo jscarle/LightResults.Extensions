@@ -1,6 +1,11 @@
+#pragma warning disable OPENAI002
+
 using System.Reflection;
 using System.Text;
+using System.ClientModel;
+using System.ClientModel.Primitives;
 using LightResults.Extensions.OpenAI;
+using OpenAI.Realtime;
 using Shouldly;
 using Xunit;
 
@@ -31,6 +36,64 @@ public sealed class OpenAIExtensionCoverageTests
         }
 
         missing.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public void RealtimeReceiveUpdateExtensionsShouldWrapDeferredEnumerationResults()
+    {
+        GetExtensionMethod(
+                nameof(RealtimeSessionClientExtensions.TryReceiveUpdates),
+                typeof(RealtimeSessionClient),
+                typeof(CancellationToken)
+            )
+            .ReturnType
+            .ShouldBe(typeof(Result<IEnumerable<Result<RealtimeServerUpdate>>>));
+
+        GetExtensionMethod(
+                nameof(RealtimeSessionClientExtensions.TryReceiveUpdates),
+                typeof(RealtimeSessionClient),
+                typeof(RequestOptions)
+            )
+            .ReturnType
+            .ShouldBe(typeof(Result<IEnumerable<Result<ClientResult>>>));
+
+        GetExtensionMethod(
+                nameof(RealtimeSessionClientExtensions.TryReceiveUpdatesAsync),
+                typeof(RealtimeSessionClient),
+                typeof(CancellationToken)
+            )
+            .ReturnType
+            .ShouldBe(typeof(Result<IAsyncEnumerable<Result<RealtimeServerUpdate>>>));
+
+        GetExtensionMethod(
+                nameof(RealtimeSessionClientExtensions.TryReceiveUpdatesAsync),
+                typeof(RealtimeSessionClient),
+                typeof(RequestOptions)
+            )
+            .ReturnType
+            .ShouldBe(typeof(Result<IAsyncEnumerable<Result<ClientResult>>>));
+    }
+
+    [Fact]
+    public void ProtocolAsyncCollectionExtensionsShouldReturnImmediateResults()
+    {
+        var extensionAssembly = typeof(OpenAIClientExtensions).Assembly;
+        var taskResultType = typeof(Task<Result<AsyncCollectionResult>>);
+        var offenders = new List<string>();
+
+        foreach (var type in extensionAssembly.GetTypes())
+        {
+            if (!type.IsAbstract || !type.IsSealed || !type.IsPublic || !type.Name.EndsWith("Extensions", StringComparison.Ordinal))
+                continue;
+
+            foreach (var method in type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
+            {
+                if (method.ReturnType == taskResultType)
+                    offenders.Add($"{type.FullName}.{method.Name}");
+            }
+        }
+
+        offenders.ShouldBeEmpty();
     }
 
     private static Dictionary<Type, HashSet<string>> GetExtensionMethodsByClientType(Assembly extensionAssembly)
@@ -129,5 +192,19 @@ public sealed class OpenAIExtensionCoverageTests
         }
 
         builder.Append(']');
+    }
+
+    private static MethodInfo GetExtensionMethod(string name, params Type[] parameterTypes)
+    {
+        var method = typeof(RealtimeSessionClientExtensions).GetMethod(
+            name,
+            BindingFlags.Public | BindingFlags.Static,
+            binder: null,
+            types: parameterTypes,
+            modifiers: null
+        );
+
+        method.ShouldNotBeNull();
+        return method;
     }
 }

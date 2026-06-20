@@ -432,7 +432,7 @@ public static class RealtimeSessionClientExtensions
     /// <param name="cancellationToken">Parameter forwarded to <c>ReceiveUpdates</c>.</param>
     /// <returns>The wrapped result.</returns>
     [Experimental("OPENAI002")]
-    public static Result<IEnumerable<RealtimeServerUpdate>> TryReceiveUpdates(
+    public static Result<IEnumerable<Result<RealtimeServerUpdate>>> TryReceiveUpdates(
         this RealtimeSessionClient client,
         CancellationToken cancellationToken = default
     )
@@ -445,9 +445,9 @@ public static class RealtimeSessionClientExtensions
 
         var funcResult = func.Try(cancellationToken);
         if (funcResult.IsSuccess(out var value))
-            return Result.Success(value);
+            return Result.Success(value.AsEnumerableResult());
 
-        return funcResult.AsFailure<IEnumerable<RealtimeServerUpdate>>();
+        return funcResult.AsFailure<IEnumerable<Result<RealtimeServerUpdate>>>();
     }
 
     /// <summary>
@@ -457,7 +457,7 @@ public static class RealtimeSessionClientExtensions
     /// <param name="options">Parameter forwarded to <c>ReceiveUpdates</c>.</param>
     /// <returns>The wrapped result.</returns>
     [Experimental("OPENAI002")]
-    public static Result<IEnumerable<ClientResult>> TryReceiveUpdates(
+    public static Result<IEnumerable<Result<ClientResult>>> TryReceiveUpdates(
         this RealtimeSessionClient client,
         RequestOptions options
     )
@@ -470,9 +470,9 @@ public static class RealtimeSessionClientExtensions
 
         var funcResult = func.Try(options);
         if (funcResult.IsSuccess(out var value))
-            return Result.Success(value);
+            return Result.Success(value.AsEnumerableResult());
 
-        return funcResult.AsFailure<IEnumerable<ClientResult>>();
+        return funcResult.AsFailure<IEnumerable<Result<ClientResult>>>();
     }
 
     /// <summary>
@@ -482,7 +482,7 @@ public static class RealtimeSessionClientExtensions
     /// <param name="cancellationToken">Parameter forwarded to <c>ReceiveUpdatesAsync</c>.</param>
     /// <returns>The wrapped result.</returns>
     [Experimental("OPENAI002")]
-    public static Result<IAsyncEnumerable<RealtimeServerUpdate>> TryReceiveUpdatesAsync(
+    public static Result<IAsyncEnumerable<Result<RealtimeServerUpdate>>> TryReceiveUpdatesAsync(
         this RealtimeSessionClient client,
         CancellationToken cancellationToken = default
     )
@@ -495,9 +495,9 @@ public static class RealtimeSessionClientExtensions
 
         var funcResult = func.Try(cancellationToken);
         if (funcResult.IsSuccess(out var value))
-            return Result.Success(value);
+            return Result.Success(value.AsAsyncEnumerableResult(cancellationToken));
 
-        return funcResult.AsFailure<IAsyncEnumerable<RealtimeServerUpdate>>();
+        return funcResult.AsFailure<IAsyncEnumerable<Result<RealtimeServerUpdate>>>();
     }
 
     /// <summary>
@@ -507,7 +507,7 @@ public static class RealtimeSessionClientExtensions
     /// <param name="options">Parameter forwarded to <c>ReceiveUpdatesAsync</c>.</param>
     /// <returns>The wrapped result.</returns>
     [Experimental("OPENAI002")]
-    public static Result<IAsyncEnumerable<ClientResult>> TryReceiveUpdatesAsync(
+    public static Result<IAsyncEnumerable<Result<ClientResult>>> TryReceiveUpdatesAsync(
         this RealtimeSessionClient client,
         RequestOptions options
     )
@@ -520,9 +520,9 @@ public static class RealtimeSessionClientExtensions
 
         var funcResult = func.Try(options);
         if (funcResult.IsSuccess(out var value))
-            return Result.Success(value);
+            return Result.Success(value.AsAsyncEnumerableResult());
 
-        return funcResult.AsFailure<IAsyncEnumerable<ClientResult>>();
+        return funcResult.AsFailure<IAsyncEnumerable<Result<ClientResult>>>();
     }
 
     /// <summary>

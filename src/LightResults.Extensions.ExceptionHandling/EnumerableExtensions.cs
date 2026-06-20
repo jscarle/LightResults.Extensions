@@ -40,56 +40,85 @@ public static class EnumerableExtensions
         if (exception is not null)
         {
             yield return Result.Failure<T>(exception);
-            enumerator?.Dispose();
+            if (enumerator is not null)
+            {
+                var disposeException = DisposeEnumerator(enumerator);
+                if (disposeException is not null)
+                    yield return Result.Failure<T>(disposeException);
+            }
+
             yield break;
         }
 
         if (enumerator is null)
             throw new UnreachableException("The enumerator was unexpectedly null.");
 
-        var hasMoreItems = true;
-
-        while (hasMoreItems)
+        try
         {
-            exception = null;
-
-            try
+            while (true)
             {
-                hasMoreItems = enumerator.MoveNext();
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
+                exception = null;
 
-            if (exception is not null)
-            {
-                enumerator.Dispose();
-                yield return Result.Failure<T>(exception);
-                yield break;
-            }
+                bool hasMoreItems;
+                try
+                {
+                    hasMoreItems = enumerator.MoveNext();
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                    hasMoreItems = false;
+                }
 
-            if (!hasMoreItems)
-                yield break;
+                if (exception is not null)
+                {
+                    yield return Result.Failure<T>(exception);
+                    var disposeException = DisposeEnumerator(enumerator);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
 
-            T current = default(T)!;
-            try
-            {
-                current = enumerator.Current;
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
+                    yield break;
+                }
 
-            if (exception is not null)
-            {
-                enumerator.Dispose();
-                yield return Result.Failure<T>(exception);
-                yield break;
-            }
+                if (!hasMoreItems)
+                {
+                    var disposeException = DisposeEnumerator(enumerator);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
 
-            yield return Result.Success(current);
+                    yield break;
+                }
+
+                T current = default(T)!;
+                try
+                {
+                    current = enumerator.Current;
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
+
+                if (exception is not null)
+                {
+                    yield return Result.Failure<T>(exception);
+                    var disposeException = DisposeEnumerator(enumerator);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
+                    yield break;
+                }
+
+                yield return Result.Success(current);
+            }
+        }
+        finally
+        {
+            if (enumerator is not null)
+                _ = DisposeEnumerator(enumerator);
         }
     }
 
@@ -129,60 +158,117 @@ public static class EnumerableExtensions
         {
             yield return Result.Failure<T>(exception);
             if (enumerator is not null)
-                await enumerator.DisposeAsync()
+            {
+                var disposeException = await DisposeAsyncEnumerator(enumerator)
                     .ConfigureAwait(false);
+                if (disposeException is not null)
+                    yield return Result.Failure<T>(disposeException);
+            }
+
             yield break;
         }
 
         if (enumerator is null)
             throw new UnreachableException("The enumerator was unexpectedly null.");
 
-        var hasMoreItems = true;
-
-        while (hasMoreItems)
+        try
         {
-            exception = null;
-
-            try
+            while (true)
             {
-                hasMoreItems = await enumerator.MoveNextAsync()
+                exception = null;
+
+                bool hasMoreItems;
+                try
+                {
+                    hasMoreItems = await enumerator.MoveNextAsync()
+                        .ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                    hasMoreItems = false;
+                }
+
+                if (exception is not null)
+                {
+                    yield return Result.Failure<T>(exception);
+                    var disposeException = await DisposeAsyncEnumerator(enumerator)
+                        .ConfigureAwait(false);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
+                    yield break;
+                }
+
+                if (!hasMoreItems)
+                {
+                    var disposeException = await DisposeAsyncEnumerator(enumerator)
+                        .ConfigureAwait(false);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
+                    yield break;
+                }
+
+                T current = default(T)!;
+                try
+                {
+                    current = enumerator.Current;
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
+
+                if (exception is not null)
+                {
+                    yield return Result.Failure<T>(exception);
+                    var disposeException = await DisposeAsyncEnumerator(enumerator)
+                        .ConfigureAwait(false);
+                    enumerator = null;
+                    if (disposeException is not null)
+                        yield return Result.Failure<T>(disposeException);
+
+                    yield break;
+                }
+
+                yield return Result.Success(current);
+            }
+        }
+        finally
+        {
+            if (enumerator is not null)
+                _ = await DisposeAsyncEnumerator(enumerator)
                     .ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
+        }
+    }
 
-            if (exception is not null)
-            {
-                await enumerator.DisposeAsync()
-                    .ConfigureAwait(false);
-                yield return Result.Failure<T>(exception);
-                yield break;
-            }
+    private static Exception? DisposeEnumerator<T>(IEnumerator<T> enumerator)
+    {
+        try
+        {
+            enumerator.Dispose();
+            return null;
+        }
+        catch (Exception ex)
+        {
+            return ex;
+        }
+    }
 
-            if (!hasMoreItems)
-                yield break;
-
-            T current = default(T)!;
-            try
-            {
-                current = enumerator.Current;
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-
-            if (exception is not null)
-            {
-                await enumerator.DisposeAsync()
-                    .ConfigureAwait(false);
-                yield return Result.Failure<T>(exception);
-                yield break;
-            }
-
-            yield return Result.Success(current);
+    private static async ValueTask<Exception?> DisposeAsyncEnumerator<T>(IAsyncEnumerator<T> enumerator)
+    {
+        try
+        {
+            await enumerator.DisposeAsync()
+                .ConfigureAwait(false);
+            return null;
+        }
+        catch (Exception ex)
+        {
+            return ex;
         }
     }
 }
