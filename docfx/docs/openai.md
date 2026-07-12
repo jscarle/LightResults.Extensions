@@ -2,7 +2,7 @@
 
 Provides extension methods that wrap OpenAI operations using LightResults.
 
-The package targets OpenAI `v2.11.0` and provides `Try*` wrappers for all public methods on all OpenAI clients.
+The package targets OpenAI `v2.12.0` and provides `Try*` wrappers for all public methods on all OpenAI clients.
 
 ### Supported clients
 
