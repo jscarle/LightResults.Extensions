@@ -7,7 +7,7 @@ using System.ClientModel.Primitives;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides missing Try wrappers for <see cref="OpenAIModelClient"/> methods in OpenAI 2.11.0.
+/// Provides Try wrappers for <see cref="OpenAIModelClient"/> methods in OpenAI 2.12.0.
 /// </summary>
 public static class OpenAIModelClientExtensions
 {
