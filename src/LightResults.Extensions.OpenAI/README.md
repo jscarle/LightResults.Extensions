@@ -8,7 +8,7 @@ Extensions for [LightResults](https://github.com/jscarle/LightResults), an extre
 
 ## OpenAI
 
-Provides comprehensive OpenAI (v2.12.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
+Provides comprehensive OpenAI (v2.13.0) integration with the Result pattern, offering extension methods that return `Result<T>` instead of throwing exceptions.
 
 [![nuget](https://img.shields.io/nuget/v/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)
 [![downloads](https://img.shields.io/nuget/dt/LightResults.Extensions.OpenAI)](https://www.nuget.org/packages/LightResults.Extensions.OpenAI)

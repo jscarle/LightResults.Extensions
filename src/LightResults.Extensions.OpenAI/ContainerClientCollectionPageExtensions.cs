@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides Try wrappers for the collection page methods on <see cref="ContainerClient"/> in OpenAI 2.12.0.
+/// Provides Try wrappers for the collection page methods on <see cref="ContainerClient"/> in OpenAI 2.13.0.
 /// </summary>
 public static class ContainerClientCollectionPageExtensions
 {

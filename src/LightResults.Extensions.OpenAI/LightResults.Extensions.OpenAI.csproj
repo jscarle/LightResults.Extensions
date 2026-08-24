@@ -19,7 +19,7 @@
     <ItemGroup>
         <PackageReference Include="LightResults" Version="10.0.4"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All"/>
-        <PackageReference Include="OpenAI" Version="2.12.0"/>
+        <PackageReference Include="OpenAI" Version="2.13.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -29,9 +29,9 @@
     <!-- Output -->
     <PropertyGroup>
         <AssemblyName>LightResults.Extensions.OpenAI</AssemblyName>
-        <Version>10.0.8</Version>
-        <AssemblyVersion>10.0.8.0</AssemblyVersion>
-        <FileVersion>10.0.8.0</FileVersion>
+        <Version>10.0.9</Version>
+        <AssemblyVersion>10.0.9.0</AssemblyVersion>
+        <FileVersion>10.0.9.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Optimize>true</Optimize>
         <IsAotCompatible>true</IsAotCompatible>

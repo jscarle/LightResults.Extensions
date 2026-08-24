@@ -11,17 +11,17 @@ using Xunit;
 
 namespace LightResults.Extensions.Tests.OpenAI;
 
-public sealed class OpenAIExtensionCoverageTests
+public sealed class OpenAiExtensionCoverageTests
 {
     [Fact]
-    public void AllPublicOpenAIClientMethodsShouldHaveTryExtensions()
+    public void AllPublicOpenAiClientMethodsShouldHaveTryExtensions()
     {
-        var openAIAssembly = typeof(global::OpenAI.OpenAIClient).Assembly;
+        var openAiAssembly = typeof(global::OpenAI.OpenAIClient).Assembly;
         var extensionAssembly = typeof(OpenAIClientExtensions).Assembly;
         var extensionMethods = GetExtensionMethodsByClientType(extensionAssembly);
         var missing = new List<string>();
 
-        foreach (var clientType in GetOpenAIClientTypes(openAIAssembly))
+        foreach (var clientType in GetOpenAiClientTypes(openAiAssembly))
         {
             foreach (var method in clientType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
             {
@@ -128,9 +128,9 @@ public sealed class OpenAIExtensionCoverageTests
         return extensionMethods;
     }
 
-    private static IEnumerable<Type> GetOpenAIClientTypes(Assembly openAIAssembly)
+    private static IEnumerable<Type> GetOpenAiClientTypes(Assembly openAiAssembly)
     {
-        foreach (var type in openAIAssembly.GetTypes())
+        foreach (var type in openAiAssembly.GetTypes())
         {
             if (!type.IsClass || !type.IsPublic || !type.Name.EndsWith("Client", StringComparison.Ordinal))
                 continue;

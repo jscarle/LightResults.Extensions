@@ -163,7 +163,11 @@ public sealed class ResultJsonConverterTests
     public void SuccessWithComplexValueResult_ShouldUseSerializerOptions()
     {
         // Arrange
-        var result = Result.Success(new Payload("Ada", new Secret("hidden")));
+        var payload = new Payload("Ada", new Secret("hidden"));
+        payload.FirstName.ShouldBe("Ada");
+        payload.Secret.Value.ShouldBe("hidden");
+
+        var result = Result.Success(payload);
         var options = CreateCustomOptions();
 
         // Act
