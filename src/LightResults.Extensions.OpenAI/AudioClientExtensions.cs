@@ -1,11 +1,14 @@
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Net.ServerSentEvents;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Audio;
 
 using System.Diagnostics.CodeAnalysis;
 
 namespace LightResults.Extensions.OpenAI;
+
+#pragma warning disable SCME0005
 
 /// <summary>
 /// Provides extension methods for <see cref="AudioClient"/> that integrate the <see cref="Result"/> pattern, enabling safe and expressive error handling
@@ -14,6 +17,48 @@ namespace LightResults.Extensions.OpenAI;
 /// </summary>
 public static class AudioClientExtensions
 {
+    /// <summary>Attempts to generate speech as a server-sent event stream and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The audio client instance.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="options">Optional request options.</param>
+    /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
+    [Experimental("OPENAI001")]
+    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryGenerateSpeechStreamingAsync(
+        this AudioClient client,
+        BinaryContent content,
+        RequestOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<BinaryContent, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+            client.GenerateSpeechStreamingAsync;
+
+        return func.TryAsync(content, options);
+    }
+
+    /// <summary>Attempts to transcribe audio as a server-sent event stream and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The audio client instance.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="contentType">The content type for the binary content.</param>
+    /// <param name="options">Optional request options.</param>
+    /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
+    [Experimental("OPENAI001")]
+    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryTranscribeAudioStreamingAsync(
+        this AudioClient client,
+        BinaryContent content,
+        string contentType,
+        RequestOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<BinaryContent, string, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+            client.TranscribeAudioStreamingAsync;
+
+        return func.TryAsync(content, contentType, options);
+    }
+
     /// <summary>Attempts to generate speech asynchronously and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The audio client instance.</param>
     /// <param name="text">The text to generate audio for.</param>
@@ -914,3 +959,5 @@ public static class AudioClientExtensions
         return funcResult.AsFailure<DiarizedAudioTranscription>();
     }
 }
+
+#pragma warning restore SCME0005
