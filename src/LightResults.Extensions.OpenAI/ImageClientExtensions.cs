@@ -1,9 +1,13 @@
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.ServerSentEvents;
 using LightResults.Extensions.ExceptionHandling;
 using OpenAI.Images;
 
 namespace LightResults.Extensions.OpenAI;
+
+#pragma warning disable SCME0005
 
 /// <summary>
 /// Provides extension methods for <see cref="ImageClient"/> that integrate the <see cref="Result"/> pattern, enabling safe and expressive error handling
@@ -12,6 +16,48 @@ namespace LightResults.Extensions.OpenAI;
 /// </summary>
 public static class ImageClientExtensions
 {
+    /// <summary>Attempts to generate images as a server-sent event stream and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The image client instance.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="options">Optional request options.</param>
+    /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
+    [Experimental("OPENAI001")]
+    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryGenerateImagesStreamingAsync(
+        this ImageClient client,
+        BinaryContent content,
+        RequestOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<BinaryContent, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+            client.GenerateImagesStreamingAsync;
+
+        return func.TryAsync(content, options);
+    }
+
+    /// <summary>Attempts to generate image edits as a server-sent event stream and wraps the result in a <see cref="Result{T}"/>.</summary>
+    /// <param name="client">The image client instance.</param>
+    /// <param name="content">The binary content for the request.</param>
+    /// <param name="contentType">The content type for the binary content.</param>
+    /// <param name="options">Optional request options.</param>
+    /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
+    [Experimental("OPENAI001")]
+    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryGenerateImageEditsStreamingAsync(
+        this ImageClient client,
+        BinaryContent content,
+        string contentType,
+        RequestOptions? options = null
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<BinaryContent, string, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+            client.GenerateImageEditsStreamingAsync;
+
+        return func.TryAsync(content, contentType, options);
+    }
+
     /// <summary>Attempts to generate a single image asynchronously and wraps the result in a <see cref="Result{T}"/>.</summary>
     /// <param name="client">The image client instance.</param>
     /// <param name="prompt">The text prompt describing the desired image.</param>
@@ -891,3 +937,5 @@ public static class ImageClientExtensions
         return funcResult.AsFailure<ClientResult>();
     }
 }
+
+#pragma warning restore SCME0005
