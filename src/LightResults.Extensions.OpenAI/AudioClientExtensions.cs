@@ -23,7 +23,7 @@ public static class AudioClientExtensions
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
     [Experimental("OPENAI001")]
-    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryGenerateSpeechStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<SseItem<BinaryData>>>> TryGenerateSpeechStreamingAsync(
         this AudioClient client,
         BinaryContent content,
         RequestOptions? options = null
@@ -31,7 +31,7 @@ public static class AudioClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<BinaryContent, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+        Func<BinaryContent, RequestOptions?, Task<AsyncStreamingResult<SseItem<BinaryData>>>> func =
             client.GenerateSpeechStreamingAsync;
 
         return func.TryAsync(content, options);
@@ -44,7 +44,7 @@ public static class AudioClientExtensions
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
     [Experimental("OPENAI001")]
-    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryTranscribeAudioStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<SseItem<BinaryData>>>> TryTranscribeAudioStreamingAsync(
         this AudioClient client,
         BinaryContent content,
         string contentType,
@@ -53,7 +53,7 @@ public static class AudioClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<BinaryContent, string, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+        Func<BinaryContent, string, RequestOptions?, Task<AsyncStreamingResult<SseItem<BinaryData>>>> func =
             client.TranscribeAudioStreamingAsync;
 
         return func.TryAsync(content, contentType, options);
@@ -293,7 +293,7 @@ public static class AudioClientExtensions
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreamingAsync(
         this AudioClient client,
         Stream audio,
         string audioFilename,
@@ -303,42 +303,10 @@ public static class AudioClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<Stream, string, AudioTranscriptionOptions?, CancellationToken, AsyncCollectionResult<StreamingAudioTranscriptionUpdate>> func =
+        Func<Stream, string, AudioTranscriptionOptions?, CancellationToken, Task<AsyncStreamingResult<StreamingAudioTranscriptionUpdate>>> func =
             client.TranscribeAudioStreamingAsync;
 
-        var funcResult = func.Try(audio, audioFilename, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingAudioTranscriptionUpdate>>>();
-    }
-
-    /// <summary>Attempts to transcribe audio synchronously with streaming from a stream and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The audio client instance.</param>
-    /// <param name="audio">The audio stream to transcribe.</param>
-    /// <param name="audioFilename">The filename associated with the audio stream.</param>
-    /// <param name="options">Optional transcription options.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreaming(
-        this AudioClient client,
-        Stream audio,
-        string audioFilename,
-        AudioTranscriptionOptions? options = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<Stream, string, AudioTranscriptionOptions?, CancellationToken, CollectionResult<StreamingAudioTranscriptionUpdate>> func =
-            client.TranscribeAudioStreaming;
-
-        var funcResult = func.Try(audio, audioFilename, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingAudioTranscriptionUpdate>>>();
+        return func.TryAsync(audio, audioFilename, options, cancellationToken);
     }
 
     /// <summary>
@@ -351,7 +319,7 @@ public static class AudioClientExtensions
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreamingAsync(
         this AudioClient client,
         string audioFilePath,
         AudioTranscriptionOptions? options = null,
@@ -360,39 +328,10 @@ public static class AudioClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, AudioTranscriptionOptions?, CancellationToken, AsyncCollectionResult<StreamingAudioTranscriptionUpdate>> func =
+        Func<string, AudioTranscriptionOptions?, CancellationToken, Task<AsyncStreamingResult<StreamingAudioTranscriptionUpdate>>> func =
             client.TranscribeAudioStreamingAsync;
 
-        var funcResult = func.Try(audioFilePath, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingAudioTranscriptionUpdate>>>();
-    }
-
-    /// <summary>Attempts to transcribe audio synchronously with streaming from a file path and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The audio client instance.</param>
-    /// <param name="audioFilePath">The path of the audio file to transcribe.</param>
-    /// <param name="options">Optional transcription options.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingAudioTranscriptionUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingAudioTranscriptionUpdate>>> TryTranscribeAudioStreaming(
-        this AudioClient client,
-        string audioFilePath,
-        AudioTranscriptionOptions? options = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, AudioTranscriptionOptions?, CancellationToken, CollectionResult<StreamingAudioTranscriptionUpdate>> func = client.TranscribeAudioStreaming;
-
-        var funcResult = func.Try(audioFilePath, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingAudioTranscriptionUpdate>>>();
+        return func.TryAsync(audioFilePath, options, cancellationToken);
     }
 
     /// <summary>Attempts to translate audio asynchronously from a stream and wraps the result in a <see cref="Result{T}"/>.</summary>
@@ -801,34 +740,6 @@ public static class AudioClientExtensions
         return funcResult.AsFailure<ClientResult>();
     }
 
-    /// <summary>Attempts to generate speech with streaming updates and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The audio client instance.</param>
-    /// <param name="text">The text to generate audio for.</param>
-    /// <param name="voice">The voice to use in the generated audio.</param>
-    /// <param name="options">Optional generation options.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingSpeechUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingSpeechUpdate>>> TryGenerateSpeechStreaming(
-        this AudioClient client,
-        string text,
-        GeneratedSpeechVoice voice,
-        SpeechGenerationOptions? options = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, GeneratedSpeechVoice, SpeechGenerationOptions?, CancellationToken, CollectionResult<StreamingSpeechUpdate>> func =
-            client.GenerateSpeechStreaming;
-
-        var funcResult = func.Try(text, voice, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingSpeechUpdate>>>();
-    }
-
     /// <summary>Attempts to generate speech with streaming updates asynchronously and wraps the result as an asynchronous enumerable.</summary>
     /// <param name="client">The audio client instance.</param>
     /// <param name="text">The text to generate audio for.</param>
@@ -837,7 +748,7 @@ public static class AudioClientExtensions
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingSpeechUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingSpeechUpdate>>> TryGenerateSpeechStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingSpeechUpdate>>> TryGenerateSpeechStreamingAsync(
         this AudioClient client,
         string text,
         GeneratedSpeechVoice voice,
@@ -847,14 +758,10 @@ public static class AudioClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, GeneratedSpeechVoice, SpeechGenerationOptions?, CancellationToken, AsyncCollectionResult<StreamingSpeechUpdate>> func =
+        Func<string, GeneratedSpeechVoice, SpeechGenerationOptions?, CancellationToken, Task<AsyncStreamingResult<StreamingSpeechUpdate>>> func =
             client.GenerateSpeechStreamingAsync;
 
-        var funcResult = func.Try(text, voice, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingSpeechUpdate>>>();
+        return func.TryAsync(text, voice, options, cancellationToken);
     }
 
     /// <summary>Attempts to transcribe audio with diarization and wraps the result in a <see cref="Result{T}"/>.</summary>

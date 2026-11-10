@@ -42,22 +42,6 @@ public sealed class OpenAiExtensionCoverageTests
     public void RealtimeReceiveUpdateExtensionsShouldWrapDeferredEnumerationResults()
     {
         GetExtensionMethod(
-                nameof(RealtimeSessionClientExtensions.TryReceiveUpdates),
-                typeof(RealtimeSessionClient),
-                typeof(CancellationToken)
-            )
-            .ReturnType
-            .ShouldBe(typeof(Result<IEnumerable<Result<RealtimeServerUpdate>>>));
-
-        GetExtensionMethod(
-                nameof(RealtimeSessionClientExtensions.TryReceiveUpdates),
-                typeof(RealtimeSessionClient),
-                typeof(RequestOptions)
-            )
-            .ReturnType
-            .ShouldBe(typeof(Result<IEnumerable<Result<ClientResult>>>));
-
-        GetExtensionMethod(
                 nameof(RealtimeSessionClientExtensions.TryReceiveUpdatesAsync),
                 typeof(RealtimeSessionClient),
                 typeof(CancellationToken)

@@ -6,6 +6,7 @@ using OpenAI.Batch;
 using OpenAI.Chat;
 using OpenAI.Containers;
 using OpenAI.Conversations;
+using OpenAI.Decisions;
 using OpenAI.Embeddings;
 using OpenAI.Evals;
 using OpenAI.Files;
@@ -25,7 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LightResults.Extensions.OpenAI;
 
 /// <summary>
-/// Provides Try wrappers for <see cref="OpenAIClient"/> methods in OpenAI 2.14.0.
+/// Provides Try wrappers for <see cref="OpenAIClient"/> methods in OpenAI 2.15.0.
 /// </summary>
 public static class OpenAIClientExtensions
 {
@@ -159,6 +160,27 @@ public static class OpenAIClientExtensions
             return Result.Success(value);
 
         return funcResult.AsFailure<ConversationClient>();
+    }
+
+    /// <summary>
+    /// Attempts to execute <c>GetDecisionsClient</c> and wraps the outcome in a Result.
+    /// </summary>
+    /// <param name="client">The OpenAIClient instance.</param>
+    /// <returns>The wrapped result.</returns>
+    [Experimental("OPENAI001")]
+    public static Result<DecisionsClient> TryGetDecisionsClient(
+        this OpenAIClient client
+    )
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        Func<DecisionsClient> func = client.GetDecisionsClient;
+
+        var funcResult = func.Try();
+        if (funcResult.IsSuccess(out var value))
+            return Result.Success(value);
+
+        return funcResult.AsFailure<DecisionsClient>();
     }
 
     /// <summary>

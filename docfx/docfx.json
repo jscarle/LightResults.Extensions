@@ -44,6 +44,21 @@
       "properties": {
         "TargetFramework": "net10.0"
       }
+    },
+    {
+      "src": [
+        {
+          "src": "../src",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "outputFormat": "apiPage",
+      "dest": "net11.0",
+      "properties": {
+        "TargetFramework": "net11.0"
+      }
     }
   ],
   "build": {
