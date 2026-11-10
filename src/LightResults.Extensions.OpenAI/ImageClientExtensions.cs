@@ -22,7 +22,7 @@ public static class ImageClientExtensions
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
     [Experimental("OPENAI001")]
-    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryGenerateImagesStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<SseItem<BinaryData>>>> TryGenerateImagesStreamingAsync(
         this ImageClient client,
         BinaryContent content,
         RequestOptions? options = null
@@ -30,7 +30,7 @@ public static class ImageClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<BinaryContent, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+        Func<BinaryContent, RequestOptions?, Task<AsyncStreamingResult<SseItem<BinaryData>>>> func =
             client.GenerateImagesStreamingAsync;
 
         return func.TryAsync(content, options);
@@ -43,7 +43,7 @@ public static class ImageClientExtensions
     /// <param name="options">Optional request options.</param>
     /// <returns>A task representing the asynchronous operation, containing a server-sent event stream result.</returns>
     [Experimental("OPENAI001")]
-    public static Task<Result<AsyncStreamingClientResult<SseItem<BinaryData>>>> TryGenerateImageEditsStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<SseItem<BinaryData>>>> TryGenerateImageEditsStreamingAsync(
         this ImageClient client,
         BinaryContent content,
         string contentType,
@@ -52,7 +52,7 @@ public static class ImageClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<BinaryContent, string, RequestOptions?, Task<AsyncStreamingClientResult<SseItem<BinaryData>>>> func =
+        Func<BinaryContent, string, RequestOptions?, Task<AsyncStreamingResult<SseItem<BinaryData>>>> func =
             client.GenerateImageEditsStreamingAsync;
 
         return func.TryAsync(content, contentType, options);

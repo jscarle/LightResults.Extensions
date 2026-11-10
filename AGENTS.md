@@ -22,11 +22,11 @@ Always verify your changes by running the same steps as CI:
  dotnet restore
  dotnet build --configuration Release --no-restore
 
-# Run tests (targeting .NET 10)
- dotnet test --configuration Release --no-build --verbosity normal --framework net10.0
+# Run tests for every supported target framework
+ dotnet test --configuration Release --no-build --verbosity normal
 ```
 
-The solution targets multiple frameworks (net8.0–net10.0). Make sure all target frameworks compile.
+The libraries and tests target multiple frameworks (net8.0–net11.0). Make sure all target frameworks compile.
 
 ## Coding style
 

@@ -352,7 +352,7 @@ public static class ResponsesClientExtensions
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this ResponsesClient client,
         CreateResponseOptions options,
         CancellationToken cancellationToken = default
@@ -360,36 +360,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<CreateResponseOptions, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
+        Func<CreateResponseOptions, CancellationToken, Task<AsyncStreamingResult<StreamingResponseUpdate>>> func = client.CreateResponseStreamingAsync;
 
-        var funcResult = func.Try(options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingResponseUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously create a streaming response and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The response client instance.</param>
-    /// <param name="options">Response creation options.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
-        this ResponsesClient client,
-        CreateResponseOptions options,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<CreateResponseOptions, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
-
-        var funcResult = func.Try(options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingResponseUpdate>>>();
+        return func.TryAsync(options, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously create a streaming response with input items and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
@@ -400,7 +373,7 @@ public static class ResponsesClientExtensions
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this ResponsesClient client,
         string model,
         IEnumerable<ResponseItem> inputItems,
@@ -410,40 +383,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
+        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, Task<AsyncStreamingResult<StreamingResponseUpdate>>> func = client.CreateResponseStreamingAsync;
 
-        var funcResult = func.Try(model, inputItems, previousResponseId, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingResponseUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously create a streaming response with input items and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The response client instance.</param>
-    /// <param name="model">The model to use for the response.</param>
-    /// <param name="inputItems">The input items for the response.</param>
-    /// <param name="previousResponseId">The optional previous response ID.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
-        this ResponsesClient client,
-        string model,
-        IEnumerable<ResponseItem> inputItems,
-        string? previousResponseId = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, IEnumerable<ResponseItem>, string?, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
-
-        var funcResult = func.Try(model, inputItems, previousResponseId, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingResponseUpdate>>>();
+        return func.TryAsync(model, inputItems, previousResponseId, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously create a streaming response with user input text and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
@@ -454,7 +396,7 @@ public static class ResponsesClientExtensions
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingResponseUpdate>>> TryCreateResponseStreamingAsync(
         this ResponsesClient client,
         string model,
         string userInputText,
@@ -464,40 +406,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string, string?, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreamingAsync;
+        Func<string, string, string?, CancellationToken, Task<AsyncStreamingResult<StreamingResponseUpdate>>> func = client.CreateResponseStreamingAsync;
 
-        var funcResult = func.Try(model, userInputText, previousResponseId, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingResponseUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously create a streaming response with user input text and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The response client instance.</param>
-    /// <param name="model">The model to use for the response.</param>
-    /// <param name="userInputText">The user input text for the response.</param>
-    /// <param name="previousResponseId">The optional previous response ID.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryCreateResponseStreaming(
-        this ResponsesClient client,
-        string model,
-        string userInputText,
-        string? previousResponseId = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, string, string?, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.CreateResponseStreaming;
-
-        var funcResult = func.Try(model, userInputText, previousResponseId, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingResponseUpdate>>>();
+        return func.TryAsync(model, userInputText, previousResponseId, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously get streaming response and wraps the result as an asynchronous enumerable of <see cref="Result{T}"/>.</summary>
@@ -506,7 +417,7 @@ public static class ResponsesClientExtensions
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryGetResponseStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingResponseUpdate>>> TryGetResponseStreamingAsync(
         this ResponsesClient client,
         string responseId,
         CancellationToken cancellationToken = default
@@ -514,36 +425,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.GetResponseStreamingAsync;
+        Func<string, CancellationToken, Task<AsyncStreamingResult<StreamingResponseUpdate>>> func = client.GetResponseStreamingAsync;
 
-        var funcResult = func.Try(responseId, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingResponseUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously get streaming response and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The response client instance.</param>
-    /// <param name="responseId">The response ID to stream.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryGetResponseStreaming(
-        this ResponsesClient client,
-        string responseId,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.GetResponseStreaming;
-
-        var funcResult = func.Try(responseId, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingResponseUpdate>>>();
+        return func.TryAsync(responseId, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously cancel a response with request options and wraps the result in a <see cref="Result{T}"/>.</summary>
@@ -978,7 +862,7 @@ public static class ResponsesClientExtensions
     /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingResponseUpdate>>> TryGetResponseStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingResponseUpdate>>> TryGetResponseStreamingAsync(
         this ResponsesClient client,
         GetResponseOptions options,
         CancellationToken cancellationToken = default
@@ -986,36 +870,9 @@ public static class ResponsesClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<GetResponseOptions, CancellationToken, AsyncCollectionResult<StreamingResponseUpdate>> func = client.GetResponseStreamingAsync;
+        Func<GetResponseOptions, CancellationToken, Task<AsyncStreamingResult<StreamingResponseUpdate>>> func = client.GetResponseStreamingAsync;
 
-        var funcResult = func.Try(options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingResponseUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously get streaming response with options and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The response client instance.</param>
-    /// <param name="options">Response retrieval options.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel this method call.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingResponseUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingResponseUpdate>>> TryGetResponseStreaming(
-        this ResponsesClient client,
-        GetResponseOptions options,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<GetResponseOptions, CancellationToken, CollectionResult<StreamingResponseUpdate>> func = client.GetResponseStreaming;
-
-        var funcResult = func.Try(options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingResponseUpdate>>>();
+        return func.TryAsync(options, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously get a response input item collection page with options and wraps the result in a <see cref="Result{T}"/>.</summary>

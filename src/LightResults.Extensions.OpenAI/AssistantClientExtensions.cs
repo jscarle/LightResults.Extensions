@@ -658,7 +658,7 @@ public static class AssistantClientExtensions
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingUpdate>>> TryCreateRunStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingUpdate>>> TryCreateRunStreamingAsync(
         this AssistantClient client,
         string threadId,
         string assistantId,
@@ -668,40 +668,9 @@ public static class AssistantClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string, RunCreationOptions?, CancellationToken, AsyncCollectionResult<StreamingUpdate>> func = client.CreateRunStreamingAsync;
+        Func<string, string, RunCreationOptions?, CancellationToken, Task<AsyncStreamingResult<StreamingUpdate>>> func = client.CreateRunStreamingAsync;
 
-        var funcResult = func.Try(threadId, assistantId, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously create a streaming run and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="threadId">The thread ID to evaluate.</param>
-    /// <param name="assistantId">The assistant ID to use.</param>
-    /// <param name="options">Run creation options.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingUpdate>>> TryCreateRunStreaming(
-        this AssistantClient client,
-        string threadId,
-        string assistantId,
-        RunCreationOptions? options = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, string, RunCreationOptions?, CancellationToken, CollectionResult<StreamingUpdate>> func = client.CreateRunStreaming;
-
-        var funcResult = func.Try(threadId, assistantId, options, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingUpdate>>>();
+        return func.TryAsync(threadId, assistantId, options, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously create a thread and run, and wraps the result in a <see cref="Result{T}"/>.</summary>
@@ -766,7 +735,7 @@ public static class AssistantClientExtensions
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingUpdate>>> TryCreateThreadAndRunStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingUpdate>>> TryCreateThreadAndRunStreamingAsync(
         this AssistantClient client,
         string assistantId,
         ThreadCreationOptions? threadOptions = null,
@@ -776,42 +745,10 @@ public static class AssistantClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, ThreadCreationOptions?, RunCreationOptions?, CancellationToken, AsyncCollectionResult<StreamingUpdate>> func =
+        Func<string, ThreadCreationOptions?, RunCreationOptions?, CancellationToken, Task<AsyncStreamingResult<StreamingUpdate>>> func =
             client.CreateThreadAndRunStreamingAsync;
 
-        var funcResult = func.Try(assistantId, threadOptions, runOptions, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously create a thread and run with streaming, and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="assistantId">The assistant ID to use.</param>
-    /// <param name="threadOptions">Thread creation options.</param>
-    /// <param name="runOptions">Run creation options.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingUpdate>>> TryCreateThreadAndRunStreaming(
-        this AssistantClient client,
-        string assistantId,
-        ThreadCreationOptions? threadOptions = null,
-        RunCreationOptions? runOptions = null,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, ThreadCreationOptions?, RunCreationOptions?, CancellationToken, CollectionResult<StreamingUpdate>> func =
-            client.CreateThreadAndRunStreaming;
-
-        var funcResult = func.Try(assistantId, threadOptions, runOptions, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingUpdate>>>();
+        return func.TryAsync(assistantId, threadOptions, runOptions, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously cancel a run and wraps the result in a <see cref="Result{T}"/>.</summary>
@@ -1220,7 +1157,7 @@ public static class AssistantClientExtensions
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A <see cref="Result{T}"/> containing an asynchronous enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
     [Experimental("OPENAI001")]
-    public static Result<IAsyncEnumerable<Result<StreamingUpdate>>> TrySubmitToolOutputsToRunStreamingAsync(
+    public static Task<Result<AsyncStreamingResult<StreamingUpdate>>> TrySubmitToolOutputsToRunStreamingAsync(
         this AssistantClient client,
         string threadId,
         string runId,
@@ -1230,41 +1167,10 @@ public static class AssistantClientExtensions
     {
         ArgumentNullException.ThrowIfNull(client);
 
-        Func<string, string, IEnumerable<ToolOutput>, CancellationToken, AsyncCollectionResult<StreamingUpdate>> func =
+        Func<string, string, IEnumerable<ToolOutput>, CancellationToken, Task<AsyncStreamingResult<StreamingUpdate>>> func =
             client.SubmitToolOutputsToRunStreamingAsync;
 
-        var funcResult = func.Try(threadId, runId, toolOutputs, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsAsyncEnumerableResult(cancellationToken));
-
-        return funcResult.AsFailure<IAsyncEnumerable<Result<StreamingUpdate>>>();
-    }
-
-    /// <summary>Attempts to synchronously submit tool outputs to a run with streaming and wraps the result as an enumerable of <see cref="Result{T}"/>.</summary>
-    /// <param name="client">The assistant client instance.</param>
-    /// <param name="threadId">The thread ID containing the run.</param>
-    /// <param name="runId">The run ID to submit tool outputs to.</param>
-    /// <param name="toolOutputs">The tool outputs to submit.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A <see cref="Result{T}"/> containing an enumerable of <see cref="Result{StreamingUpdate}"/>.</returns>
-    [Experimental("OPENAI001")]
-    public static Result<IEnumerable<Result<StreamingUpdate>>> TrySubmitToolOutputsToRunStreaming(
-        this AssistantClient client,
-        string threadId,
-        string runId,
-        IEnumerable<ToolOutput> toolOutputs,
-        CancellationToken cancellationToken = default
-    )
-    {
-        ArgumentNullException.ThrowIfNull(client);
-
-        Func<string, string, IEnumerable<ToolOutput>, CancellationToken, CollectionResult<StreamingUpdate>> func = client.SubmitToolOutputsToRunStreaming;
-
-        var funcResult = func.Try(threadId, runId, toolOutputs, cancellationToken);
-        if (funcResult.IsSuccess(out var streamResult))
-            return Result.Success(streamResult.AsEnumerableResult());
-
-        return funcResult.AsFailure<IEnumerable<Result<StreamingUpdate>>>();
+        return func.TryAsync(threadId, runId, toolOutputs, cancellationToken);
     }
 
     /// <summary>Attempts to asynchronously create an assistant with binary content and wraps the result in a <see cref="Result{T}"/>.</summary>
